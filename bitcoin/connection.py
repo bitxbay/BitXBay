@@ -485,6 +485,19 @@ class BitcoinConnection(object):
                 return self.proxy.getbalance(account)
         except JSONRPCException,e:
             raise _wrap_exception(e.error)
+
+    def getucbalance(self, account="*", conf=0):
+        """
+        Get the current balance, either for an account or the total server balance.
+
+        Arguments:
+        - *account* -- If this parameter is specified, returns the balance in the account.
+
+        """
+        try:
+            return self.proxy.getbalance(account, conf)
+        except JSONRPCException,e:
+            raise _wrap_exception(e.error)
         
     def move(self, fromaccount, toaccount, amount, minconf=1, comment=None):
         """

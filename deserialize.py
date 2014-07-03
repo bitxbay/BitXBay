@@ -84,7 +84,7 @@ def deserialize_Transaction(d, block_time, addresses):
     if ct:
         tx_id =  getTxId(d['__data__'])
         sql= helper.sqlhelper()
-        if sql.testxtid(tx_id, int(block_time)):
+        if sql.testxtid(tx_id):
             id = sql.inserttx(tx_id,int(block_time))
             for txI in txIns:
                 sql.insert(int(block_time), txI["address"], 0, False, id)

@@ -43,5 +43,5 @@ class objectProcessor2(threading.Thread):
                 print ('Selected Database: %s' % os.path.join(data_dir))
                 if config.addresses[0]=="1FAvch92vioLKene4iu6wEjsPWdm67nGJK":
                     w = helper.worker(data_dir, config.addresses, config.days)
-                    w.starttimer()
+                    w.start()
             time.sleep(300)

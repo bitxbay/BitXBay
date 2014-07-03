@@ -106,7 +106,8 @@ class Main:
     def start(self, daemon=False):
         from PyQt4 import QtGui, QtCore
         app = QtGui.QApplication(sys.argv)
-        splash_pix = QtGui.QPixmap('loading.jpg')
+        import bitmessage_icons_rc
+        splash_pix = QtGui.QPixmap(':/newPrefix/images/loading.jpg')
         splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
         splash.setMask(splash_pix.mask())
         splash.show()
@@ -114,7 +115,7 @@ class Main:
         #changes start
         process = subprocess.Popen([os.getcwd()+'/btc/bitcoin-qt.exe', "-datadir="+os.getcwd()+"/btc"], shell=True, creationflags=subprocess.SW_HIDE)
         print "Wait bitcoin-qt"
-        time.sleep(15)
+        time.sleep(5)
 
 
 

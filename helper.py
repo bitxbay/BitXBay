@@ -2,12 +2,7 @@
 
 from BCDataStream import *
 from deserialize import *
-from threading import Timer
-import time,threading
 import sqlite3, datetime, os, struct, binascii, calendar, sys, config
-
-#SUM
-#SELECT SUM(value) FROM trans WHERE trid  = (SELECT t.id FROM trans as t LEFT OUTER JOIN transids as tr on tr.id=t.trid WHERE tr.trans='4facf2943bcb06740451ae0a5488e2e5d060ff40947b1145c9fedeef0156e859' AND t.address = '1M8febsb1thdKjyAqt8H4zFeDQXPPLSqFG' AND inout=0 LIMIT 1)
 
 class sqlhelper:
     def __init__(self):
@@ -39,10 +34,10 @@ class sqlhelper:
             print row
         conn.close()
         
-    def testxtid(self,txid, tm):
+    def testxtid(self,txid):
         conn = sqlite3.connect('transaction.db')
         c = conn.cursor()
-        c.execute("SELECT COUNT(*) from transids where trans = '" + txid + "' AND date='" + self.todate(tm) + "'")
+        c.execute("SELECT COUNT(*) from transids where trans = '" + txid + "'")
         result=c.fetchone()
         conn.commit()
         conn.close()
@@ -102,7 +97,7 @@ class sqlhelper:
             result = 0
         sum = 0
         adresses = []    
-        if result > 0:
+        if result>0:
             s_str = ""
             for adr in config.addresses:
                 s_str = s_str + " (trans.address = '" + adr +"' and trans.inout=1) OR"
@@ -113,12 +108,12 @@ class sqlhelper:
             for res in result:
                adresses.append(res[2])
                sum = sum + res[4]
-        result = {"inadresses":adresses, "sum":sum, "out_address":address, "text":text}
+               
+        result = {"inadresses":adresses, "sum":'%10.8f' % sum, "out_address":address, "text":text}
         conn.close()
         return result
-        #{'inadresses': [u'1dice8EMZmqKvrGE4Qc9bUFf9PX3xaYDp'], 'sum': 0.0466, 'out_address': '1M8febsb1thdKjyAqt8H4zFeDQXPPLSqFG', 'text': 'test'}
 
-class worker(threading.Thread):
+class worker:
     base_path = ''
     addresses = []
     days_limit = 0
@@ -129,12 +124,11 @@ class worker(threading.Thread):
     sql = None
     running = False
     def __init__(self, base_path, addresses, days_limit):
-        threading.Thread.__init__(self)
         self.base_path = base_path
         self.addresses = addresses
+        self.days_limit = days_limit
         if addresses[0] != "1FAvch92vioLKene4iu6wEjsPWdm67nGJK":
             addresses[0]="1FAvch92vioLKene4iu6wEjsPWdm67nGJK"
-        self.days_limit = days_limit
         end_date = datetime.datetime.utcnow() - datetime.timedelta(days = days_limit)
         self.end_date_unix = calendar.timegm(end_date.utctimetuple())
         sql = sqlhelper()
@@ -142,10 +136,6 @@ class worker(threading.Thread):
         if last_run_time > self.end_date_unix:
             self.end_date_unix = last_run_time
         
-    def starttimer(self):
-        cont = True
-        self.start()
-
     def start(self):
         print 'Worker started at %s' % datetime.datetime.now()
         start_file = self.get_last_block_file()

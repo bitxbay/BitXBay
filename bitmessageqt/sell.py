@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Bitco\bitmessageqt\sell.ui'
 #
-# Created: Sat Jun 07 19:00:29 2014
+# Created: Sat Jun 28 18:13:59 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,7 @@ class Ui_Sell(object):
         Sell.setObjectName(_fromUtf8("Sell"))
         Sell.resize(860, 571)
         Sell.setMinimumSize(QtCore.QSize(0, 0))
+        Sell.setLocale(QtCore.QLocale(QtCore.QLocale.Lithuanian, QtCore.QLocale.Lithuania))
         self.verticalLayout = QtGui.QVBoxLayout(Sell)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.mainToolBar = QtGui.QToolBar(Sell)
@@ -39,7 +40,7 @@ class Ui_Sell(object):
         self.productdetails.setGeometry(QtCore.QRect(10, 250, 831, 191))
         self.productdetails.setObjectName(_fromUtf8("productdetails"))
         self.payandpost = QtGui.QPushButton(self.centralWidget)
-        self.payandpost.setGeometry(QtCore.QRect(664, 450, 161, 31))
+        self.payandpost.setGeometry(QtCore.QRect(664, 450, 151, 31))
         self.payandpost.setObjectName(_fromUtf8("payandpost"))
         self.labelsc = QtGui.QLabel(self.centralWidget)
         self.labelsc.setGeometry(QtCore.QRect(20, 20, 221, 31))
@@ -74,6 +75,7 @@ class Ui_Sell(object):
         self.sellprice = QtGui.QDoubleSpinBox(self.centralWidget)
         self.sellprice.setGeometry(QtCore.QRect(80, 459, 71, 21))
         self.sellprice.setDecimals(4)
+        self.sellprice.setMinimum(0.0001)
         self.sellprice.setMaximum(9999999.0)
         self.sellprice.setSingleStep(0.01)
         self.sellprice.setObjectName(_fromUtf8("sellprice"))
@@ -87,13 +89,13 @@ class Ui_Sell(object):
         self.xcategory.addItem(_fromUtf8(""))
         self.xcategory.addItem(_fromUtf8(""))
         self.label = QtGui.QLabel(self.centralWidget)
-        self.label.setGeometry(QtCore.QRect(580, 70, 131, 20))
+        self.label.setGeometry(QtCore.QRect(570, 70, 131, 20))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.smthwrong = QtGui.QLabel(self.centralWidget)
-        self.smthwrong.setGeometry(QtCore.QRect(370, 440, 141, 61))
+        self.smthwrong.setGeometry(QtCore.QRect(280, 480, 411, 61))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(231, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -129,6 +131,7 @@ class Ui_Sell(object):
         self.doubleSpinBox = QtGui.QDoubleSpinBox(self.centralWidget)
         self.doubleSpinBox.setGeometry(QtCore.QRect(300, 459, 62, 21))
         self.doubleSpinBox.setDecimals(4)
+        self.doubleSpinBox.setMinimum(0.0001)
         self.doubleSpinBox.setMaximum(99999999.0)
         self.doubleSpinBox.setSingleStep(0.01)
         self.doubleSpinBox.setProperty("value", 0.01)
@@ -147,8 +150,18 @@ class Ui_Sell(object):
         self.label_4231.setGeometry(QtCore.QRect(10, 75, 421, 21))
         self.label_4231.setObjectName(_fromUtf8("label_4231"))
         self.resend = QtGui.QPushButton(self.centralWidget)
-        self.resend.setGeometry(QtCore.QRect(564, 12, 231, 41))
+        self.resend.setGeometry(QtCore.QRect(610, 0, 191, 41))
+        self.resend.setLocale(QtCore.QLocale(QtCore.QLocale.Spanish, QtCore.QLocale.Spain))
         self.resend.setObjectName(_fromUtf8("resend"))
+        self.label_3 = QtGui.QLabel(self.centralWidget)
+        self.label_3.setGeometry(QtCore.QRect(570, 123, 130, 20))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.location = QtGui.QComboBox(self.centralWidget)
+        self.location.setGeometry(QtCore.QRect(500, 150, 281, 22))
+        self.location.setObjectName(_fromUtf8("location"))
         self.verticalLayout.addWidget(self.centralWidget)
 
         self.retranslateUi(Sell)
@@ -175,4 +188,5 @@ class Ui_Sell(object):
         self.newsellcont.setText(_translate("Sell", "New contact", None))
         self.label_4231.setText(_translate("Sell", "Bitcoin address for sign message and rating payment.", None))
         self.resend.setText(_translate("Sell", "Resend last offer", None))
+        self.label_3.setText(_translate("Sell", "Location", None))
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'C:\Bitco\bitmessageqt\bitmessageui.ui'
 #
-# Created: Sat Jun 07 19:00:45 2014
+# Created: Tue Jul 01 11:49:06 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,11 +26,13 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(885, 580)
+        MainWindow.resize(885, 594)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/treasure_chest.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(_fromUtf8(""))
+        MainWindow.setStyleSheet(_fromUtf8("QMainWindow {\n"
+"background-image: url(:/newPrefix/../images/background.png)\n"
+"}"))
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         MainWindow.setTabShape(QtGui.QTabWidget.Rounded)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -357,6 +359,7 @@ class Ui_MainWindow(object):
         self.spinBox_2 = QtGui.QDoubleSpinBox(self.buyer)
         self.spinBox_2.setGeometry(QtCore.QRect(380, 50, 140, 22))
         self.spinBox_2.setDecimals(10)
+        self.spinBox_2.setMinimum(0.0001)
         self.spinBox_2.setMaximum(999999.99)
         self.spinBox_2.setSingleStep(0.01)
         self.spinBox_2.setObjectName(_fromUtf8("spinBox_2"))
@@ -373,6 +376,7 @@ class Ui_MainWindow(object):
         self.frombox.addItem(_fromUtf8(""))
         self.pushButton_2 = QtGui.QPushButton(self.buyer)
         self.pushButton_2.setGeometry(QtCore.QRect(5, 20, 91, 22))
+        self.pushButton_2.setStyleSheet(_fromUtf8(""))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.comment = QtGui.QPlainTextEdit(self.buyer)
         self.comment.setGeometry(QtCore.QRect(650, 10, 171, 111))
@@ -434,6 +438,33 @@ class Ui_MainWindow(object):
         self.label_20.setScaledContents(True)
         self.label_20.setWordWrap(True)
         self.label_20.setObjectName(_fromUtf8("label_20"))
+        self.buyerhelp = QtGui.QLabel(self.tab6)
+        self.buyerhelp.setGeometry(QtCore.QRect(340, 100, 521, 31))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(229, 6, 73))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(229, 6, 73))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        self.buyerhelp.setPalette(palette)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.buyerhelp.setFont(font)
+        self.buyerhelp.setText(_fromUtf8(""))
+        self.buyerhelp.setObjectName(_fromUtf8("buyerhelp"))
+        self.autorescan = QtGui.QCheckBox(self.tab6)
+        self.autorescan.setGeometry(QtCore.QRect(150, 106, 201, 31))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.autorescan.setFont(font)
+        self.autorescan.setChecked(True)
+        self.autorescan.setObjectName(_fromUtf8("autorescan"))
         self.tabWidget_2.addTab(self.tab6, _fromUtf8(""))
         self.tab7 = QtGui.QWidget()
         self.tab7.setObjectName(_fromUtf8("tab7"))
@@ -485,12 +516,16 @@ class Ui_MainWindow(object):
         self.location.setGeometry(QtCore.QRect(20, 142, 201, 22))
         self.location.setObjectName(_fromUtf8("location"))
         self.location.addItem(_fromUtf8(""))
+        self.location.setItemText(0, _fromUtf8(""))
         self.pushButton_5 = QtGui.QPushButton(self.tab7)
         self.pushButton_5.setGeometry(QtCore.QRect(300, 20, 81, 31))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.checkBox = QtGui.QCheckBox(self.tab7)
-        self.checkBox.setGeometry(QtCore.QRect(420, 27, 301, 17))
+        self.checkBox.setGeometry(QtCore.QRect(420, 27, 191, 21))
         self.checkBox.setObjectName(_fromUtf8("checkBox"))
+        self.blckchn = QtGui.QCheckBox(self.tab7)
+        self.blckchn.setGeometry(QtCore.QRect(640, 27, 221, 21))
+        self.blckchn.setObjectName(_fromUtf8("blckchn"))
         self.tabWidget_2.addTab(self.tab7, _fromUtf8(""))
         self.Advenced_messaging = QtGui.QWidget()
         self.Advenced_messaging.setObjectName(_fromUtf8("Advenced_messaging"))
@@ -966,7 +1001,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget_2.setCurrentIndex(2)
         self.tabWidget_3.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1010,7 +1045,7 @@ class Ui_MainWindow(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;\"><br /></p></body></html>", None))
-        self.escrowlabelforbuyer.setPlaceholderText(_translate("MainWindow", "Label for escrow deal(recommend)", None))
+        self.escrowlabelforbuyer.setPlaceholderText(_translate("MainWindow", "Label for escrow deal", None))
         self.frombox.setItemText(0, _translate("MainWindow", "Select bitmessage sender\'s address", None))
         self.pushButton_2.setText(_translate("MainWindow", " New address", None))
         self.comment.setPlainText(_translate("MainWindow", "Comment for merchant. Type here the shipping address or other important information.", None))
@@ -1028,6 +1063,7 @@ class Ui_MainWindow(object):
         self.tabWidget_3.setTabText(self.tabWidget_3.indexOf(self.merchant), _translate("MainWindow", "Merchant", None))
         self.label_20.setText(_translate("MainWindow", "Escrow is a deal type in which the money is stuck between the seller and the buyer. BitXBay escrow is a deal between two parties without intermediaries. Intermediaries replaced by 5% insurence payments from buyer and seller to multisig addresses. Both parties can get back insurent payments only when the deal completed successfully or canceled by both parties as well by both parties. The process takes place without the use of a third party, using multisig bitcoin addresses. These addresses are created with the public keys of both parties.\n"
 " ", None))
+        self.autorescan.setText(_translate("MainWindow", "Auto rescan after deal signed", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab6), _translate("MainWindow", "Escrow", None))
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -1038,13 +1074,13 @@ class Ui_MainWindow(object):
         self.offertype.setItemText(0, _translate("MainWindow", "Goods", None))
         self.offertype.setItemText(1, _translate("MainWindow", "Services", None))
         self.offertype.setItemText(2, _translate("MainWindow", "Currency exchange", None))
-        self.comboBox_2.setItemText(0, _translate("MainWindow", "Categories(don\'t work yet)", None))
-        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Search...(don\'t work yet)", None))
+        self.comboBox_2.setItemText(0, _translate("MainWindow", "Categories", None))
+        self.lineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.label_12.setText(_translate("MainWindow", "Be careful when buying a reversible currency like Paypal. Confirm the transaction only when verification period has passed. For PayPal it may be 2 months.", None))
         self.pushButton_4.setText(_translate("MainWindow", "Search", None))
-        self.location.setItemText(0, _translate("MainWindow", "Location(don\'t work yet)", None))
         self.pushButton_5.setText(_translate("MainWindow", "Refresh", None))
         self.checkBox.setText(_translate("MainWindow", "Auto refresh every hour", None))
+        self.blckchn.setText(_translate("MainWindow", "Get txs from Blockchain.info", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab7), _translate("MainWindow", "Decentralized trade", None))
         self.inboxSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.inboxSearchOptionCB.setItemText(0, _translate("MainWindow", "All", None))
