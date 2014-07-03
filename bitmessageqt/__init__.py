@@ -4141,9 +4141,15 @@ class MyForm(QtGui.QMainWindow):
                 sss = list(servicecategory.items())
                 ccc = list(currencycategory.items())
 
+
                 ggg.sort(key=lambda item: item[1], reverse=True)
                 sss.sort(key=lambda item: item[1], reverse=True)
                 ccc.sort(key=lambda item: item[1], reverse=True)
+
+
+                MyForm.gcategory = []
+                MyForm.scategory = []
+                MyForm.ccategory = []
                 if len(ggg)>0:
                     for i in ggg:
                         MyForm.gcategory.append(i[0])
@@ -4153,6 +4159,7 @@ class MyForm(QtGui.QMainWindow):
                 if len(ccc)>0:
                     for i in ccc:
                         MyForm.ccategory.append(i[0])
+
 
                 self.ui.comboBox_2.clear()
                 self.ui.comboBox_2.insertItem(0,"All","All")
@@ -4169,39 +4176,50 @@ class MyForm(QtGui.QMainWindow):
             goodscategory.close()
 
             nowtime = datetime.datetime.now()
-            for i in g.keys():
-                try:
-                    elemtime = g[i][5]
-                except:
-                    del g[i]
-                    g.sync()
-                dlt = elemtime-nowtime
-                secs = dlt.seconds
-                if secs > 864000:
-                    del g[i]
-                    g.sync()
-            for i in s.keys():
-                try:
-                    elemtime = s[i][5]
-                except:
-                    del s[i]
-                    s.sync()
-                dlt = elemtime-nowtime
-                secs = dlt.seconds
-                if secs > 864000:
-                    del s[i]
-                    s.sync()
-            for i in c.keys():
-                try:
-                    elemtime = c[i][5]
-                except:
-                    del c[i]
-                    c.sync()
-                dlt = elemtime-nowtime
-                secs = dlt.seconds
-                if secs > 864000:
-                    del c[i]
-                    c.sync()
+            try:
+                for i in g.keys():
+                    try:
+                        elemtime = g[i][5]
+                        dlt = elemtime-nowtime
+                        secs = dlt.seconds
+                        if secs > 864000:
+                            del g[i]
+                            g.sync()
+                    except:
+                        del g[i]
+                        g.sync()
+            except:
+                error=""
+
+            try:
+                for i in s.keys():
+                    try:
+                        elemtime = s[i][5]
+                        dlt = elemtime-nowtime
+                        secs = dlt.seconds
+                        if secs > 864000:
+                            del s[i]
+                            s.sync()
+                    except:
+                        del s[i]
+                        s.sync()
+            except:
+                error=""
+            try:
+                for i in c.keys():
+                    try:
+                        elemtime = c[i][5]
+                        dlt = elemtime-nowtime
+                        secs = dlt.seconds
+                        if secs > 864000:
+                            del c[i]
+                            c.sync()
+                    except:
+                        del c[i]
+                        c.sync()
+            except:
+                error=""
+
             g.close()
             s.close()
             c.close()
