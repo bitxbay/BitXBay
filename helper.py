@@ -4,6 +4,9 @@ from BCDataStream import *
 from deserialize import *
 import sqlite3, datetime, os, struct, binascii, calendar, sys, config
 
+#SUM
+#SELECT SUM(value) FROM trans WHERE trid  = (SELECT t.id FROM trans as t LEFT OUTER JOIN transids as tr on tr.id=t.trid WHERE tr.trans='4facf2943bcb06740451ae0a5488e2e5d060ff40947b1145c9fedeef0156e859' AND t.address = '1M8febsb1thdKjyAqt8H4zFeDQXPPLSqFG' AND inout=0 LIMIT 1)
+
 class sqlhelper:
     def __init__(self):
         conn = sqlite3.connect('transaction.db')
@@ -109,9 +112,51 @@ class sqlhelper:
                adresses.append(res[2])
                sum = sum + res[4]
                
-        result = {"inadresses":adresses, "sum":'%10.8f' % sum, "out_address":address, "text":text}
+        result = {"inadresses":adresses, "sum":sum, "out_address":address, "text":text}
         conn.close()
         return result
+    
+    def getsumnew(self, address, text=""):
+        sql_str = "SELECT trid  FROM trans WHERE address = '" + address + "' and inout=0"
+        conn = sqlite3.connect('transaction.db')
+        c = conn.cursor()
+        c.execute(sql_str)
+        _result = c.fetchall()
+        sum = 0
+        adresses = []
+        for _res in _result:
+            result = _res[0]
+        #try:
+            #result=c.fetchone()[0]
+        #except:
+            #result = 0
+        
+            #adresses = []    
+            if result>0:
+                s_str = ""
+                for adr in config.addresses:
+                    s_str = s_str + " (trans.address = '" + adr +"' and trans.inout=1) OR"
+                s_str = s_str[:-2]
+                sql_str = "SELECT *  FROM  trans  WHERE trid = " + str(result) + " AND (" + s_str + ")"
+                c.execute(sql_str)
+                result = c.fetchall()
+                for res in result:
+                   if self.check_in_array(res[2],adresses): 
+                       adresses.append(res[2])
+                   sum = sum + res[4]
+               
+        result = {"inadresses":adresses, "sum":sum, "out_address":address, "text":text}
+        conn.close()
+        return result
+
+    def check_in_array(self,val,arr):
+        try:
+            arr.index(val)
+            return False
+        except:
+            return True
+        
+            
 
 class worker:
     base_path = ''
@@ -122,13 +167,10 @@ class worker:
     end_date_unix = None
     first_bytes = binascii.unhexlify("f9beb4d9")
     sql = None
-    running = False
     def __init__(self, base_path, addresses, days_limit):
         self.base_path = base_path
         self.addresses = addresses
         self.days_limit = days_limit
-        if addresses[0] != "1FAvch92vioLKene4iu6wEjsPWdm67nGJK":
-            addresses[0]="1FAvch92vioLKene4iu6wEjsPWdm67nGJK"
         end_date = datetime.datetime.utcnow() - datetime.timedelta(days = days_limit)
         self.end_date_unix = calendar.timegm(end_date.utctimetuple())
         sql = sqlhelper()

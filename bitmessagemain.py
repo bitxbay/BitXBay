@@ -102,6 +102,7 @@ if shared.useVeryEasyProofOfWorkForTesting:
         shared.networkDefaultPayloadLengthExtraBytes / 7000)
 import subprocess
 import config
+
 class Main:
     def start(self, daemon=False):
         from PyQt4 import QtGui, QtCore

@@ -1,5 +1,12 @@
 <RCC>
     <qresource prefix="/newPrefix">
+		<file>../images/check.png</file>
+		<file>../images/down-arrow.png</file>
+		<file>../images/down-arrow-combo.png</file>
+		<file>../images/left-arrow.png</file>
+		<file>../images/radio.png</file>
+		<file>../images/right-arrow.png</file>
+		<file>../images/up-arrow.png</file>
         <file>../images/no_identicons.png</file>
         <file>../images/qidenticon_x.png</file>
         <file>../images/qidenticon.png</file>

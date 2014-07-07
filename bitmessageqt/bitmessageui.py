@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Bitco\bitmessageqt\bitmessageui.ui'
+# Form implementation generated from reading ui file 'bitmessageui.ui'
 #
-# Created: Tue Jul 01 11:49:06 2014
+# Created: Mon Jul 07 13:14:45 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -30,17 +30,963 @@ class Ui_MainWindow(object):
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/treasure_chest.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setStyleSheet(_fromUtf8("QMainWindow {\n"
-"background-image: url(:/newPrefix/../images/background.png)\n"
-"}"))
+        MainWindow.setStyleSheet(_fromUtf8("QToolBar{\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"}\n"
+"QDoubleSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QDoubleSpinBox::up-arrow\n"
+"{\n"
+"   image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"QDoubleSpinBox::down-arrow\n"
+"{\n"
+"   image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QDoubleSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+"\n"
+" QMenuBar::item {\n"
+"     spacing: 3px; /* spacing between menu bar items */\n"
+"     padding: 1px 4px;\n"
+"     background: transparent;\n"
+"     border-radius: 4px;\n"
+" }\n"
+"\n"
+" QMenuBar::item:selected { /* when selected using mouse or keyboard */\n"
+"     background: #a8a8a8;\n"
+" }\n"
+"\n"
+" QMenuBar::item:pressed {\n"
+"     background: #888888;\n"
+" }\n"
+"\n"
+" QMenuBar::item:selected { /* when selected using mouse or keyboard */\n"
+"     background: #a8a8a8;\n"
+" }\n"
+"\n"
+" QMenuBar::item:pressed {\n"
+"     background: #888888;\n"
+" }\n"
+"\n"
+"\n"
+"QTabBar::tab {width: 130px; }\n"
+"\n"
+"\n"
+"QScrollBar:vertical {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 15px;\n"
+"      margin: 22px 0 22px 0;\n"
+"  }\n"
+"QScrollBar::handle:vertical {\n"
+"      background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"      border-color: rgba(47, 53, 64, 255);\n"
+"      border-style: solid;\n"
+"      border-width:1px;\n"
+"      border-radius: 3px;\n"
+"      min-height: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: bottom;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: top;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::up-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::up-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::down-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::down-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 15px;\n"
+"      margin: 0 22px 0 22px;\n"
+"  }\n"
+"QScrollBar::handle:horizontal {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+" border-radius: 3px;\n"
+"      min-width: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: right;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: left;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::left-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/left-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::left-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::right-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::right-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/right-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"QWidget {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:2, fx:0.5, fy:0.5, stop:0 rgba(76, 88, 102, 255), stop:1 rgba(65, 73, 86, 5));\n"
+"    }\n"
+"\n"
+"/* ----- QPushButton ---- */\n"
+"QPushButton\n"
+"{\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"border-radius: 3px;\n"
+"\n"
+"    }\n"
+"QPushButton:hover {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"color:#acb3bd;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"/* ----- QSpinBox ---- */\n"
+"\n"
+"QSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QSpinBox::up-arrow\n"
+"{\n"
+"   image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"QSpinBox::down-arrow\n"
+"{\n"
+"   image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+"\n"
+"/* ----- QProgressBar ---- */\n"
+"\n"
+"QProgressBar {\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    text-align: center;\n"
+"    border-radius: 3px;\n"
+"    color:#fff;\n"
+"}\n"
+"\n"
+"/* ----- QLineEdit ---- */\n"
+"\n"
+"QLineEdit {\n"
+"    border-radius: 3px;\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    color:#fff;\n"
+"}\n"
+"\n"
+"/* ----- QTextBrowser ---- */\n"
+"\n"
+"QTextBrowser {\n"
+"    border-radius: 3px;\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    color:#fff;\n"
+"}\n"
+"\n"
+"/* -----  QTextBrowser - QScrollBar:vertical  ---- */\n"
+"\n"
+"QScrollBar:vertical {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 15px;\n"
+"      margin: 22px 0 22px 0;\n"
+"  }\n"
+"QScrollBar::handle:vertical {\n"
+"      background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"      border-color: rgba(47, 53, 64, 255);\n"
+"      border-style: solid;\n"
+"      border-width:1px;\n"
+"      border-radius: 3px;\n"
+"      min-height: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: bottom;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: top;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::up-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::up-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::down-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::down-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"/* ----- QTextBrowser - QScrollBar:horizontal  ---- */\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 15px;\n"
+"      margin: 0 22px 0 22px;\n"
+"  }\n"
+"QScrollBar::handle:horizontal {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+" border-radius: 3px;\n"
+"      min-width: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: right;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: left;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::left-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/left-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::left-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::right-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::right-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/right-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"/* ----- QPlainTextEdit ---- */\n"
+"\n"
+"QPlainTextEdit {\n"
+"    border-radius: 3px;\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    color:#fff;\n"
+"}\n"
+"\n"
+"/* ----- QCheckBox ---- */\n"
+"\n"
+"QCheckBox {\n"
+"    spacing: 10px;\n"
+"     color:#fff;\n"
+"}\n"
+"QCheckBox::indicator:unchecked {\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    border-radius: 3px;\n"
+"width:16px;\n"
+"height:16px;\n"
+"}\n"
+"QCheckBox::indicator:checked {\n"
+"    image: url(:/newPrefix/images/check.png);\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"    border-radius: 3px;\n"
+"    width:16px;\n"
+"    height:16px;\n"
+"}\n"
+"\n"
+"/* ----- QTabWidget ---- */\n"
+"\n"
+"QTabWidget::pane{\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"}\n"
+"QTabBar::tab {\n"
+"     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,\n"
+"                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,\n"
+"                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);\n"
+"\n"
+"\n"
+"\n"
+"    border-top-left-radius: 3px;\n"
+"    border-top-right-radius: 3px;\n"
+"    min-width:100px;\n"
+"    min-height:25px;\n"
+"    padding-left:5px;\n"
+" }\n"
+"\n"
+" QTabBar::tab:selected,  QTabBar::tab:!selected:hover {\n"
+" background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+" color:#fff;\n"
+" }\n"
+" QTabBar::tab:!selected:hover\n"
+" {\n"
+" color:#fff;\n"
+" }\n"
+"\n"
+" QTabBar::tab:selected {\n"
+"\n"
+"    border-left-color: rgba(47, 53, 64, 255);\n"
+"    border-left-style: solid;\n"
+"    border-left-width:1px;\n"
+"    border-top-color: rgba(47, 53, 64, 255);\n"
+"    border-top-style: solid;\n"
+"    border-top-width:1px;\n"
+"    border-right-color: rgba(47, 53, 64, 255);\n"
+"    border-right-style: solid;\n"
+"    border-right-width:1px;\n"
+"\n"
+" }\n"
+"\n"
+" QTabBar::tab:!selected {\n"
+"     margin-top: 2px;\n"
+"     color:#acb3bd;\n"
+"     background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"\n"
+" }\n"
+"\n"
+"/* ----- QComboBox editable and !editable ---- */\n"
+"\n"
+"\n"
+" QComboBox:editable {\n"
+"\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"    border-bottom-color: rgb(90, 100, 112);\n"
+"    border-bottom-style: solid;\n"
+"    border-bottom-width:1px;\n"
+"   border-radius: 3px;\n"
+"     padding: 1px 18px 1px 13px;\n"
+"     min-width: 6em;\n"
+"     min-height:28px;\n"
+"\n"
+"    color:#fff;\n"
+"    margin-bottom:3px;\n"
+" }\n"
+"\n"
+" QComboBox:!editable {\n"
+"  border-radius: 10px;\n"
+"  padding: 1px 18px 1px 3px;\n"
+"  min-width: 6em;\n"
+"  background: qlineargradient(spread:pad, x1:0, y1:0.955, x2:0, y2:0, stop:0 rgba(63, 109, 184, 255), stop:1 rgba(90, 155, 209, 255));\n"
+" }\n"
+"\n"
+"QComboBox::down-arrow\n"
+"{\n"
+"image: url(:/newPrefix/images/down-arrow-combo.png);\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox::drop-down:!editable {\n"
+"    background: qlineargradient(spread:pad, x1:0, y1:0.955, x2:0, y2:0, stop:0 rgba(63, 109, 184, 255), stop:1 rgba(90, 155, 209, 255));\n"
+"\n"
+"    border-top-right-radius: 10px;\n"
+"    border-bottom-right-radius: 10px;\n"
+"\n"
+"    border-left-color: qlineargradient(spread:pad, x1:1, y1:1, x2:0, y2:1, stop:0 rgb(0, 40, 65), stop:0.319716 rgba(127, 204, 255, 255), stop:0.803987 rgba(0, 0, 0, 255), stop:0.994318 rgba(0, 0, 0, 255));\n"
+"\n"
+"    border-left-style: solid;\n"
+"    border-left-width:2px;\n"
+"\n"
+"    padding:9px 5px 7px 5px;\n"
+"    width:17px;\n"
+"}\n"
+"\n"
+"QComboBox::drop-down:editable {\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"border-radius: 3px;\n"
+" padding:6px;\n"
+" width:16px;\n"
+"\n"
+"}\n"
+"\n"
+"QComboBox::drop-down:hover:editable {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"\n"
+"\n"
+" QComboBox::drop-down:editable:on {\n"
+" color:#acb3bd;\n"
+" background-color:  rgba(47, 53, 64, 255);\n"
+"border:0 solid transparent;\n"
+" }\n"
+"\n"
+"\n"
+"QComboBox QListView\n"
+"{\n"
+"margin:5px;\n"
+"background-color:  rgb(47, 53, 64);\n"
+"}\n"
+"\n"
+"\n"
+"QComboBox QListView:on::item {\n"
+"    border-left: 1px solid transparent;\n"
+"    color:#acb3bd;\n"
+"padding-left:5px;\n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView{\n"
+"    selection-background-color: qlineargradient(spread:pad, x1:0, y1:0.955, x2:0, y2:0, stop:0 rgba(63, 109, 184, 255), stop:1 rgba(90, 155, 209, 255));\n"
+"    selection-color:#fff;\n"
+"}\n"
+"\n"
+"/* ----- QScrollBar:vertical ---- */\n"
+"\n"
+"QScrollBar:vertical {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 15px;\n"
+"      margin: 22px 0 22px 0;\n"
+"  }\n"
+"QScrollBar::handle:vertical {\n"
+"      background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"      border-color: rgba(47, 53, 64, 255);\n"
+"      border-style: solid;\n"
+"      border-width:1px;\n"
+"      border-radius: 3px;\n"
+"      min-height: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: bottom;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: top;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::up-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::up-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::down-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::down-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"/* ----- QScrollBar:horizontal ---- */\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 15px;\n"
+"      margin: 0 22px 0 22px;\n"
+"  }\n"
+"QScrollBar::handle:horizontal {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+" border-radius: 3px;\n"
+"      min-width: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: right;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: left;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::left-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/left-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::left-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::right-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::right-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/right-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"/* ----- QRadioButton ---- */\n"
+"\n"
+"QRadioButton\n"
+"{\n"
+"color:#fff;\n"
+"\n"
+"}\n"
+" QRadioButton::indicator::unchecked {\n"
+"    background-color:  rgba(47, 53, 64, 255);\n"
+"\n"
+"    border-radius:8px;\n"
+"    width:16px;\n"
+"    height:16px;\n"
+" }\n"
+"\n"
+"\n"
+"\n"
+"\n"
+" QRadioButton::indicator::checked {\n"
+" background-color:  rgba(47, 53, 64, 255);\n"
+" border-radius: 8px;\n"
+" width:16px;\n"
+" height:16px;\n"
+"     image: url(:/newPrefix/images/radio.png);\n"
+" }\n"
+"\n"
+"\n"
+" QRadioButton::indicator:checked:pressed {\n"
+"    image: url(:/newPrefix/images/radio.png);\n"
+" }\n"
+"\n"
+"/* ----- QTableView ---- */\n"
+"\n"
+"QTableView\n"
+"{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"gridline-color:rgb(90, 100, 112);\n"
+"selection-background-color: qlineargradient(spread:pad, x1:0, y1:0.955, x2:0, y2:0, stop:0 rgba(63, 109, 184, 255), stop:1 rgba(90, 155, 209, 255));\n"
+"}\n"
+"QHeaderView::section, QTableView QTableCornerButton::section {\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+"border-radius: 3px;\n"
+"padding:5px;\n"
+" }\n"
+"\n"
+" QHeaderView::section:checked, QTableView QTableCornerButton::section:checked\n"
+" {\n"
+" background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+" border-color: rgba(47, 53, 64, 255);\n"
+" border-style: solid;\n"
+" border-width:1px;\n"
+"  border-radius: 3px;\n"
+" }\n"
+"\n"
+"/* ----- QScrollBar:vertical ---- */\n"
+"\n"
+"QScrollBar:vertical {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 15px;\n"
+"      margin: 22px 0 22px 0;\n"
+"  }\n"
+"QScrollBar::handle:vertical {\n"
+"      background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"      border-color: rgba(47, 53, 64, 255);\n"
+"      border-style: solid;\n"
+"      border-width:1px;\n"
+"      border-radius: 3px;\n"
+"      min-height: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: bottom;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:vertical {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 20px;\n"
+"      subcontrol-position: top;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::up-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/up-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::up-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::down-button:vertical\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::down-arrow:vertical\n"
+"{\n"
+"image: url(:/newPrefix/images/down-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical\n"
+"{\n"
+"background: none;\n"
+"}\n"
+"\n"
+"/* ----- QScrollBar:horizontal ---- */\n"
+"\n"
+"QScrollBar:horizontal {\n"
+"      border: 1px solid rgba(47, 53, 64, 255);\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      height: 15px;\n"
+"      margin: 0 22px 0 22px;\n"
+"  }\n"
+"QScrollBar::handle:horizontal {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-color: rgba(47, 53, 64, 255);\n"
+"border-style: solid;\n"
+"border-width:1px;\n"
+" border-radius: 3px;\n"
+"      min-width: 20px;\n"
+"  }\n"
+"QScrollBar::add-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: right;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"\n"
+"QScrollBar::sub-line:horizontal {\n"
+"      background-color:  rgba(47, 53, 64, 255);\n"
+"      width: 20px;\n"
+"      subcontrol-position: left;\n"
+"      subcontrol-origin: margin;\n"
+"  }\n"
+"QScrollBar::left-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/left-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::left-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QScrollBar::right-button:horizontal\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"}\n"
+"\n"
+"\n"
+"QScrollBar::right-arrow:horizontal\n"
+"{\n"
+"image: url(:/newPrefix/images/right-arrow.png);\n"
+"}\n"
+"\n"
+"QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal\n"
+"{\n"
+"background: none;\n"
+"}\n"
+""))
         MainWindow.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         MainWindow.setTabShape(QtGui.QTabWidget.Rounded)
         self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget.setEnabled(True)
+        self.centralwidget.setStyleSheet(_fromUtf8(""))
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.gridLayout = QtGui.QGridLayout(self.centralwidget)
         self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.tabWidget_2 = QtGui.QTabWidget(self.centralwidget)
+        self.tabWidget_2.setStyleSheet(_fromUtf8(""))
         self.tabWidget_2.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.tabWidget_2.setObjectName(_fromUtf8("tabWidget_2"))
         self.tab = QtGui.QWidget()
@@ -60,30 +1006,93 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(247, 0, 4))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(172, 0, 2))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(252, 1, 6))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(247, 0, 4))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(172, 0, 2))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(252, 1, 6))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.sync_label.setPalette(palette)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("MS Shell Dlg 2"))
@@ -164,14 +1173,75 @@ class Ui_MainWindow(object):
         self.label_47.setFont(font)
         self.label_47.setObjectName(_fromUtf8("label_47"))
         self.overviewamount = QtGui.QDoubleSpinBox(self.frame)
+        self.overviewamount.setEnabled(True)
         self.overviewamount.setGeometry(QtCore.QRect(90, 70, 141, 22))
+        self.overviewamount.setStyleSheet(_fromUtf8("QDoubleSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QDoubleSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QDoubleSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QDoubleSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}"))
         self.overviewamount.setDecimals(10)
         self.overviewamount.setMaximum(21000000.0)
         self.overviewamount.setSingleStep(0.01)
         self.overviewamount.setProperty("value", 0.0)
         self.overviewamount.setObjectName(_fromUtf8("overviewamount"))
         self.sendbtc = QtGui.QPushButton(self.frame)
-        self.sendbtc.setGeometry(QtCore.QRect(290, 70, 186, 22))
+        self.sendbtc.setGeometry(QtCore.QRect(335, 70, 141, 22))
+        self.sendbtc.setStyleSheet(_fromUtf8(""))
         self.sendbtc.setObjectName(_fromUtf8("sendbtc"))
         self.label_44 = QtGui.QLabel(self.tab)
         self.label_44.setGeometry(QtCore.QRect(110, 119, 181, 31))
@@ -187,8 +1257,9 @@ class Ui_MainWindow(object):
         self.frame_2.setObjectName(_fromUtf8("frame_2"))
         self.bitcoinaddresses = QtGui.QTableWidget(self.frame_2)
         self.bitcoinaddresses.setGeometry(QtCore.QRect(9, 9, 861, 211))
+        self.bitcoinaddresses.setAutoFillBackground(False)
         self.bitcoinaddresses.setEditTriggers(QtGui.QAbstractItemView.AnyKeyPressed|QtGui.QAbstractItemView.EditKeyPressed)
-        self.bitcoinaddresses.setAlternatingRowColors(True)
+        self.bitcoinaddresses.setAlternatingRowColors(False)
         self.bitcoinaddresses.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.bitcoinaddresses.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.bitcoinaddresses.setObjectName(_fromUtf8("bitcoinaddresses"))
@@ -208,7 +1279,7 @@ class Ui_MainWindow(object):
         self.bitcoinaddresses.horizontalHeader().setStretchLastSection(True)
         self.bitcoinaddresses.verticalHeader().setVisible(False)
         self.label_48 = QtGui.QLabel(self.tab)
-        self.label_48.setGeometry(QtCore.QRect(240, 260, 181, 31))
+        self.label_48.setGeometry(QtCore.QRect(260, 260, 181, 31))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("MS Shell Dlg 2"))
         font.setPointSize(14)
@@ -256,36 +1327,99 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(195, 3, 7))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(194, 6, 9))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(218, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(212, 4, 52))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ToolTipText, brush)
         brush = QtGui.QBrush(QtGui.QColor(195, 3, 7))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(194, 6, 9))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(218, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(212, 4, 52))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ToolTipText, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(212, 4, 52))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
@@ -300,7 +1434,8 @@ class Ui_MainWindow(object):
         self.sync.setProperty("value", 0)
         self.sync.setObjectName(_fromUtf8("sync"))
         self.pushButton = QtGui.QPushButton(self.tab)
-        self.pushButton.setGeometry(QtCore.QRect(10, 270, 181, 23))
+        self.pushButton.setGeometry(QtCore.QRect(10, 270, 151, 23))
+        self.pushButton.setStyleSheet(_fromUtf8(""))
         self.pushButton.setObjectName(_fromUtf8("pushButton"))
         self.tabWidget_2.addTab(self.tab, _fromUtf8(""))
         self.tab6 = QtGui.QWidget()
@@ -329,16 +1464,212 @@ class Ui_MainWindow(object):
         self.pushButtonManualEscrowBuyer = QtGui.QPushButton(self.buyer)
         self.pushButtonManualEscrowBuyer.setGeometry(QtCore.QRect(540, 40, 81, 41))
         palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(24, 154, 240))
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(188, 211, 240))
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(217, 236, 240))
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QLinearGradient(0.0, 1.5, 0.0001, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0709427, QtGui.QColor(60, 68, 79))
+        gradient.setColorAt(0.947522, QtGui.QColor(73, 82, 97))
+        gradient.setColorAt(0.958056, QtGui.QColor(90, 100, 112))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.pushButtonManualEscrowBuyer.setPalette(palette)
+        self.pushButtonManualEscrowBuyer.setStyleSheet(_fromUtf8("QWidget {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:2, fx:0.5, fy:0.5, stop:0 rgba(76, 88, 102, 255), stop:1 rgba(65, 73, 86, 255));\n"
+"    }\n"
+"QPushButton\n"
+"{\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"\n"
+"    }\n"
+"QPushButton:hover {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"color:#acb3bd;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+""))
         self.pushButtonManualEscrowBuyer.setObjectName(_fromUtf8("pushButtonManualEscrowBuyer"))
         self.label_28 = QtGui.QLabel(self.buyer)
         self.label_28.setGeometry(QtCore.QRect(240, 108, 251, 21))
@@ -353,11 +1684,71 @@ class Ui_MainWindow(object):
         self.textBrowser_2.setGeometry(QtCore.QRect(0, 130, 861, 241))
         self.textBrowser_2.setObjectName(_fromUtf8("textBrowser_2"))
         self.label_25 = QtGui.QLabel(self.buyer)
-        self.label_25.setGeometry(QtCore.QRect(460, 80, 371, 21))
+        self.label_25.setGeometry(QtCore.QRect(460, 90, 371, 21))
+        self.label_25.setStyleSheet(_fromUtf8(""))
         self.label_25.setText(_fromUtf8(""))
         self.label_25.setObjectName(_fromUtf8("label_25"))
         self.spinBox_2 = QtGui.QDoubleSpinBox(self.buyer)
         self.spinBox_2.setGeometry(QtCore.QRect(380, 50, 140, 22))
+        self.spinBox_2.setStyleSheet(_fromUtf8("QDoubleSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QDoubleSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QDoubleSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QDoubleSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QDoubleSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}"))
         self.spinBox_2.setDecimals(10)
         self.spinBox_2.setMinimum(0.0001)
         self.spinBox_2.setMaximum(999999.99)
@@ -376,7 +1767,112 @@ class Ui_MainWindow(object):
         self.frombox.addItem(_fromUtf8(""))
         self.pushButton_2 = QtGui.QPushButton(self.buyer)
         self.pushButton_2.setGeometry(QtCore.QRect(5, 20, 91, 22))
-        self.pushButton_2.setStyleSheet(_fromUtf8(""))
+        self.pushButton_2.setStyleSheet(_fromUtf8("QWidget {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:2, fx:0.5, fy:0.5, stop:0 rgba(76, 88, 102, 255), stop:1 rgba(65, 73, 86, 255));\n"
+"    }\n"
+"QPushButton\n"
+"{\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"\n"
+"    }\n"
+"QPushButton:hover {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"color:#acb3bd;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+""))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
         self.comment = QtGui.QPlainTextEdit(self.buyer)
         self.comment.setGeometry(QtCore.QRect(650, 10, 171, 111))
@@ -403,13 +1899,14 @@ class Ui_MainWindow(object):
         self.label_26.setObjectName(_fromUtf8("label_26"))
         self.newmerchantaddress = QtGui.QPushButton(self.merchant)
         self.newmerchantaddress.setGeometry(QtCore.QRect(74, 40, 211, 22))
+        self.newmerchantaddress.setStyleSheet(_fromUtf8(""))
         self.newmerchantaddress.setObjectName(_fromUtf8("newmerchantaddress"))
         self.youids = QtGui.QTableWidget(self.merchant)
         self.youids.setGeometry(QtCore.QRect(330, 2, 481, 101))
         self.youids.setStyleSheet(_fromUtf8(""))
         self.youids.setFrameShadow(QtGui.QFrame.Sunken)
         self.youids.setLineWidth(1)
-        self.youids.setAlternatingRowColors(True)
+        self.youids.setAlternatingRowColors(False)
         self.youids.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.youids.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.youids.setColumnCount(1)
@@ -439,27 +1936,91 @@ class Ui_MainWindow(object):
         self.label_20.setWordWrap(True)
         self.label_20.setObjectName(_fromUtf8("label_20"))
         self.buyerhelp = QtGui.QLabel(self.tab6)
-        self.buyerhelp.setGeometry(QtCore.QRect(340, 100, 521, 31))
+        self.buyerhelp.setGeometry(QtCore.QRect(420, 91, 441, 30))
         palette = QtGui.QPalette()
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(229, 6, 73))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(229, 6, 73))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.buyerhelp.setPalette(palette)
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
         font.setWeight(75)
         self.buyerhelp.setFont(font)
+        self.buyerhelp.setStyleSheet(_fromUtf8(""))
         self.buyerhelp.setText(_fromUtf8(""))
         self.buyerhelp.setObjectName(_fromUtf8("buyerhelp"))
         self.autorescan = QtGui.QCheckBox(self.tab6)
-        self.autorescan.setGeometry(QtCore.QRect(150, 106, 201, 31))
+        self.autorescan.setGeometry(QtCore.QRect(480, 120, 201, 21))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.autorescan.setFont(font)
@@ -469,19 +2030,20 @@ class Ui_MainWindow(object):
         self.tab7 = QtGui.QWidget()
         self.tab7.setObjectName(_fromUtf8("tab7"))
         self.textBrowser = QtGui.QTextBrowser(self.tab7)
-        self.textBrowser.setGeometry(QtCore.QRect(250, 60, 621, 421))
+        self.textBrowser.setGeometry(QtCore.QRect(240, 60, 641, 451))
         self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
         self.pushButton_3 = QtGui.QPushButton(self.tab7)
         self.pushButton_3.setGeometry(QtCore.QRect(40, 13, 161, 31))
+        self.pushButton_3.setStyleSheet(_fromUtf8(""))
         self.pushButton_3.setObjectName(_fromUtf8("pushButton_3"))
         self.offertype = QtGui.QComboBox(self.tab7)
-        self.offertype.setGeometry(QtCore.QRect(20, 61, 201, 22))
+        self.offertype.setGeometry(QtCore.QRect(20, 61, 201, 25))
         self.offertype.setObjectName(_fromUtf8("offertype"))
         self.offertype.addItem(_fromUtf8(""))
         self.offertype.addItem(_fromUtf8(""))
         self.offertype.addItem(_fromUtf8(""))
         self.comboBox_2 = QtGui.QComboBox(self.tab7)
-        self.comboBox_2.setGeometry(QtCore.QRect(20, 102, 201, 22))
+        self.comboBox_2.setGeometry(QtCore.QRect(20, 102, 201, 25))
         self.comboBox_2.setObjectName(_fromUtf8("comboBox_2"))
         self.comboBox_2.addItem(_fromUtf8(""))
         self.lineEdit = QtGui.QLineEdit(self.tab7)
@@ -490,35 +2052,101 @@ class Ui_MainWindow(object):
         self.lineEdit.setText(_fromUtf8(""))
         self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
         self.label_12 = QtGui.QLabel(self.tab7)
-        self.label_12.setGeometry(QtCore.QRect(20, 270, 211, 231))
+        self.label_12.setGeometry(QtCore.QRect(10, 369, 230, 141))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(199, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(199, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
         brush = QtGui.QBrush(QtGui.QColor(120, 120, 120))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        gradient = QtGui.QRadialGradient(0.5, 0.5, 2.0, 0.5, 0.5)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(76, 88, 102))
+        gradient.setColorAt(1.0, QtGui.QColor(65, 73, 86, 5))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         self.label_12.setPalette(palette)
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
         font.setWeight(50)
         self.label_12.setFont(font)
+        self.label_12.setStyleSheet(_fromUtf8(""))
         self.label_12.setWordWrap(True)
         self.label_12.setObjectName(_fromUtf8("label_12"))
         self.pushButton_4 = QtGui.QPushButton(self.tab7)
-        self.pushButton_4.setGeometry(QtCore.QRect(60, 220, 111, 23))
+        self.pushButton_4.setGeometry(QtCore.QRect(60, 220, 111, 31))
+        self.pushButton_4.setStyleSheet(_fromUtf8(""))
         self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
         self.location = QtGui.QComboBox(self.tab7)
-        self.location.setGeometry(QtCore.QRect(20, 142, 201, 22))
+        self.location.setGeometry(QtCore.QRect(20, 142, 201, 25))
         self.location.setObjectName(_fromUtf8("location"))
         self.location.addItem(_fromUtf8(""))
         self.location.setItemText(0, _fromUtf8(""))
         self.pushButton_5 = QtGui.QPushButton(self.tab7)
         self.pushButton_5.setGeometry(QtCore.QRect(300, 20, 81, 31))
+        self.pushButton_5.setStyleSheet(_fromUtf8(""))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.checkBox = QtGui.QCheckBox(self.tab7)
         self.checkBox.setGeometry(QtCore.QRect(420, 27, 191, 21))
@@ -536,7 +2164,7 @@ class Ui_MainWindow(object):
         self.gridLayout_2.setMargin(0)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
         self.tabWidget = QtGui.QTabWidget(self.Advenced_messaging)
-        self.tabWidget.setGeometry(QtCore.QRect(0, 0, 885, 490))
+        self.tabWidget.setGeometry(QtCore.QRect(0, 0, 881, 520))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -544,6 +2172,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setMinimumSize(QtCore.QSize(0, 0))
         self.tabWidget.setBaseSize(QtCore.QSize(0, 0))
+        self.tabWidget.setStyleSheet(_fromUtf8("QTabBar::tab {width: 104px; }"))
         self.tabWidget.setTabPosition(QtGui.QTabWidget.North)
         self.tabWidget.setTabShape(QtGui.QTabWidget.Rounded)
         self.tabWidget.setObjectName(_fromUtf8("tabWidget"))
@@ -571,7 +2200,7 @@ class Ui_MainWindow(object):
         self.splitter.setObjectName(_fromUtf8("splitter"))
         self.tableWidgetInbox = QtGui.QTableWidget(self.splitter)
         self.tableWidgetInbox.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
-        self.tableWidgetInbox.setAlternatingRowColors(True)
+        self.tableWidgetInbox.setAlternatingRowColors(False)
         self.tableWidgetInbox.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.tableWidgetInbox.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetInbox.setWordWrap(False)
@@ -604,74 +2233,83 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.inbox, icon1, _fromUtf8(""))
         self.send = QtGui.QWidget()
         self.send.setObjectName(_fromUtf8("send"))
-        self.gridLayout_3 = QtGui.QGridLayout(self.send)
-        self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
         self.pushButtonLoadFromAddressBook = QtGui.QPushButton(self.send)
+        self.pushButtonLoadFromAddressBook.setGeometry(QtCore.QRect(335, 78, 121, 20))
         font = QtGui.QFont()
         font.setPointSize(7)
         self.pushButtonLoadFromAddressBook.setFont(font)
         self.pushButtonLoadFromAddressBook.setObjectName(_fromUtf8("pushButtonLoadFromAddressBook"))
-        self.gridLayout_3.addWidget(self.pushButtonLoadFromAddressBook, 3, 2, 1, 1)
         self.pushButtonFetchNamecoinID = QtGui.QPushButton(self.send)
+        self.pushButtonFetchNamecoinID.setGeometry(QtCore.QRect(462, 78, 121, 20))
         font = QtGui.QFont()
         font.setPointSize(7)
         self.pushButtonFetchNamecoinID.setFont(font)
         self.pushButtonFetchNamecoinID.setObjectName(_fromUtf8("pushButtonFetchNamecoinID"))
-        self.gridLayout_3.addWidget(self.pushButtonFetchNamecoinID, 3, 3, 1, 1)
         self.label_4 = QtGui.QLabel(self.send)
+        self.label_4.setGeometry(QtCore.QRect(9, 126, 50, 20))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_4.setFont(font)
         self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.gridLayout_3.addWidget(self.label_4, 5, 0, 1, 1)
         self.comboBoxSendFrom = QtGui.QComboBox(self.send)
-        self.comboBoxSendFrom.setMinimumSize(QtCore.QSize(101, 0))
+        self.comboBoxSendFrom.setGeometry(QtCore.QRect(61, 53, 261, 20))
+        self.comboBoxSendFrom.setMinimumSize(QtCore.QSize(99, 0))
         self.comboBoxSendFrom.setObjectName(_fromUtf8("comboBoxSendFrom"))
-        self.gridLayout_3.addWidget(self.comboBoxSendFrom, 2, 1, 1, 1)
         self.label_3 = QtGui.QLabel(self.send)
+        self.label_3.setGeometry(QtCore.QRect(9, 101, 46, 20))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_3.setFont(font)
         self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.gridLayout_3.addWidget(self.label_3, 4, 0, 1, 1)
         self.labelFrom = QtGui.QLabel(self.send)
+        self.labelFrom.setGeometry(QtCore.QRect(354, 53, 16, 16))
         self.labelFrom.setText(_fromUtf8(""))
         self.labelFrom.setObjectName(_fromUtf8("labelFrom"))
-        self.gridLayout_3.addWidget(self.labelFrom, 2, 2, 1, 3)
         self.radioButtonSpecific = QtGui.QRadioButton(self.send)
+        self.radioButtonSpecific.setGeometry(QtCore.QRect(61, 9, 193, 16))
         self.radioButtonSpecific.setChecked(True)
         self.radioButtonSpecific.setObjectName(_fromUtf8("radioButtonSpecific"))
-        self.gridLayout_3.addWidget(self.radioButtonSpecific, 0, 1, 1, 1)
         self.lineEditTo = QtGui.QLineEdit(self.send)
+        self.lineEditTo.setGeometry(QtCore.QRect(61, 78, 261, 20))
         self.lineEditTo.setObjectName(_fromUtf8("lineEditTo"))
-        self.gridLayout_3.addWidget(self.lineEditTo, 3, 1, 1, 1)
         self.textEditMessage = QtGui.QTextEdit(self.send)
+        self.textEditMessage.setGeometry(QtCore.QRect(61, 126, 801, 331))
         self.textEditMessage.setObjectName(_fromUtf8("textEditMessage"))
-        self.gridLayout_3.addWidget(self.textEditMessage, 5, 1, 2, 5)
         self.label = QtGui.QLabel(self.send)
+        self.label.setGeometry(QtCore.QRect(9, 76, 28, 20))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
-        self.gridLayout_3.addWidget(self.label, 3, 0, 1, 1)
         self.label_2 = QtGui.QLabel(self.send)
+        self.label_2.setGeometry(QtCore.QRect(9, 52, 40, 20))
+        font = QtGui.QFont()
+        font.setPointSize(9)
+        self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.gridLayout_3.addWidget(self.label_2, 2, 0, 1, 1)
-        spacerItem = QtGui.QSpacerItem(20, 297, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem, 6, 0, 1, 1)
         self.radioButtonBroadcast = QtGui.QRadioButton(self.send)
+        self.radioButtonBroadcast.setGeometry(QtCore.QRect(61, 31, 298, 16))
         self.radioButtonBroadcast.setObjectName(_fromUtf8("radioButtonBroadcast"))
-        self.gridLayout_3.addWidget(self.radioButtonBroadcast, 1, 1, 1, 3)
         self.lineEditSubject = QtGui.QLineEdit(self.send)
+        self.lineEditSubject.setGeometry(QtCore.QRect(61, 103, 261, 20))
         self.lineEditSubject.setText(_fromUtf8(""))
         self.lineEditSubject.setObjectName(_fromUtf8("lineEditSubject"))
-        self.gridLayout_3.addWidget(self.lineEditSubject, 4, 1, 1, 5)
-        spacerItem1 = QtGui.QSpacerItem(20, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_3.addItem(spacerItem1, 3, 4, 1, 1)
         self.pushButtonSend = QtGui.QPushButton(self.send)
+        self.pushButtonSend.setGeometry(QtCore.QRect(769, 463, 101, 20))
         self.pushButtonSend.setObjectName(_fromUtf8("pushButtonSend"))
-        self.gridLayout_3.addWidget(self.pushButtonSend, 7, 5, 1, 1)
         self.labelSendBroadcastWarning = QtGui.QLabel(self.send)
         self.labelSendBroadcastWarning.setEnabled(True)
+        self.labelSendBroadcastWarning.setGeometry(QtCore.QRect(11, 462, 751, 21))
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.labelSendBroadcastWarning.sizePolicy().hasHeightForWidth())
         self.labelSendBroadcastWarning.setSizePolicy(sizePolicy)
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.labelSendBroadcastWarning.setFont(font)
         self.labelSendBroadcastWarning.setIndent(-1)
         self.labelSendBroadcastWarning.setObjectName(_fromUtf8("labelSendBroadcastWarning"))
-        self.gridLayout_3.addWidget(self.labelSendBroadcastWarning, 7, 1, 1, 4)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/send.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.send, icon2, _fromUtf8(""))
@@ -700,7 +2338,7 @@ class Ui_MainWindow(object):
         self.tableWidgetSent = QtGui.QTableWidget(self.splitter_2)
         self.tableWidgetSent.setEditTriggers(QtGui.QAbstractItemView.NoEditTriggers)
         self.tableWidgetSent.setDragDropMode(QtGui.QAbstractItemView.DragDrop)
-        self.tableWidgetSent.setAlternatingRowColors(True)
+        self.tableWidgetSent.setAlternatingRowColors(False)
         self.tableWidgetSent.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.tableWidgetSent.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetSent.setWordWrap(False)
@@ -731,17 +2369,120 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.sent, icon3, _fromUtf8(""))
         self.youridentities = QtGui.QWidget()
         self.youridentities.setObjectName(_fromUtf8("youridentities"))
-        self.gridLayout_4 = QtGui.QGridLayout(self.youridentities)
-        self.gridLayout_4.setObjectName(_fromUtf8("gridLayout_4"))
         self.pushButtonNewAddress = QtGui.QPushButton(self.youridentities)
+        self.pushButtonNewAddress.setGeometry(QtCore.QRect(9, 9, 75, 23))
+        self.pushButtonNewAddress.setStyleSheet(_fromUtf8("QWidget {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:2, fx:0.5, fy:0.5, stop:0 rgba(76, 88, 102, 255), stop:1 rgba(65, 73, 86, 255));\n"
+"    }\n"
+"QPushButton\n"
+"{\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"\n"
+"    }\n"
+"QPushButton:hover {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"color:#acb3bd;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+""))
         self.pushButtonNewAddress.setObjectName(_fromUtf8("pushButtonNewAddress"))
-        self.gridLayout_4.addWidget(self.pushButtonNewAddress, 0, 0, 1, 1)
-        spacerItem2 = QtGui.QSpacerItem(689, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_4.addItem(spacerItem2, 0, 1, 1, 1)
         self.tableWidgetYourIdentities = QtGui.QTableWidget(self.youridentities)
+        self.tableWidgetYourIdentities.setGeometry(QtCore.QRect(9, 38, 847, 441))
         self.tableWidgetYourIdentities.setFrameShadow(QtGui.QFrame.Sunken)
         self.tableWidgetYourIdentities.setLineWidth(1)
-        self.tableWidgetYourIdentities.setAlternatingRowColors(True)
+        self.tableWidgetYourIdentities.setAlternatingRowColors(False)
         self.tableWidgetYourIdentities.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.tableWidgetYourIdentities.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetYourIdentities.setObjectName(_fromUtf8("tableWidgetYourIdentities"))
@@ -765,25 +2506,127 @@ class Ui_MainWindow(object):
         self.tableWidgetYourIdentities.verticalHeader().setDefaultSectionSize(26)
         self.tableWidgetYourIdentities.verticalHeader().setSortIndicatorShown(False)
         self.tableWidgetYourIdentities.verticalHeader().setStretchLastSection(False)
-        self.gridLayout_4.addWidget(self.tableWidgetYourIdentities, 1, 0, 1, 2)
         icon4 = QtGui.QIcon()
         icon4.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/identities.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.youridentities, icon4, _fromUtf8(""))
         self.subscriptions = QtGui.QWidget()
         self.subscriptions.setObjectName(_fromUtf8("subscriptions"))
-        self.gridLayout_5 = QtGui.QGridLayout(self.subscriptions)
-        self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
         self.label_5 = QtGui.QLabel(self.subscriptions)
+        self.label_5.setGeometry(QtCore.QRect(9, 9, 800, 16))
         self.label_5.setWordWrap(True)
         self.label_5.setObjectName(_fromUtf8("label_5"))
-        self.gridLayout_5.addWidget(self.label_5, 0, 0, 1, 2)
         self.pushButtonAddSubscription = QtGui.QPushButton(self.subscriptions)
+        self.pushButtonAddSubscription.setGeometry(QtCore.QRect(9, 28, 111, 23))
+        self.pushButtonAddSubscription.setStyleSheet(_fromUtf8("QWidget {\n"
+"    background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:2, fx:0.5, fy:0.5, stop:0 rgba(76, 88, 102, 255), stop:1 rgba(65, 73, 86, 255));\n"
+"    }\n"
+"QPushButton\n"
+"{\n"
+"color:#fff;\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"\n"
+"    }\n"
+"QPushButton:hover {\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1.5, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(92, 104, 120), stop:0.958056 rgb(110, 120, 132));\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-radius: 3px;\n"
+"}\n"
+"QPushButton:pressed {\n"
+"color:#acb3bd;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"\n"
+"QSpinBox{\n"
+"color:#fff;\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-left-color: rgba(47, 53, 64, 255);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"border-top-color: rgba(47, 53, 64, 255);\n"
+"border-top-style: solid;\n"
+"border-top-width:1px;\n"
+"border-right-color: rgba(47, 53, 64, 255);\n"
+"border-right-style: solid;\n"
+"border-right-width:1px;\n"
+"\n"
+"border-radius: 3px;\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"\n"
+"}\n"
+"QSpinBox::up-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/up-arrow.png);\n"
+"}\n"
+"QSpinBox::down-arrow\n"
+"{\n"
+"   image: url(C:/QtQss/icons/down-arrow.png);\n"
+"}\n"
+"\n"
+"QSpinBox::up-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:3, x2:0.0001, y2:0, stop:0.0709427 rgb(60, 68, 79), stop:0.947522 rgb(73, 82, 97), stop:0.958056 rgb(90, 100, 112));\n"
+"border-bottom-color: rgba(47, 53, 64, 255);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"}\n"
+"QSpinBox::up-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button:pressed\n"
+"{\n"
+"background-color:  rgba(47, 53, 64, 255);\n"
+"border-bottom-color: rgb(90, 100, 112);\n"
+"border-bottom-style: solid;\n"
+"border-bottom-width:1px;\n"
+"border-left-color: rgb(90, 100, 112);\n"
+"border-left-style: solid;\n"
+"border-left-width:1px;\n"
+"}\n"
+"QSpinBox::down-button\n"
+"{\n"
+"background-color: qlineargradient(spread:pad, x2:0.0001, y1:1, x2:0.0001, y2:0, stop:0.0709427 rgb(55, 64, 73), stop:0.917522 rgb(73, 82, 97), stop:0.978056 rgb(90, 100, 112));\n"
+"}\n"
+""))
         self.pushButtonAddSubscription.setObjectName(_fromUtf8("pushButtonAddSubscription"))
-        self.gridLayout_5.addWidget(self.pushButtonAddSubscription, 1, 0, 1, 1)
-        spacerItem3 = QtGui.QSpacerItem(689, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_5.addItem(spacerItem3, 1, 1, 1, 1)
         self.tableWidgetSubscriptions = QtGui.QTableWidget(self.subscriptions)
-        self.tableWidgetSubscriptions.setAlternatingRowColors(True)
+        self.tableWidgetSubscriptions.setGeometry(QtCore.QRect(9, 57, 851, 421))
+        self.tableWidgetSubscriptions.setAlternatingRowColors(False)
         self.tableWidgetSubscriptions.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.tableWidgetSubscriptions.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetSubscriptions.setObjectName(_fromUtf8("tableWidgetSubscriptions"))
@@ -799,25 +2642,21 @@ class Ui_MainWindow(object):
         self.tableWidgetSubscriptions.horizontalHeader().setSortIndicatorShown(False)
         self.tableWidgetSubscriptions.horizontalHeader().setStretchLastSection(True)
         self.tableWidgetSubscriptions.verticalHeader().setVisible(False)
-        self.gridLayout_5.addWidget(self.tableWidgetSubscriptions, 2, 0, 1, 2)
         icon5 = QtGui.QIcon()
         icon5.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/subscriptions.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.subscriptions, icon5, _fromUtf8(""))
         self.addressbook = QtGui.QWidget()
         self.addressbook.setObjectName(_fromUtf8("addressbook"))
-        self.gridLayout_6 = QtGui.QGridLayout(self.addressbook)
-        self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.label_6 = QtGui.QLabel(self.addressbook)
+        self.label_6.setGeometry(QtCore.QRect(9, 9, 861, 26))
         self.label_6.setWordWrap(True)
         self.label_6.setObjectName(_fromUtf8("label_6"))
-        self.gridLayout_6.addWidget(self.label_6, 0, 0, 1, 2)
         self.pushButtonAddAddressBook = QtGui.QPushButton(self.addressbook)
+        self.pushButtonAddAddressBook.setGeometry(QtCore.QRect(10, 40, 101, 21))
         self.pushButtonAddAddressBook.setObjectName(_fromUtf8("pushButtonAddAddressBook"))
-        self.gridLayout_6.addWidget(self.pushButtonAddAddressBook, 1, 0, 1, 1)
-        spacerItem4 = QtGui.QSpacerItem(689, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_6.addItem(spacerItem4, 1, 1, 1, 1)
         self.tableWidgetAddressBook = QtGui.QTableWidget(self.addressbook)
-        self.tableWidgetAddressBook.setAlternatingRowColors(True)
+        self.tableWidgetAddressBook.setGeometry(QtCore.QRect(9, 64, 851, 421))
+        self.tableWidgetAddressBook.setAlternatingRowColors(False)
         self.tableWidgetAddressBook.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
         self.tableWidgetAddressBook.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetAddressBook.setObjectName(_fromUtf8("tableWidgetAddressBook"))
@@ -832,7 +2671,6 @@ class Ui_MainWindow(object):
         self.tableWidgetAddressBook.horizontalHeader().setHighlightSections(False)
         self.tableWidgetAddressBook.horizontalHeader().setStretchLastSection(True)
         self.tableWidgetAddressBook.verticalHeader().setVisible(False)
-        self.gridLayout_6.addWidget(self.tableWidgetAddressBook, 2, 0, 1, 2)
         icon6 = QtGui.QIcon()
         icon6.addPixmap(QtGui.QPixmap(_fromUtf8(":/newPrefix/images/addressbook.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.addressbook, icon6, _fromUtf8(""))
@@ -850,10 +2688,10 @@ class Ui_MainWindow(object):
         self.pushButtonAddBlacklist = QtGui.QPushButton(self.blackwhitelist)
         self.pushButtonAddBlacklist.setObjectName(_fromUtf8("pushButtonAddBlacklist"))
         self.gridLayout_7.addWidget(self.pushButtonAddBlacklist, 2, 0, 1, 1)
-        spacerItem5 = QtGui.QSpacerItem(689, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.gridLayout_7.addItem(spacerItem5, 2, 1, 1, 1)
+        spacerItem = QtGui.QSpacerItem(689, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.gridLayout_7.addItem(spacerItem, 2, 1, 1, 1)
         self.tableWidgetBlacklist = QtGui.QTableWidget(self.blackwhitelist)
-        self.tableWidgetBlacklist.setAlternatingRowColors(True)
+        self.tableWidgetBlacklist.setAlternatingRowColors(False)
         self.tableWidgetBlacklist.setSelectionMode(QtGui.QAbstractItemView.SingleSelection)
         self.tableWidgetBlacklist.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.tableWidgetBlacklist.setObjectName(_fromUtf8("tableWidgetBlacklist"))
@@ -886,20 +2724,87 @@ class Ui_MainWindow(object):
         self.tableWidgetConnectionCount = QtGui.QTableWidget(self.networkstatus)
         self.tableWidgetConnectionCount.setGeometry(QtCore.QRect(20, 70, 241, 241))
         palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(212, 208, 200))
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(212, 208, 200))
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        gradient = QtGui.QLinearGradient(0.0, 0.955, 0.0, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(63, 109, 184))
+        gradient.setColorAt(1.0, QtGui.QColor(90, 155, 209))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Highlight, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(212, 208, 200))
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        gradient = QtGui.QLinearGradient(0.0, 0.955, 0.0, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(63, 109, 184))
+        gradient.setColorAt(1.0, QtGui.QColor(90, 155, 209))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Highlight, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(47, 53, 64))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        gradient = QtGui.QLinearGradient(0.0, 0.955, 0.0, 0.0)
+        gradient.setSpread(QtGui.QGradient.PadSpread)
+        gradient.setCoordinateMode(QtGui.QGradient.ObjectBoundingMode)
+        gradient.setColorAt(0.0, QtGui.QColor(63, 109, 184))
+        gradient.setColorAt(1.0, QtGui.QColor(90, 155, 209))
+        brush = QtGui.QBrush(gradient)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Highlight, brush)
         self.tableWidgetConnectionCount.setPalette(palette)
+        self.tableWidgetConnectionCount.setStyleSheet(_fromUtf8(""))
         self.tableWidgetConnectionCount.setFrameShape(QtGui.QFrame.Box)
         self.tableWidgetConnectionCount.setFrameShadow(QtGui.QFrame.Plain)
         self.tableWidgetConnectionCount.setProperty("showDropIndicator", False)
-        self.tableWidgetConnectionCount.setAlternatingRowColors(True)
+        self.tableWidgetConnectionCount.setAlternatingRowColors(False)
         self.tableWidgetConnectionCount.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
         self.tableWidgetConnectionCount.setObjectName(_fromUtf8("tableWidgetConnectionCount"))
         self.tableWidgetConnectionCount.setColumnCount(2)
@@ -937,7 +2842,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget_2, 1, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 885, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 885, 18))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -950,6 +2855,12 @@ class Ui_MainWindow(object):
         self.statusbar.setMaximumSize(QtCore.QSize(16777215, 22))
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
+        self.toolBar = QtGui.QToolBar(MainWindow)
+        self.toolBar.setEnabled(True)
+        self.toolBar.setMovable(True)
+        self.toolBar.setFloatable(True)
+        self.toolBar.setObjectName(_fromUtf8("toolBar"))
+        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
         self.actionImport_keys = QtGui.QAction(MainWindow)
         self.actionImport_keys.setObjectName(_fromUtf8("actionImport_keys"))
         self.actionManageKeys = QtGui.QAction(MainWindow)
@@ -1001,7 +2912,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         self.tabWidget_2.setCurrentIndex(2)
         self.tabWidget_3.setCurrentIndex(0)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(7)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -1080,7 +2991,7 @@ class Ui_MainWindow(object):
         self.pushButton_4.setText(_translate("MainWindow", "Search", None))
         self.pushButton_5.setText(_translate("MainWindow", "Refresh", None))
         self.checkBox.setText(_translate("MainWindow", "Auto refresh every hour", None))
-        self.blckchn.setText(_translate("MainWindow", "Get txs from Blockchain.info", None))
+        self.blckchn.setText(_translate("MainWindow", "Get TXs from Blockchain.info", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab7), _translate("MainWindow", "Decentralized trade", None))
         self.inboxSearchLineEdit.setPlaceholderText(_translate("MainWindow", "Search", None))
         self.inboxSearchOptionCB.setItemText(0, _translate("MainWindow", "All", None))
@@ -1179,6 +3090,7 @@ class Ui_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings", None))
         self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
+        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar", None))
         self.actionImport_keys.setText(_translate("MainWindow", "Import keys", None))
         self.actionManageKeys.setText(_translate("MainWindow", "Manage keys", None))
         self.actionExit.setText(_translate("MainWindow", "Quit", None))

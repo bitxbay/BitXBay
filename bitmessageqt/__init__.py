@@ -263,14 +263,7 @@ class MyForm(QtGui.QMainWindow):
     str_chan = '[chan]'
 
 
-    #render decentralized trade browser text, check if message signed with right address ect.
-    def rendertextbrowser(self, typed, subject):
-        sh3 = shelve.open("tradebord.slv")
-        if typed == "" or typed == None:
-            typed = self.ui.comboBox.currentText()
-        if subject == "" or subject == None:
-            subject = self.ui.comboBox_2.currentText()
-        sh3.close()
+
 
 
 
@@ -419,10 +412,6 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     cont = ""
                 try:
-                    loc = lst[5]
-                except:
-                    loc = ""
-                try:
                     summ = str(lst[0])
                     price = str(lst[2])
                     subj = str(lst[1])
@@ -433,15 +422,15 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = str(msg)
+                subj = str(subj)
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
-                    if srch in msg or srch in subj:
+                    if srch.lower() in msg.lower() or srch.lower() in subj.lower():
                         if self.ui.textBrowser.toPlainText() == "":
-                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                         else:
-                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
 
             g = shelve.open("board-services.slv")
             b = list(g.items())
@@ -463,15 +452,15 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = str(msg)
+                subj = str(subj)
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
                     if srch in msg or srch in subj:
                         if self.ui.textBrowser.toPlainText()=="":
-                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                         else:
-                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
 
             g = shelve.open("board-currencies.slv")
             b = list(g.items())
@@ -493,15 +482,15 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = str(msg)
+                subj = str(subj)
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
                     if srch in msg or srch in subj:
                             if self.ui.textBrowser.toPlainText() == "":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                             else:
-                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
 
 
     def init_inbox_popup_menu(self):
@@ -813,6 +802,9 @@ class MyForm(QtGui.QMainWindow):
         self.timer7.start(200000) # milliseconds
         QtCore.QObject.connect(self.timer7, QtCore.SIGNAL("timeout()"), self.every20sec)
 
+        self.timer8 = QtCore.QTimer()
+        self.timer8.start(600000) # milliseconds
+        QtCore.QObject.connect(self.timer7, QtCore.SIGNAL("timeout()"), self.every600sec)
 
 
         self.timer4 = QtCore.QTimer()
@@ -1003,6 +995,7 @@ class MyForm(QtGui.QMainWindow):
         self.renderboard()
 
 
+    #render decentralized trade browser text, check if message signed with right address ect.
     def renderboard(self):
         self.ui.textBrowser.clear()
         if self.ui.offertype.currentText() == "Goods":
@@ -1017,7 +1010,7 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     cont = ""
                 try:
-                    loc = lst[5]
+                    loc = lst[6]
                 except:
                     loc = ""
                 try:
@@ -1031,8 +1024,8 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = msg.decode('UTF-8', 'ignore')
+                subj = subj.decode('UTF-8', 'ignore')
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
                     if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
@@ -1041,6 +1034,7 @@ class MyForm(QtGui.QMainWindow):
                                 self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                             else:
                                 self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+
         elif self.ui.offertype.currentText()== "Services":
             g = shelve.open("board-services.slv")
             b = list(g.items())
@@ -1053,6 +1047,10 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     cont = ""
                 try:
+                    loc = lst[6]
+                except:
+                    loc = ""
+                try:
                     summ = str(lst[0])
                     price = str(lst[2])
                     msg = lst[3]
@@ -1062,8 +1060,8 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = msg.decode('UTF-8', 'ignore')
+                subj = subj.decode('UTF-8', 'ignore')
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
                     if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
@@ -1085,6 +1083,10 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     cont = ""
                 try:
+                    loc = lst[6]
+                except:
+                    loc = ""
+                try:
                     summ = str(lst[0])
                     price = str(lst[2])
                     msg = lst[3]
@@ -1094,8 +1096,8 @@ class MyForm(QtGui.QMainWindow):
                     msg = ""
                 if len(msg)>1001:
                     msg=msg[:1000]
-                msg = str(msg.decode('UTF-8', 'ignore'))
-                subj = str(subj.decode('UTF-8', 'ignore'))
+                msg = msg.decode('UTF-8', 'ignore')
+                subj = subj.decode('UTF-8', 'ignore')
                 msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
                 if "<" not in msg and ">" not in msg:
                     if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
@@ -1359,7 +1361,7 @@ class MyForm(QtGui.QMainWindow):
             msgid, toAddress, fromAddress, subject, received, read = row
             subject = shared.fixPotentiallyInvalidUTF8Data(subject)
             if str(fromAddress) == MyForm.bitxbaychan or str(toAddress) == MyForm.bitxbaychan:
-                error=""
+                    error=""
             else:
                 try:
                     if toAddress == self.str_broadcast_subscribers:
@@ -1421,14 +1423,14 @@ class MyForm(QtGui.QMainWindow):
     
     
     
-                # bitxbay changes start here
+                # bitxbay changes
                 queryreturn = sqlQuery(
                     '''select message from inbox where msgid=?''', msgid)
                 if queryreturn != []:
                     for row in queryreturn:
                         messageText, = row
                 messageText = shared.fixPotentiallyInvalidUTF8Data(messageText)
-                messageText = unicode(messageText, 'utf-8)')
+                messageText = unicode(messageText, 'utf-8')
     
 
                 self.ui.textBrowser_2.setOpenLinks(False)
@@ -3842,33 +3844,45 @@ class MyForm(QtGui.QMainWindow):
     #timer for resend offer
     def runEvery70minutes(self):
         resendoffer = shelve.open("lastoffer.slv")
-        resendoffer["resended"] = resendoffer["resended"]+1
-        if resendoffer["resended"] < 3:
-            try:
-                msg = resendoffer["message"]
-                subject = resendoffer["subject"]
-                fromaddr = resendoffer["from"]
-                self.sndmessage(msg,subject,fromaddr,MyForm.bitxbaychan)
-            except:
-                msg = ""
-                subject = ""
-            if resendoffer["resended"]==1:
-                self.timer2.setInterval(8400000)
-            if resendoffer["resended"]==2:
-                self.timer2.setInterval(87000000)
+        try:
+            for fraddress in resendoffer:
+                now_time = datetime.datetime.now()
+                time = datetime.datetime.strptime(resendoffer[fraddress]["time"], '%Y-%m-%d %H:%M:%S.%f')
+                dlt = now_time - time
+                secs = dlt.seconds
+                if secs > 950400:
+                    del resendoffer[fraddress]
+                else:
+                    resendoffer[fraddress]["resended"] = resendoffer["resended"]+1
+                    if resendoffer[fraddress]["resended"] < 3:
+                        try:
+                            msg = resendoffer[fraddress]["message"]
+                            subject = resendoffer[fraddress]["subject"]
+                            fromaddr = resendoffer[fraddress]["from"]
+                            self.sndmessage(msg,subject,fromaddr,MyForm.bitxbaychan)
+                        except:
+                            msg = ""
+                            subject = ""
+                        if resendoffer[fraddress]["resended"]==1:
+                            self.timer2.setInterval(8400000)
+                        if resendoffer[fraddress]["resended"]==2:
+                            self.timer2.setInterval(87000000)
+        except:
+            error=""
         resendoffer.close()
     #resend last offer
     def rsend(self):
         resendoffer = shelve.open("lastoffer.slv")
-        resendoffer["resended"] = resendoffer["resended"]+1
-        try:
-            msg = resendoffer["message"]
-            subject = resendoffer["subject"]
-            fromaddr = resendoffer["from"]
-            self.sndmessage(msg,subject,fromaddr,MyForm.bitxbaychan)
-        except:
-            msg = ""
-            subject = ""
+        for fraddress in resendoffer:
+            resendoffer[fraddress]["resended"] = resendoffer[fraddress]["resended"]+1
+            try:
+                msg = resendoffer[fraddress]["message"]
+                subject = resendoffer[fraddress]["subject"]
+                fromaddr = resendoffer[fraddress]["from"]
+                self.sndmessage(msg, subject, fromaddr, MyForm.bitxbaychan)
+            except:
+                msg = ""
+                subject = ""
         resendoffer.close()
     def runEvery140seconds(self):
         self.updateescrows()
@@ -4179,8 +4193,8 @@ class MyForm(QtGui.QMainWindow):
             try:
                 for i in g.keys():
                     try:
-                        elemtime = g[i][5]
-                        dlt = elemtime-nowtime
+                        elemtime = datetime.datetime.strptime(g[i][5], '%Y-%m-%d %H:%M:%S.%f')
+                        dlt = nowtime - elemtime
                         secs = dlt.seconds
                         if secs > 864000:
                             del g[i]
@@ -4194,8 +4208,8 @@ class MyForm(QtGui.QMainWindow):
             try:
                 for i in s.keys():
                     try:
-                        elemtime = s[i][5]
-                        dlt = elemtime-nowtime
+                        elemtime = datetime.datetime.strptime(g[i][5], '%Y-%m-%d %H:%M:%S.%f')
+                        dlt = nowtime - elemtime
                         secs = dlt.seconds
                         if secs > 864000:
                             del s[i]
@@ -4208,8 +4222,8 @@ class MyForm(QtGui.QMainWindow):
             try:
                 for i in c.keys():
                     try:
-                        elemtime = c[i][5]
-                        dlt = elemtime-nowtime
+                        elemtime = datetime.datetime.strptime(g[i][5], '%Y-%m-%d %H:%M:%S.%f')
+                        dlt = nowtime - elemtime
                         secs = dlt.seconds
                         if secs > 864000:
                             del c[i]
@@ -4256,6 +4270,7 @@ class MyForm(QtGui.QMainWindow):
             if "autorescan" in settings:
                 self.ui.autorescan.setChecked(settings["autorescan"])
             settings.close()
+            self.every600sec()
             self.renderboard()
         self.updatesync(thr_start=True)
 
@@ -5138,7 +5153,7 @@ class MyForm(QtGui.QMainWindow):
                     reslt1 = resl["sum"]
                     reslt2 = res2["sum"]
                     summ = reslt1+reslt2
-                    if summ > 0:
+                    if summ > 0.00001:
                         try:
                             start = messageText.index('-++') + len('-++')
                             end = messageText.index('++-', start)
@@ -5191,6 +5206,10 @@ class MyForm(QtGui.QMainWindow):
                                 c = shelve.open("board-currencies.slv")
                                 c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
                                 c.close()
+                    else:
+                        if len(messageText)>250001:
+                            messageText = messageText[:250000]
+                        self.addtotemp(txid1,subject,senderaddress, messageText)
             except:
                 error = ""
         else:
@@ -7042,18 +7061,115 @@ class MyForm(QtGui.QMainWindow):
                             sh.sync()
                     sh.close()
 
-
-
-
-
-
-
-
                 self.rendertextbrowser2()
                 self.rendertextbrowser3()
                 #changes end
 
 
+
+    def addtotemp(self, txid1, subject, senderaddress, messageText):
+        tmp = shelve.open("temp.slv")
+        if len(tmp)<100:
+            now_time = str(datetime.datetime.now())
+            tmp[senderaddress] = [txid1,subject,messageText, now_time]
+        else:
+            tmp.clear()
+        tmp.close()
+
+    def every600sec(self):
+        try:
+            tmp = shelve.open("temp.slv")
+            for i in tmp:
+                senderaddress = i
+                now_time = datetime.datetime.now()
+                time = datetime.datetime.strptime(tmp[senderaddress][3], '%Y-%m-%d %H:%M:%S.%f')
+                dlt = now_time - time
+                secs = dlt.seconds
+                if secs > 36200:
+                    del tmp[senderaddress]
+                else:
+                    messageText = tmp[senderaddress][2]
+                    rightmess = True
+                    #get bitcoin signing address and txid
+                    try:
+                        start = messageText.index('{t1{') + len('{t1{')
+                        end = messageText.index('}t1}', start)
+                        txid1=messageText[start:end]
+                    except ValueError:
+                        txid1=''
+                    try:
+                        start = messageText.index('{t2{') + len('{t2{')
+                        end = messageText.index('}t2}', start)
+                        txid2=messageText[start:end]
+                    except ValueError:
+                        txid2=''
+
+                    if len(senderaddress)>40:
+                        error="address too long"
+                        rightmess = False
+                    elif len(senderaddress)>20 and rightmess == True:
+                        resl = self.inlist(txid1, senderaddress)
+                        res2 = self.inlist(txid2, senderaddress)
+                        reslt1 = resl["sum"]
+                        reslt2 = res2["sum"]
+                        summ = reslt1+reslt2
+                        if summ > 0.00001:
+                            try:
+                                start = messageText.index('-++') + len('-++')
+                                end = messageText.index('++-', start)
+                                signature = messageText[start:end]
+                            except ValueError:
+                                signature = ''
+                            try:
+                                start = messageText.index('-{') + len('-{')
+                                end = messageText.index('}-', start)
+                                messagebody = messageText[start:end]
+                            except ValueError:
+                                messagebody = ''
+                            if len(messagebody)>250001:
+                                messagebody = messagebody[:250000]
+                            try:
+                                start = messageText.index('{p{') + len('{p{')
+                                end = messageText.index('}p}', start)
+                                price=messageText[start:end]
+                            except ValueError:
+                                price=''
+                            try:
+                                start = messageText.index('{c{') + len('{c{')
+                                end = messageText.index('}c}', start)
+                                cont = messageText[start:end]
+                            except ValueError:
+                                cont = ''
+                            subject = tmp[i][1]
+                            verif = False
+                            try:
+                                verif = MyForm.conn.verifymessage(senderaddress, signature, messagebody)
+                            except:
+                                verif = False
+                            if verif == True:
+                                try:
+                                    start = messageText.index('{l{') + len('{l{')
+                                    end = messageText.index('}l}', start)
+                                    loc = messageText[start:end]
+                                except ValueError:
+                                    loc = ''
+                                now_time = str(datetime.datetime.now())
+                                if subject[:1]=="G":
+                                    g = shelve.open("board-goods.slv")
+                                    g[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    g.close()
+                                elif subject[:1]=="S":
+                                    s = shelve.open("board-services.slv")
+                                    s[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    s.close()
+                                elif subject[:1]=="C":
+                                    c = shelve.open("board-currencies.slv")
+                                    c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    c.close()
+                            del tmp[senderaddress]
+            tmp.close()
+        except:
+            error=""
 
     def buyerpay1(self, message, toAddress, fromAddress):
         #first payment when buyer receive reply
@@ -7289,7 +7405,7 @@ class MyForm(QtGui.QMainWindow):
     def inlist(self, txid, senderaddress):
         hlp = helper.sqlhelper()
         try:
-            rtn = hlp.getsum(txid,senderaddress)
+            rtn = hlp.getsumnew(senderaddress)
         except:
             return {'inadresses': [u' '], 'sum': 0.0, 'out_address': ' ', 'text': ' '}
         #hlp = {'inadresses': [u' '], 'sum': 0.0, 'out_address': ' ', 'text': ' '}
@@ -9007,26 +9123,7 @@ class sellDialog(QtGui.QDialog):
                 elif amount < 0.0001 and amount > 0:
                     self.ui.smthwrong.setText("Must be > 0.0001")
                 else:
-                    resendoffer = shelve.open("lastoffer.slv")
-                    if "btcfrom" in resendoffer:
-                        if fraddress == resendoffer["btcfrom"]:
-                            try:
-                                msg = resendoffer["message"]
-                            except:
-                                msg = ""
-                            try:
-                                start = msg.index('{t1{') + len('{t1{')
-                                end = msg.index('}t1}', start)
-                                txid1 = msg[start:end]
-                            except ValueError:
-                                txid1=''
-                            try:
-                                start = msg.index('{t2{') + len('{t2{')
-                                end = msg.index('}t2}', start)
-                                txid2 = msg[start:end]
-                            except ValueError:
-                                txid2=''
-                    resendoffer.close()
+                    self.ui.smthwrong.setText("Try to update offer.")
                 msg = str(self.ui.productdetails.toPlainText().toUtf8())
                 loc = str(self.ui.location.currentText().toUtf8())
                 sign = str(MyForm.conn.signmessage(fraddress,msg))
@@ -9036,11 +9133,8 @@ class sellDialog(QtGui.QDialog):
                 sndmess.sndmessage(messg,subject, fromAddress, MyForm.bitxbaychan)
                 self.ui.smthwrong.setText("")
                 resendoffer = shelve.open("lastoffer.slv")
-                resendoffer["message"] = messg
-                resendoffer["subject"] = subject
-                resendoffer["from"] = fromAddress
-                resendoffer["btcfrom"] = fraddress
-                resendoffer["resended"] = 0
+                nowtime = str(datetime.datetime.now())
+                resendoffer[fraddress] = {"message":messg,"subject":subject, "from":fromAddress, "btcfrom":fraddress, "resended":0, "time":nowtime}
                 resendoffer.close()
                 #self.close()
             else:
@@ -9080,10 +9174,14 @@ class sellDialog(QtGui.QDialog):
     def rerenderBoxAddresses(self):
         if self.ui.onlyreted.isChecked():
             self.ui.listaddresssell.clear()
-            myratings = shelve.open("myratings.slv")
-            for i in myratings.keys():
-                self.ui.listaddresssell.insertItem(0,i,i)
-                self.ui.listaddresssell.setCurrentIndex(0)
+            #myratings = shelve.open("myratings.slv")
+            mfrm = MyForm()
+            for i in MyForm.allbtcaddreses:
+                resl = mfrm.inlist(i)
+                sum = resl["sum"]
+                if sum > 0.00001:
+                    self.ui.listaddresssell.insertItem(0,i,i)
+                    self.ui.listaddresssell.setCurrentIndex(0)
         else:
             self.ui.listaddresssell.clear()
             self.ui.listaddresssell.insertItem(0, "Select bitcoin address for signing ad", "Select bitcoin address for signing ad")
