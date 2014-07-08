@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/newPrefix">
+		<file>../images/chunk.png</file>
 		<file>../images/check.png</file>
 		<file>../images/down-arrow.png</file>
 		<file>../images/down-arrow-combo.png</file>

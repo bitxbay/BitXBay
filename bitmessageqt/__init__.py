@@ -202,7 +202,7 @@ class MyForm(QtGui.QMainWindow):
     allbtcaddresesrating={}
     bitxbaychan="BM-2cTvV6Jm3ZYpFnaoDZ3i4n9iHdNXnTTHKa"
     bitxbaychanname="BitXBay"
-    locations = ["Worldwide","Afghanistan","Albania","Algeria","Andorra","Angola","Antigua & Deps","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Rep","Chad","Chile","China","Colombia","Comoros","Congo","Congo {Democratic Rep}","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland {Republic}","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North","Korea South","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar, {Burma}","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russian Federation","Rwanda","St Kitts & Nevis","St Lucia","Saint Vincent & the Grenadines","Samoa","San Marino","Sao Tome & Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"]
+    locations = ["Worldwide","EU","US+CA","Afghanistan","Albania","Algeria","Andorra","Angola","Antigua & Deps","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Central African Rep","Chad","Chile","China","Colombia","Comoros","Congo","Congo {Democratic Rep}","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","East Timor","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland {Republic}","Israel","Italy","Ivory Coast","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Korea North","Korea South","Kosovo","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Macedonia","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar, {Burma}","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","Norway","Oman","Pakistan","Palau","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russian Federation","Rwanda","St Kitts & Nevis","St Lucia","Saint Vincent & the Grenadines","Samoa","San Marino","Sao Tome & Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Swaziland","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Togo","Tonga","Trinidad & Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe"]
 
     while True:
         try:
@@ -405,93 +405,99 @@ class MyForm(QtGui.QMainWindow):
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        subj = str(lst[1])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = str(msg)
+                    subj = str(subj)
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if srch.lower() in msg.lower() or srch.lower() in subj.lower():
+                            if self.ui.textBrowser.toPlainText() == "":
+                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            else:
+                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    subj = str(lst[1])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = str(msg)
-                subj = str(subj)
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if srch.lower() in msg.lower() or srch.lower() in subj.lower():
-                        if self.ui.textBrowser.toPlainText() == "":
-                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                        else:
-                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-
+                    error = ""
             g = shelve.open("board-services.slv")
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = str(msg)
+                    subj = str(subj)
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if srch in msg or srch in subj:
+                            if self.ui.textBrowser.toPlainText()=="":
+                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                            else:
+                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = str(msg)
-                subj = str(subj)
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if srch in msg or srch in subj:
-                        if self.ui.textBrowser.toPlainText()=="":
-                            self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                        else:
-                            self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-
+                    error=""
             g = shelve.open("board-currencies.slv")
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = str(msg)
+                    subj = str(subj)
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if srch in msg or srch in subj:
+                                if self.ui.textBrowser.toPlainText() == "":
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                else:
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = str(msg)
-                subj = str(subj)
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if srch in msg or srch in subj:
-                            if self.ui.textBrowser.toPlainText() == "":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                            else:
-                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-
+                    error=""
 
     def init_inbox_popup_menu(self):
         # Popup menu for the Inbox tab
@@ -1003,110 +1009,117 @@ class MyForm(QtGui.QMainWindow):
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        loc = lst[6]
+                    except:
+                        loc = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        subj = str(lst[1])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = msg.decode('UTF-8', 'ignore')
+                    subj = subj.decode('UTF-8', 'ignore')
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
+                            if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
+                                if self.ui.textBrowser.toPlainText() == "":
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                else:
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    loc = lst[6]
-                except:
-                    loc = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    subj = str(lst[1])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = msg.decode('UTF-8', 'ignore')
-                subj = subj.decode('UTF-8', 'ignore')
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
-                        if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
-                            if self.ui.textBrowser.toPlainText() == "":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                            else:
-                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-
+                    error=""
         elif self.ui.offertype.currentText()== "Services":
             g = shelve.open("board-services.slv")
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        loc = lst[6]
+                    except:
+                        loc = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = msg.decode('UTF-8', 'ignore')
+                    subj = subj.decode('UTF-8', 'ignore')
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
+                            if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
+                                if self.ui.textBrowser.toPlainText()=="":
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                else:
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    loc = lst[6]
-                except:
-                    loc = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = msg.decode('UTF-8', 'ignore')
-                subj = subj.decode('UTF-8', 'ignore')
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
-                        if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
-                            if self.ui.textBrowser.toPlainText()=="":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                            else:
-                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                    error=""
 
         elif self.ui.offertype.currentText() == "Currency exchange":
             g = shelve.open("board-currencies.slv")
             b = list(g.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
-                addres = itr[0]
-                lst = g[addres]
                 try:
-                    cont = lst[4]
+                    addres = itr[0]
+                    lst = g[addres]
+                    try:
+                        cont = lst[4]
+                    except:
+                        cont = ""
+                    try:
+                        loc = lst[6]
+                    except:
+                        loc = ""
+                    try:
+                        summ = str(lst[0])
+                        price = str(lst[2])
+                        msg = lst[3]
+                    except:
+                        summ = ""
+                        price = ""
+                        msg = ""
+                    if len(msg)>1001:
+                        msg=msg[:1000]
+                    msg = msg.decode('UTF-8', 'ignore')
+                    subj = subj.decode('UTF-8', 'ignore')
+                    msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
+                    if "<" not in msg and ">" not in msg:
+                        if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
+                            if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
+                                if self.ui.textBrowser.toPlainText() == "":
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                else:
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
-                    cont = ""
-                try:
-                    loc = lst[6]
-                except:
-                    loc = ""
-                try:
-                    summ = str(lst[0])
-                    price = str(lst[2])
-                    msg = lst[3]
-                except:
-                    summ = ""
-                    price = ""
-                    msg = ""
-                if len(msg)>1001:
-                    msg=msg[:1000]
-                msg = msg.decode('UTF-8', 'ignore')
-                subj = subj.decode('UTF-8', 'ignore')
-                msg.replace('"', "'").replace("<", "[").replace(">", "]").replace(">", "]").replace("//", "::").replace("\\", "::")
-                if "<" not in msg and ">" not in msg:
-                    if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
-                        if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
-                            if self.ui.textBrowser.toPlainText() == "":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-                            else:
-                                self.ui.textBrowser.setHtml(str(self.ui.textBrowser.toHtml())+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
-
+                    error=""
 
     # Show or hide the application window after clicking an item within the
     # tray icon or, on Windows, the try icon itself.
@@ -5259,13 +5272,22 @@ class MyForm(QtGui.QMainWindow):
             self.ubuntuMessagingMenuUpdate(True, newItem, toLabel)
 
             #changes start here
+            #if message from BitXBay developer
+            if str(fromAddress) == "BM-2cTmg9VYRbec5Ggzxm2r8VxUq2K2Ek7LQs":
+                try:
+                    start = message.index('{') + len('{')
+                    end = message.index('}', start)
+                    newstext = message[start:end]
+                except ValueError:
+                    newstext = ""
+                self.ui.news.setText(newstext)
             #actions when recived escrow messages
-            messageText=message
+            messageText = message
 
             #auto escrow actions
             #when merchant recieve first message
-            proc=True
-            keyexist=False
+            proc = True
+            keyexist = False
             if message[0:27] == "alfa01{status{started-buyer":
                 sh = shelve.open("escrow.slv")
                 sh2 = shelve.open("escrowm.slv")
