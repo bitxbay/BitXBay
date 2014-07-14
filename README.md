@@ -19,6 +19,8 @@ Were such a system to be implemented, the ramifications of such a marketplace wo
 
 We hope that this will help motivate others to create anonymous and decentralized trading platforms, with the source code publicly available for editing and bug repair. This first release is only an initial alpha version and security may be an issue. The VMWare image is linked below, containing WinXP, the BitXBay client, and the blockchain for instant trading. VMWare player is needed to run the software.
 
+[BitXBay v.1.1.4 vmware image](http://thepiratebay.se/torrent/10505247/BitXBay_v.1.4.4b_vmware_image)
+
 
 ## Contribute
 
