@@ -92,6 +92,13 @@ class BitcoinConnection(object):
         except JSONRPCException,e:
             raise _wrap_exception(e.error)
 
+    def createrawtransaction3 (self, txid2,txid, vout2, vout, address1, address2, amount, address3, amount3, address4, amount4):
+
+        try:
+            return self.proxy.createrawtransaction([{"txid":txid, "vout":vout},{"txid":txid2, "vout":vout2}],{address1:amount, address2:amount, address3:amount3, address4:amount4})
+        except JSONRPCException,e:
+            raise _wrap_exception(e.error)
+
     def signrawtransaction (self, hexy):
 
         try:

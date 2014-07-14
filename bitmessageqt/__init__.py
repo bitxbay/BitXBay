@@ -261,16 +261,11 @@ class MyForm(QtGui.QMainWindow):
     addr1 = addr1 + "4iu6wEjsPWdm67nGJK"
     str_broadcast_subscribers = '[Broadcast subscribers]'
     str_chan = '[chan]'
+    sh = shelve.open('escrow.slv')
+    sh2 = shelve.open('escrowm.slv')
 
 
-
-
-
-
-
-
-
-
+    #Check is money from another side come and return sum.
     def recievefrom(self, txid, address):
         c = MyForm.conn.getrawtransaction(txid)
         b = c["vout"]
@@ -282,9 +277,25 @@ class MyForm(QtGui.QMainWindow):
                 if "confirmations" in c:
                     confirmations = c["confirmations"]
                     addr = e[0]
-                    if confirmations >=0:
+                    if confirmations >=1:
                         return value
-                        #change 0 to 2
+                        #change to more if 1 not ok for insurence payments.
+        return 0
+
+    def recievefrom2(self, txid, address):
+        c = MyForm.conn.getrawtransaction(txid)
+        b = c["vout"]
+        for a in b:
+            d = a["scriptPubKey"]
+            e = d["addresses"]
+            if e[0] == address:
+                value = float(a["value"])
+                if "confirmations" in c:
+                    confirmations = c["confirmations"]
+                    addr = e[0]
+                    if confirmations >=4:
+                        return value
+                        #change to more if 4 not ok.
         return 0
 
 
@@ -359,6 +370,12 @@ class MyForm(QtGui.QMainWindow):
             "stateChanged(int)"), self.state_checkBox)
         QtCore.QObject.connect(self.ui.autorescan, QtCore.SIGNAL(
             "stateChanged(int)"), self.state_autorescan)
+        QtCore.QObject.connect(self.ui.offertype, QtCore.SIGNAL(
+            "currentIndexChanged(const QString&)"), self.renderboard)
+        QtCore.QObject.connect(self.ui.comboBox_2, QtCore.SIGNAL(
+            "currentIndexChanged(const QString&)"), self.renderboard)
+        QtCore.QObject.connect(self.ui.location, QtCore.SIGNAL(
+            "currentIndexChanged(const QString&)"), self.renderboard)
 
 
         self.ui.offertype.currentIndexChanged['QString'].connect(self.offertypechanged)
@@ -429,9 +446,9 @@ class MyForm(QtGui.QMainWindow):
                     if "<" not in msg and ">" not in msg:
                         if srch.lower() in msg.lower() or srch.lower() in subj.lower():
                             if self.ui.textBrowser.toPlainText() == "":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                             else:
-                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error = ""
             g = shelve.open("board-services.slv")
@@ -461,9 +478,9 @@ class MyForm(QtGui.QMainWindow):
                     if "<" not in msg and ">" not in msg:
                         if srch in msg or srch in subj:
                             if self.ui.textBrowser.toPlainText()=="":
-                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                             else:
-                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
             g = shelve.open("board-currencies.slv")
@@ -493,9 +510,9 @@ class MyForm(QtGui.QMainWindow):
                     if "<" not in msg and ">" not in msg:
                         if srch in msg or srch in subj:
                                 if self.ui.textBrowser.toPlainText() == "":
-                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                                 else:
-                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
 
@@ -1007,7 +1024,7 @@ class MyForm(QtGui.QMainWindow):
         if self.ui.offertype.currentText() == "Goods":
             g = shelve.open("board-goods.slv")
             b = list(g.items())
-            b.sort(key=lambda item: item[0], reverse=True)
+            b.sort(key=lambda item: item[1], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
@@ -1038,9 +1055,9 @@ class MyForm(QtGui.QMainWindow):
                         if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
                             if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
                                 if self.ui.textBrowser.toPlainText() == "":
-                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                                 else:
-                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
         elif self.ui.offertype.currentText()== "Services":
@@ -1076,9 +1093,9 @@ class MyForm(QtGui.QMainWindow):
                         if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
                             if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
                                 if self.ui.textBrowser.toPlainText()=="":
-                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                                 else:
-                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
 
@@ -1115,9 +1132,9 @@ class MyForm(QtGui.QMainWindow):
                         if self.ui.location.currentText() == "Worldwide" or self.ui.location.currentText() == loc:
                             if self.ui.comboBox_2.currentText() == "All" or self.ui.comboBox_2.currentText() == subj or self.ui.comboBox_2.currentText() == "":
                                 if self.ui.textBrowser.toPlainText() == "":
-                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml('Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                                 else:
-                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a><BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
+                                    self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg+'<br><a title="Show More Details" href="#more#'+addres+"|"+"C"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
 
@@ -1489,8 +1506,7 @@ class MyForm(QtGui.QMainWindow):
 
 
     def rendertextbrowser2(self):
-        data_file = 'escrow.slv'
-        sh = shelve.open(data_file)
+        sh = MyForm.sh
         self.ui.textBrowser_2.setHtml("")
         for mess in sh.keys():
             messageText2 = sh[mess]
@@ -1583,16 +1599,20 @@ class MyForm(QtGui.QMainWindow):
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-7" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    self.ui.textBrowser_2.setHtml("<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"You signed this deal. Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"+self.ui.textBrowser_2.toHtml())
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"You signed this deal. Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = escrowmessagetext.decode("utf-8")
+                    self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-8" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    self.ui.textBrowser_2.setHtml("<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"+self.ui.textBrowser_2.toHtml())
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = escrowmessagetext.decode("utf-8")
+                    self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
-        sh.close()
+        sh.sync()
 
     def rendertextbrowser3(self):
-        sh2 = shelve.open('escrowm.slv')
+        sh2 = MyForm.sh2
         self.ui.textBrowser_3.setHtml("")
         for mess in sh2.keys():
             messageText2 = sh2[mess]
@@ -1715,6 +1735,11 @@ class MyForm(QtGui.QMainWindow):
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-6" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"All the money was received. But not enough confirmations yet. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = escrowmessagetext.decode("utf-8")
+                    self.ui.textBrowser_3.setHtml(escrowmessagetext+self.ui.textBrowser_3.toHtml())
+            elif "lfa01{status{started-buyer69" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
+                if self.onlygoodsymbols(loadedescrow):
                     escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"All the money was received. Follow your part of the deal, then ask to sign deal. The buyer must sign only when satisfied. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext+self.ui.textBrowser_3.toHtml())
@@ -1733,11 +1758,10 @@ class MyForm(QtGui.QMainWindow):
                     escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"The buyer request cancel deal. Deal amount:"+amount11+'</p> '+ '  <a href="#agree#id='+idescrow+'">Agree</a>' +'  <a href="#continue#id='+idescrow+'">Disagree and try request to continue deal</a>'  +"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
-        sh2.close()
+        sh2.sync()
 
     def signbuyer(self, escrowid):
-        data_file = 'escrow.slv'
-        sh = shelve.open(data_file)
+        sh = MyForm.sh
         messageText3 = sh[escrowid]
         try:
             start = messageText3.index('{cont2{') + len('{cont2{')
@@ -1863,7 +1887,7 @@ class MyForm(QtGui.QMainWindow):
                     self.displayNewSentMessage(
                         toAddress, toLabel, fromAddress, subject, message, ackdata)
                     shared.workerQueue.put(('sendmessage', toAddress))
-        sh.close()
+        sh.sync()
 
 
 
@@ -1952,7 +1976,7 @@ class MyForm(QtGui.QMainWindow):
 
     #when buyer canceled deal
     def buyercancel(self, idesc):
-        sh = shelve.open("escrow.slv")
+        sh = MyForm.sh
         gooo = True
         if sh.has_key(idesc):
             gooo = True
@@ -2225,12 +2249,12 @@ class MyForm(QtGui.QMainWindow):
                     chk1.close()
                     chk2.close()
                     chk3.close()
-        sh.close()
+        sh.sync()
         gooo = True
 
     #when merchant cancel the deal
     def merchantcencel(self, idesc):
-        sh2 = shelve.open("escrowm.slv")
+        sh2 = MyForm.sh2
         gooo = True
         if idesc in sh2.keys():
             text = sh2[idesc]
@@ -2551,7 +2575,7 @@ class MyForm(QtGui.QMainWindow):
                         chk2.close()
                         chk3.close()
                         sh2.sync()
-                if sh2[idesc][:29] == "alfa01{status{started-buyer-6":
+                if sh2[idesc][:29] == "alfa01{status{started-buyer-6" or "alfa01{status{started-buyer69":
                     #sand cancel request to merchant
                     text = sh2[idesc]
                     try:
@@ -2619,14 +2643,14 @@ class MyForm(QtGui.QMainWindow):
                         chk1.close()
                         chk2.close()
                         chk3.close()
-        sh2.close()
+        sh2.sync()
         self.rendertextbrowser3()
 
 
     #resend for buyer if something go wrong
 
     def resendbuyer(self, idesc):
-        sh = shelve.open("escrow.slv")
+        sh = MyForm.sh
         if sh.has_key(idesc):
             if sh[idesc][:29] == "alfa01{status{started-buyer-3" or "alfa01{status{started-buyer04":
                 blc=0
@@ -2691,10 +2715,10 @@ class MyForm(QtGui.QMainWindow):
                         "MainWindow", "Warning: Bitcoin error. Try to restart bitcoin client."))
                 sh.sync()
                 self.rendertextbrowser2()
-        sh.close()
+        sh.sync()
 
     def resendmerchant(self, idesc):
-        sh2 = shelve.open("escrowm.slv")
+        sh2 = MyForm.sh2
         chk1payment = shelve.open("chk1payment.slv")
         if sh2.has_key(idesc):
             if sh2[idesc][:29] == "alfa01{status{started-buyer05":
@@ -2749,11 +2773,11 @@ class MyForm(QtGui.QMainWindow):
                     sh2[key] = message
                 sh2.sync()
                 self.rendertextbrowser3()
-        sh2.close()
+        sh2.sync()
         chk1payment.close()
 
     def resendbuyer2(self, idesc):
-        sh = shelve.open("escrow.slv")
+        sh = MyForm.sh
         chk2payment = shelve.open("chk2payment.slv")
         if sh.has_key(idesc):
             if sh[idesc][:29] == "alfa01{status{started-buyer06":
@@ -2817,7 +2841,7 @@ class MyForm(QtGui.QMainWindow):
                     sh.sync()
 
                 self.rendertextbrowser2()
-        sh.close()
+        sh.sync()
         chk2payment.close()
 
 
@@ -3000,10 +3024,20 @@ class MyForm(QtGui.QMainWindow):
             except ValueError:
                 error=''
                 lbl=""
+            address = addrbuyer
             if lbl=="":
                 lbl = addrbuyer
             if len(lbl)>50:
                 lbl=lbl[:50]
+
+            try:
+                label = lbl + "  "+ str(os.urandom(8).encode("hex"))
+                if shared.isAddressInMyAddressBook(address):
+                    error=""
+                else:
+                    self.addEntryToAddressBook(address, label)
+            except:
+                error=""
 
             if MyForm.balance>=float(amount)*0.05+0.0002:
                 self.merchantreply(addrbuyer, addrmerchant, buy1, buy2, buy3, idescrow, amount, lbl)
@@ -3032,9 +3066,9 @@ class MyForm(QtGui.QMainWindow):
                 ides = text[start:]
             except ValueError:
                 error=''
-            sh2 = shelve.open("escrowm.slv")
+            sh2 = MyForm.sh2
             text = sh2[ides]
-            sh2.close()
+            sh2.sync()
             try:
                 start = text.index('{cont{') + len('{cont{')
                 end = text.index('}cont}', start)
@@ -3056,7 +3090,7 @@ class MyForm(QtGui.QMainWindow):
 
     #check if bad chars in escrow/trade message
     def onlygoodsymbols(self, symbol):
-        if any(c in symbol for c in ( '#' ,  '\\'  , '[' , ']' , '{' , '}'  , '|' , '>' , '<' , 'href'  , '=')):
+        if any(c in symbol for c in ( '#' ,  '\\'  , '[' , ']' , '{' , '}'  , '|' , '>' , '<'  )):
             return False
         else:
             return True
@@ -3561,13 +3595,13 @@ class MyForm(QtGui.QMainWindow):
                 try:
                     val = chk3payment[key]
                     try:
-                        received = self.recievefrom(val[0], val[1])
+                        received = self.recievefrom2(val[0], val[1])
                     except:
                         received = 0
 
 
                     if float(received) >= (float(val[2])-0.00001):
-                        sh2 = shelve.open('escrowm.slv')
+                        sh2 = MyForm.sh2
 
                         if sh2.has_key(key):
                             messageText2 = sh2[key]
@@ -3591,7 +3625,7 @@ class MyForm(QtGui.QMainWindow):
                                 toadd = messageText2[start:end]
                             except ValueError:
                                 error = ''
-                            sh2[key] = "alfa01"+"{status{"+"started-buyer-6"+"}status}"+str(messageText2[37:])
+                            sh2[key] = "alfa01"+"{status{"+"started-buyer69"+"}status}"+str(messageText2[37:])
 
                             del chk3payment[key]
                             chk3payment.sync()
@@ -3600,7 +3634,7 @@ class MyForm(QtGui.QMainWindow):
                         else:
                             del chk3payment[key]
                             chk3payment.sync()
-                        sh2.close()
+                        sh2.sync()
                 except:
                     error=""
         chk3payment.close()
@@ -3621,7 +3655,7 @@ class MyForm(QtGui.QMainWindow):
                         received = 0
 
                     if float(received) >= float(val[2])/21:
-                        sh = shelve.open('escrow.slv')
+                        sh = MyForm.sh
                         if sh.has_key(key):
                             messageText2 = sh[key]
                             blc = 0
@@ -3692,7 +3726,7 @@ class MyForm(QtGui.QMainWindow):
                             del chk2payment[key]
                             chk2payment.sync()
 
-                        sh.close()
+                        sh.sync()
                 except:
                     error=""
         chk2payment.close()
@@ -3711,7 +3745,7 @@ class MyForm(QtGui.QMainWindow):
 
 
                     if float(received) >= float(val[2])/21:
-                        sh2 = shelve.open('escrowm.slv')
+                        sh2 = MyForm.sh2
                         if sh2.has_key(key):
                             messageText2 = sh2[key]
                             blc = 0
@@ -3785,7 +3819,7 @@ class MyForm(QtGui.QMainWindow):
                             chk1payment.sync()
 
                             sh2.sync()
-                        sh2.close()
+                        sh2.sync()
 
                 except:
                     error=""
@@ -4604,6 +4638,7 @@ class MyForm(QtGui.QMainWindow):
             blnc = 0
 
         comment = str(self.ui.comment.toPlainText().toUtf8())
+        comment.replace('"', "'").replace("<", "(").replace(">", ")").replace("//", "::").replace("\\", "::").replace("[", "::").replace("]", "::").replace("#", "+").replace("{", "::").replace("}", "::").replace("\\", "|")
         if address == "BitXBay escrow address of trader":
             self.statusBar().showMessage(_translate("MainWindow", "Error: Escrow address is empty"))
         elif float(amount)<=0:
@@ -4625,10 +4660,6 @@ class MyForm(QtGui.QMainWindow):
             else:
                 fromAddress = ""
             subject = "buyer start escrow deal"
-
-
-
-
 
             if toAddress != '':
                     status, addressVersionNumber, streamNumber, ripe = decodeAddress(
@@ -4687,15 +4718,25 @@ class MyForm(QtGui.QMainWindow):
                         labl11 = str(self.ui.escrowlabelforbuyer.text().toUtf8())
                         if labl11 != "" and self.ui.escrowlabelforbuyer.text() != "Label for escrow deal" and self.onlygoodsymbols(self.ui.escrowlabelforbuyer.text()):
                             lbl = labl11
+                            lbl.replace('"', "'").replace("<", "(").replace(">", ")").replace("//", "::").replace("\\", "::").replace("[", "::").replace("]", "::").replace("#", "+").replace("{", "::").replace("}", "::").replace("\\", "|")
                             if len(lbl)>50:
                                 lbl = lbl[:50]
+                            label = lbl + "  "+ str(os.urandom(8).encode("hex"))
                             message = "alfa01"+"{status{"+"started-buyer-1"+"}status}"+"{cont{"+str(address)+"}cont}"+"{cont2{"+str(fromAddress)+"}cont2}"+"{pub1{"+str(badd1.pubkey)+"}pub1}"+"{pub2{"+str(badd2.pubkey)+"}pub2}"+"{pub3{"+str(badd3.pubkey)+"}pub3}"+"{bitadr{"+str(badd1.pubkey)+"}bitadr}"+"{bitadins1{"+str(badd2.pubkey)+"}bitadins1}"+"{bitadins2{"+str(badd3.pubkey)+"}bitadins2}"+"{amount{"+str(amount)+"}amount}"+"{id{"+str(idescrowb)+"}id}"+"{lbl{"+lbl+"}lbl}"+"{badd3{"+str(bitcoinaddrins2)+"}badd3}"+"{badd2{"+str(bitcoinaddrins1)+"}badd2}"+"{badd1{"+str(bitcoinaddr)+"}badd1}"+"{comment{"+comment+"}comment}"
                         else:
                             message = "alfa01"+"{status{"+"started-buyer-1"+"}status}"+"{cont{"+str(address)+"}cont}"+"{cont2{"+str(fromAddress)+"}cont2}"+"{pub1{"+str(badd1.pubkey)+"}pub1}"+"{pub2{"+str(badd2.pubkey)+"}pub2}"+"{pub3{"+str(badd3.pubkey)+"}pub3}"+"{bitadr{"+str(bitcoinaddr)+"}bitadr}"+"{bitadins1{"+str(bitcoinaddrins1)+"}bitadins1}"+"{bitadins2{"+str(bitcoinaddrins2)+"}bitadins2}"+"{amount{"+str(amount)+"}amount}"+"{id{"+str(idescrowb)+"}id}"+"{badd3{"+str(bitcoinaddrins2)+"}badd3}"+"{badd2{"+str(bitcoinaddrins1)+"}badd2}"+"{badd1{"+str(bitcoinaddr)+"}badd1}"+"{comment{"+comment+"}comment}"
-                        data_file = 'escrow.slv'
-                        sh = shelve.open(data_file)
+                            label = str(fromAddress) + "  " + str(os.urandom(8).encode("hex"))
+                        sh = MyForm.sh
                         sh[idescrowb] = message
-                        sh.close()
+                        sh.sync()
+                        try:
+                            address2 =  str(fromAddress)
+                            if shared.isAddressInMyAddressBook(address2):
+                                error=""
+                            else:
+                                self.addEntryToAddressBook(address2, label)
+                        except:
+                            error=""
                         ackdata = OpenSSL.rand(32)
                         t = ()
                         sqlExecute(
@@ -4740,6 +4781,7 @@ class MyForm(QtGui.QMainWindow):
 
                         MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
                     self.ui.escrowlabelforbuyer.setText("Label for escrow deal")
+                    self.ui.comment.setPlainText("Comment for merchant. Type here the shipping address or other important information.")
 
 
 
@@ -5289,8 +5331,8 @@ class MyForm(QtGui.QMainWindow):
             proc = True
             keyexist = False
             if message[0:27] == "alfa01{status{started-buyer":
-                sh = shelve.open("escrow.slv")
-                sh2 = shelve.open("escrowm.slv")
+                sh = MyForm.sh
+                sh2 = MyForm.sh2
                 try:
                     start = messageText.index('{id{') + len('{id{')
                     end = messageText.index('}id}', start)
@@ -5310,8 +5352,8 @@ class MyForm(QtGui.QMainWindow):
                 else:
                     keyexist=False
 
-                sh.close()
-                sh2.close()
+                sh.sync()
+                sh2.sync()
 
 
             if keyexist:
@@ -5383,18 +5425,18 @@ class MyForm(QtGui.QMainWindow):
                         comment=messageText[start:end]
                     except ValueError:
                         comment=""
-                    sh2 = shelve.open('escrowm.slv')
+                    sh2 = MyForm.sh2
                     if ides in sh2.keys():
                         if sh2[ides][0:29] == "alfa01{status{started-buyer1":
                             proc = False
-                    sh2.close()
+                    sh2.sync()
 
 
                     if proc:
                         if self.onlygoodsymbols(lbl) and self.onlygoodsymbols(buy1) and self.onlygoodsymbols(buy2) and self.onlygoodsymbols(buy3) and self.onlygoodsymbols(ides) and self.onlygoodsymbols(lbl) and self.onlygoodsymbols(comment):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             sh2[ides] = message+"{comment{"+comment+"}comment}"
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
 
 
@@ -5434,10 +5476,10 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if sh2[ides][:29] == "alfa01{status{started-buyer-1" or sh2[ides][:29] == "alfa01{status{started-buyer14" or sh2[ides][:29] == "alfa01{status{started-buyer24" or sh2[ides][:29] == "alfa01{status{started-buyer-2":
                                 del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
 
 
@@ -5473,10 +5515,10 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-1" or sh[ides][:29] == "alfa01{status{started-buyer10" or sh[ides][:29] == "alfa01{status{started-buyer14" or sh[ides][:29] == "alfa01{status{started-buyer-2" or sh[ides][:29] == "alfa01{status{started-buyer20" or sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer30":
                                 del sh[ides]
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser3()
 
 
@@ -5513,10 +5555,10 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if sh2[ides][:29] == "alfa01{status{started-buyer-2" or "alfa01{status{started-buyer-1" or "alfa01{status{started-buyer14" or "alfa01{status{started-buyer24" or "alfa01{status{started-buyer34" or "alfa01{status{started-buyer-3" or "alfa01{status{started-buyer-1":
                                 del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser2()
 
 
@@ -5552,7 +5594,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-2" or sh[ides][:29] == "alfa01{status{started-buyer-1" or sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer-4":
                                 try:
                                     start = messageText.index('{private2{') + len('{private2{')
@@ -5596,7 +5638,7 @@ class MyForm(QtGui.QMainWindow):
 
 
 
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
 
 
@@ -5633,10 +5675,10 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if sh2[ides][:29] == "alfa01{status{started-buyer-3" or "alfa01{status{started-buyer34":
                                 del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
 
 
@@ -5672,10 +5714,10 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-3" or  "alfa01{status{started-buyer30":
                                 del sh[ides]
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser3()
 
 
@@ -5720,7 +5762,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(private1):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer-4" or sh[ides][:29] == "alfa01{status{started-buyer40":
                                 if self.ui.autorescan.isChecked():
                                     try:
@@ -5769,7 +5811,7 @@ class MyForm(QtGui.QMainWindow):
                                         self.sndmessage(message,subject,cont2,cont)
                                         del sh[ides]
                                         sh.sync()
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
 
 
@@ -5814,7 +5856,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(private2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if sh2[ides][:29] == "alfa01{status{started-buyer44" or "alfa01{status{started-buyer40" or "alfa01{status{started-buyer41":
                                 if self.ui.autorescan.isChecked():
                                     try:
@@ -5850,7 +5892,7 @@ class MyForm(QtGui.QMainWindow):
                                 else:
                                     del sh2[ides]
                                     sh2.sync()
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
 
 
@@ -5901,8 +5943,8 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2) and self.onlygoodsymbols(private1) and self.onlygoodsymbols(private3):
-                            sh = shelve.open('escrow.slv')
-                            if sh[ides][:29] == "alfa01{status{started-buyer-4" or sh[ides][:29] == "alfa01{status{started-buyer-5" or sh[ides][:29] == "alfa01{status{started-buyer-6" or sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer-2" or sh[ides][:29] == "alfa01{status{started-buyer50" or sh[ides][:29] == "alfa01{status{started-buyer51":
+                            sh = MyForm.sh
+                            if sh[ides][:29] == "alfa01{status{started-buyer-4" or sh[ides][:29] == "alfa01{status{started-buyer-5" or sh[ides][:29] == "alfa01{status{started-buyer-6"  or sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer-2" or sh[ides][:29] == "alfa01{status{started-buyer50" or sh[ides][:29] == "alfa01{status{started-buyer51":
                                 try:
                                     MyForm.conn.importprivkey(private1, "DO NOT USE THIS ADDRESS", False)
                                 except:
@@ -5932,7 +5974,7 @@ class MyForm(QtGui.QMainWindow):
                                 self.sndmessage(message,subject,cont2,cont)
                                 del sh[ides]
                                 sh.sync()
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
 
 
@@ -5970,7 +6012,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if sh2[ides][:29] == "alfa01{status{started-buyer-4" or sh2[ides][:29] == "alfa01{status{started-buyer-5" or sh2[ides][:29] == "alfa01{status{started-buyer-3" or sh2[ides][:29] == "alfa01{status{started-buyer-2" or sh2[ides][:29] == "alfa01{status{started-buyer44":
                                 try:
                                     start = messageText.index('{private2{') + len('{private2{')
@@ -6010,7 +6052,7 @@ class MyForm(QtGui.QMainWindow):
 
 
                                     del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
 
                             self.rendertextbrowser3()
 
@@ -6048,8 +6090,8 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
-                            if sh2[ides][:29] == "alfa01{status{started-buyer-5" or sh2[ides][:29] == "alfa01{status{started-buyer-4" or sh2[ides][:29] == "alfa01{status{started-buyer-6" or sh2[ides][:29] == "alfa01{status{started-buyer54":
+                            sh2 = MyForm.sh2
+                            if sh2[ides][:29] == "alfa01{status{started-buyer-5" or sh2[ides][:29] == "alfa01{status{started-buyer-4" or sh2[ides][:29] == "alfa01{status{started-buyer-6" or sh2[ides][:29] == "alfa01{status{started-buyer69" or sh2[ides][:29] == "alfa01{status{started-buyer54":
                                 try:
                                     start = messageText.index('{private2{') + len('{private2{')
                                     end = messageText.index('}private2}', start)
@@ -6095,7 +6137,7 @@ class MyForm(QtGui.QMainWindow):
                                     subject = "cencel agree from merchant"
                                     self.sndmessage(msg,subject,cont,cont2)
                                     del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
 
 
@@ -6131,8 +6173,8 @@ class MyForm(QtGui.QMainWindow):
                         proc=False
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
-                            if sh2[ides][:29] == "alfa01{status{started-buyer-6" or sh2[ides][:29] == "alfa01{status{started-buyer-5" or sh2[ides][:29] == "alfa01{status{started-buyer64":
+                            sh2 = MyForm.sh2
+                            if sh2[ides][:29] == "alfa01{status{started-buyer-6" or sh2[ides][:29] == "alfa01{status{started-buyer69" or sh2[ides][:29] == "alfa01{status{started-buyer-5" or sh2[ides][:29] == "alfa01{status{started-buyer64":
                                 messageText = sh2[ides]
                                 try:
                                     start = messageText.index('{maddr1{') + len('{maddr1{')
@@ -6148,7 +6190,7 @@ class MyForm(QtGui.QMainWindow):
                                 if private3!="":
                                     msg = "alfa01"+"{status{"+"started-buyer61"+"}status}" + str(messageText[37:]) + "{private3{"+str(private3)+"}private3}"
                                     sh2[ides] = msg
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
                     else:
                         proc=True
@@ -6188,7 +6230,7 @@ class MyForm(QtGui.QMainWindow):
                         proc=False
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if self.ui.autorescan.isChecked():
                                 try:
                                     MyForm.conn.importprivkey(private3, "DO NOT USE THIS ADDRESS", True)
@@ -6217,7 +6259,7 @@ class MyForm(QtGui.QMainWindow):
                                     self.sndmessage(msg,subject,cont2,cont)
                                     sh[ides] = msg
                                     sh.sync()
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
                     else:
                         proc=True
@@ -6256,7 +6298,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if self.ui.autorescan.isChecked():
                                 try:
                                     MyForm.conn.importprivkey(private2, "DO NOT USE THIS ADDRESS", True)
@@ -6284,7 +6326,7 @@ class MyForm(QtGui.QMainWindow):
                                     msg = "alfa01{status{started-buyer63}status}"+str(messageText[37:])+"{private1{"+str(private1)+"}private1}"
                                     self.sndmessage(msg,subject,cont,cont2)
                                     del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
                     else:
                         proc=True
@@ -6325,7 +6367,7 @@ class MyForm(QtGui.QMainWindow):
                         proc=False
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if self.ui.autorescan.isChecked():
                                 try:
                                     MyForm.conn.importprivkey(private1, "DO NOT USE THIS ADDRESS", True)
@@ -6340,7 +6382,7 @@ class MyForm(QtGui.QMainWindow):
                                 #if is mine
                                 del sh[ides]
                                 sh.sync()
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
                     else:
                         proc=True
@@ -6392,7 +6434,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if self.ui.autorescan.isChecked():
                                 try:
                                     MyForm.conn.importprivkey(private1, "DO NOT USE THIS ADDRESS", True)
@@ -6421,7 +6463,7 @@ class MyForm(QtGui.QMainWindow):
                                     self.sndmessage(msg,subject,cont2,cont)
                                     del sh[ides]
                                     sh.sync()
-                            sh.close()
+                            sh.sync()
                             self.rendertextbrowser2()
                     else:
                         proc=True
@@ -6464,7 +6506,7 @@ class MyForm(QtGui.QMainWindow):
 
                     if proc:
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
-                            sh2 = shelve.open('escrowm.slv')
+                            sh2 = MyForm.sh2
                             if self.ui.autorescan.isChecked():
                                 try:
                                     MyForm.conn.importprivkey(private2, "DO NOT USE THIS ADDRESS", True)
@@ -6478,7 +6520,7 @@ class MyForm(QtGui.QMainWindow):
                             if sh2[ides][:29] == "alfa01{status{started-buyer64":
                                 #if is mine
                                 del sh2[ides]
-                            sh2.close()
+                            sh2.sync()
                             self.rendertextbrowser3()
                     else:
                         proc=True
@@ -6560,8 +6602,7 @@ class MyForm(QtGui.QMainWindow):
                         proc=False
 
 
-                    data_file = 'escrow.slv'
-                    sh = shelve.open(data_file)
+                    sh = MyForm.sh
                     asc = False
                     if idescrow3 in sh.keys():
                         if sh[idescrow3][0:29] == "alfa01{status{started-buyer-1":
@@ -6570,14 +6611,14 @@ class MyForm(QtGui.QMainWindow):
                             asc = False
                             self.statusBar().showMessage(_translate(
                                     "MainWindow", "Warning: Your just received merchant escrow message with not exitsted id."))
-                    sh.close()
+                    sh.sync()
                     if proc and asc:
                         if self.onlygoodsymbols(buy1) and self.onlygoodsymbols(buy2) and self.onlygoodsymbols(buy3) and self.onlygoodsymbols(idescrow3):
-                            sh = shelve.open('escrow.slv')
+                            sh = MyForm.sh
                             if idescrow3 not in sh.keys():
                                 self.statusBar().showMessage(_translate(
                                     "MainWindow", "Warning: Your just received merchant escrow message with not exitsted id."))
-                                sh.close()
+                                sh.sync()
                             else:
                                 verifyescrows = sh[idescrow3]
 
@@ -6701,14 +6742,14 @@ class MyForm(QtGui.QMainWindow):
                                                 "MainWindow", "Warning: Bitcoin error. Try to restart bitcoin client."))
                                         sh.sync()
                                         self.rendertextbrowser2()
-                                sh.close()
+                                sh.sync()
 
 
 
 
                     else:
                         proc=True
-                        sh.close()
+                        sh.sync()
 
                 #buyer send payment and merchant recieve message with txid
                 if message[0:29] == "alfa01{status{started-buyer-4":
@@ -6725,7 +6766,7 @@ class MyForm(QtGui.QMainWindow):
                     except ValueError:
                         error = ''
                     try:
-                        sh2 = shelve.open("escrowm.slv")
+                        sh2 = MyForm.sh2
                         messageText = sh2[id]
 
                         if sh2[id][0:29] == "alfa01{status{started-buyer-2":
@@ -6746,10 +6787,12 @@ class MyForm(QtGui.QMainWindow):
                             chk1payment[id] = [txid, esc1, amount]
                             chk1payment.close()
                             sh2[id] = "alfa01{status{started-buyer-4" + str(sh2[id][29:]) + "{txid1{" + str(txid) + "}txid1}"
-                        sh2.close()
+                        sh2.sync()
                     except:
                         error=""
-
+                        sh2 = MyForm.sh2
+                        sh2[id] = "alfa01{status{started-buyer49" + str(sh2[id][29:]) + "{txid1{" + str(txid) + "}txid1}"
+                        sh2.sync()
 
 
 
@@ -6767,7 +6810,7 @@ class MyForm(QtGui.QMainWindow):
                         txid2 = messageText[start:end]
                     except ValueError:
                         error = ''
-                    sh = shelve.open("escrow.slv")
+                    sh = MyForm.sh
                     messageText = sh[id]
 
                     if sh[id][0:29] == "alfa01{status{started-buyer-4" or sh[id][0:29] == "alfa01{status{started-buyer-3" or sh[id][0:29] == "alfa01{status{started-buyer-04":
@@ -6788,7 +6831,7 @@ class MyForm(QtGui.QMainWindow):
                         chk2payment[id] = [txid2, esc2, amount]
                         chk2payment.close()
                         sh[id] = "alfa01{status{started-buyer-5" + str(sh[id][29:]) + "{txid2{" + str(txid2) + "}txid2}"
-                    sh.close()
+                    sh.sync()
 
                 #merchant get message main payment sent
                 if message[0:29] == "alfa01{status{started-buyer-6":
@@ -6804,7 +6847,7 @@ class MyForm(QtGui.QMainWindow):
                         txid3 = messageText[start:end]
                     except ValueError:
                         error = ''
-                    sh2 = shelve.open("escrowm.slv")
+                    sh2 = MyForm.sh2
                     messageText = sh2[id]
 
                     if sh2[id][0:29] == "alfa01{status{started-buyer-5":
@@ -6825,7 +6868,7 @@ class MyForm(QtGui.QMainWindow):
                         chk3payment[id] = [txid3, esc3, amount]
                         chk3payment.close()
                         sh2[id] = "alfa01{status{started-buyer-6" + str(sh2[id][29:]) + "{txid3{" + str(txid3) + "}txid3}"
-                    sh2.close()
+                    sh2.sync()
 
 
 
@@ -6857,9 +6900,9 @@ class MyForm(QtGui.QMainWindow):
                         error = ''
                         private3 = ""
 
-                    sh2 = shelve.open("escrowm.slv")
+                    sh2 = MyForm.sh2
 
-                    if sh2[ids][0:29] == "alfa01{status{started-buyer-6":
+                    if sh2[ids][0:29] == "alfa01{status{started-buyer-6" or "alfa01{status{started-buyer69":
                         try:
                             MyForm.conn.importprivkey(private1, "DO NOT USE THIS ADDRESS", False)
                         except:
@@ -6972,7 +7015,7 @@ class MyForm(QtGui.QMainWindow):
                                 shared.workerQueue.put(('sendmessage', toAddress))
                                 sh2[ids] = message
                                 sh2.sync()
-                    sh2.close()
+                    sh2.sync()
 
                 if message[0:29] == "alfa01{status{started-buyer-8":
                     addrbuyer = fromAddress
@@ -6990,7 +7033,7 @@ class MyForm(QtGui.QMainWindow):
                     except ValueError:
                         error = ''
                         private2 = ""
-                    sh = shelve.open("escrow.slv")
+                    sh = MyForm.sh
                     sss = sh[id]
                     if sh[id][0:29] == "alfa01{status{started-buyer-7":
                         sh[id] = messageText
@@ -7081,7 +7124,7 @@ class MyForm(QtGui.QMainWindow):
                             shared.workerQueue.put(('sendmessage', toAddress))
                             sh[id] = message
                             sh.sync()
-                    sh.close()
+                    sh.sync()
 
                 self.rendertextbrowser2()
                 self.rendertextbrowser3()
@@ -7343,8 +7386,7 @@ class MyForm(QtGui.QMainWindow):
 
 
 
-                data_file2 = 'escrowm.slv'
-                sh2 = shelve.open(data_file2)
+                sh2 = MyForm.sh2
 
                 if idescrow in sh2:
                     if sh2[idescrow][:29] == "alfa01{status{started-buyer-1":
@@ -7382,7 +7424,7 @@ class MyForm(QtGui.QMainWindow):
 
 
                         sh2[idescrow] = message
-                sh2.close()
+                sh2.sync()
 
 
 
@@ -7862,6 +7904,8 @@ class MyForm(QtGui.QMainWindow):
         if reply is QtGui.QMessageBox.No:
             return
         '''
+        MyForm.sh.close()
+        MyForm.sh2.close()
         shared.doCleanShutdown()
         self.tray.hide()
         # unregister the messaging system
