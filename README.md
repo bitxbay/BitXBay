@@ -1,6 +1,6 @@
 # *BitXBay*
 
-*BitXBay* is open-source and the first peer to peer decentralized online platform for trade. It is not the first supposed decentralized marketplace.  However all other such platforms currently in development are server based, at least amongst ones that have reached functional capacity. Admins are still used to monitor and potentially manipulate transactions, leaving the possibility of theft. The moderators in these other marketplaces can choose to remove goods or services. The moderators in these other marketplaces can choose to remove goods or services. This issue is remedied in BitXBay’s marketplace through operating through the Bitmessage network.
+*BitXBay* is open-source and the first peer to peer decentralized online platform for trade. It is not the first supposed decentralized marketplace.  However all other such platforms currently in development are server based, at least amongst ones that have reached functional capacity. Admins are still used to monitor and potentially manipulate transactions, leaving the possibility of theft. The moderators in these other marketplaces can choose to remove goods or services. This issue is remedied in BitXBay’s marketplace through operating through the Bitmessage network.
 
 
 ## Bitmessage and Bitcoin
