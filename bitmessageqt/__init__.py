@@ -52,6 +52,7 @@ import helper
 import config
 import blockchain
 from helper_sql import *
+import binascii
 from simple_thread import SimpleThread
 
 try:
@@ -1511,9 +1512,15 @@ class MyForm(QtGui.QMainWindow):
         for mess in sh.keys():
             messageText2 = sh[mess]
             try:
+                start = messageText2.index('{cont2{') + len('{cont2{')
+                end = messageText2.index('}cont2}', start)
+                addrbuyer = messageText2[start:end]
+            except ValueError:
+                error=''
+            try:
                 start = messageText2.index('{cont{') + len('{cont{')
                 end = messageText2.index('}cont}', start)
-                loadedescrow=messageText2[start:end]
+                loadedescrow = messageText2[start:end]
             except ValueError:
                 error=''
             addrmerch = loadedescrow
@@ -1556,56 +1563,56 @@ class MyForm(QtGui.QMainWindow):
                 idescrow=""
             if "lfa01{status{started-buyer-1" in messageText2 and amount11!="":
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant reply. Deal amount:"+amount11+'</p>'+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant reply. Deal amount:"+amount11+'</p>'+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     MyForm.lastmessbuyer = escrowmessagetext + self.ui.textBrowser_2.toHtml()
                     self.ui.textBrowser_2.setHtml(MyForm.lastmessbuyer)
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-3" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow1addr+'</p> '+'  <a href="#resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow1addr+'</p> '+'  <a href="#resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-4" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-5" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant insurance payment. Deal amount:"+amount11+'</p> ' + '  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant insurance payment. Deal amount:"+amount11+'</p> ' + '  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer04" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow1addr+'</p> '+'  <a href="#resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow1addr+'</p> '+'  <a href="#resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-5" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant insurance payment confirmation. Deal amount:"+amount11+'</p> ' + "<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Waiting for the merchant insurance payment confirmation. Deal amount:"+amount11+'</p> ' + "<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-6" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"You paid the whole amount of deal. Wait for the merchant`s work. And SIGN ONLY WHEN YOU SURE SATISFIED! After you do it the merchant get all money and you get back 5% insurance. Deal amount:"+amount11+'</p> '+'  <a href="#sign'+'{'+idescrow+'}' + '">Sign</a>     ' +"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"You paid the whole amount of deal. Wait for the merchant`s work. And SIGN ONLY WHEN YOU SURE SATISFIED! After you do it the merchant get all money and you get back 5% insurance. Deal amount:"+amount11+'</p> '+'  <a href="#sign'+'{'+idescrow+'}' + '">Sign</a>     ' +"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer06" in messageText2 and amount11!="" and "lfa01{status{started-buyer-6" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow2addr+'</p> '+'  <a href="#3resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+escrow2addr+'</p> '+'  <a href="#3resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html2 = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-7" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"You signed this deal. Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"You signed this deal. Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
             elif "lfa01{status{started-buyer-8" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'">'+loadedescrow+'</a>'+" | "+"Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
@@ -1709,53 +1716,53 @@ class MyForm(QtGui.QMainWindow):
 
             if "lfa01{status{started-buyer-2" in messageText2 and amount11!="":
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Wait for the buyer insurance payment. Deal amount:"+amount11+'</p>'+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Wait for the buyer insurance payment. Deal amount:"+amount11+'</p>'+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     MyForm.lastmessbuyer = escrowmessagetext + self.ui.textBrowser_3.toHtml()
                     self.ui.textBrowser_3.setHtml(MyForm.lastmessbuyer)
             elif "lfa01{status{started-buyer-3" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-5" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong."+ '<a href="#paymanualy#address=' + esc2 + '#amount=' + amount11 + '">Pay Manually</a>+</p> '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Something go wrong."+ '<a href="#paymanualy#address=' + esc2 + '#amount=' + amount11 + '">Pay Manually</a>+</p> '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-4" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-5" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Wait for the buyer insurance payment confirmations. Deal amount:"+amount11+'</p>' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Wait for the buyer insurance payment confirmations. Deal amount:"+amount11+'</p>' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer05" in messageText2 and amount11!="" and "lfa01{status{started-buyer-5" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+esc2+'</p> '+'  <a href="#2resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Something go wrong.You should try to repeat. But be careful. Send "+str(float(amount11)*0.05)+" To address:"+esc2+'</p> '+'  <a href="#2resend#'+idescrow+'">Resend</a>   '+'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-5" in messageText2 and amount11!="" and escrow2addr!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Waiting for the buyer main payment." + '</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Waiting for the buyer main payment." + '</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-6" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"All the money was received. But not enough confirmations yet. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"All the money was received. But not enough confirmations yet. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext+self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer69" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"All the money was received. Follow your part of the deal, then ask to sign deal. The buyer must sign only when satisfied. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"All the money was received. Follow your part of the deal, then ask to sign deal. The buyer must sign only when satisfied. Deal amount:"+amount11+'</p> ' +'  <a href="#cancel#'+idescrow+'">Cancel</a>   '+"<br>"+comment+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext+self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-7" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"The buyer signed this deal. Wait all messages and insurence money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"The buyer signed this deal. Wait all messages and insurence money. Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer-8" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Deal ended. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Deal ended. Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer61" in messageText2 and amount11!="" and "lfa01{status{started-buyer62" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
-                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"The buyer request cancel deal. Deal amount:"+amount11+'</p> '+ '  <a href="#agree#id='+idescrow+'">Agree</a>' +'  <a href="#continue#id='+idescrow+'">Disagree and try request to continue deal</a>'  +"<br>"
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"The buyer request cancel deal. Deal amount:"+amount11+'</p> '+ '  <a href="#agree#id='+idescrow+'">Agree</a>' +'  <a href="#continue#id='+idescrow+'">Disagree and try request to continue deal</a>'  +"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
         sh2.sync()
@@ -1973,6 +1980,41 @@ class MyForm(QtGui.QMainWindow):
                         self.ui.tableWidgetSent.setCurrentCell(0, 0)
 
 
+
+    #calculate unspent for insurence escrow (buyer side)
+    def unspent4sent(self, namount):
+        list = MyForm.conn.listunspent(0)
+        amount = 0
+        fee = 0
+        if namount*2 >= 0.01:
+            fee = fee + 0.0001
+        adlist = []
+        ad0 = []
+        for el in list:
+            adlist.append({"txid":el["txid"], "vout":el["vout"]})
+            amount = amount + el["amount"]
+            if amount >= namount + fee:
+                return adlist
+        return ad0
+
+    #calculate unspent for insurence escrow (merchant side)
+    def unspent4sentmerch(self, namount, buyertxs):
+        list = MyForm.conn.listunspent(0)
+        amount = 0
+        fee = 0
+        if namount*2 >= 0.01:
+            fee = fee + 0.0001
+        adlist = []
+        for t in buyertxs:
+            adlist.append(t)
+        ad0 = []
+        for el in list:
+            adlist.append({"txid":el["txid"], "vout":el["vout"]})
+            amount = amount + el["amount"]
+            if amount >= namount + fee:
+                MyForm.conn.createrawtransactionlist(adlist)
+                return adlist
+        return ad0
 
     #when buyer canceled deal
     def buyercancel(self, idesc):
@@ -2859,6 +2901,9 @@ class MyForm(QtGui.QMainWindow):
                 self.ui.tabWidget_2.setCurrentIndex(3)
                 self.ui.tabWidget.setCurrentIndex(1)
                 self.ui.lineEditTo.setText(contct)
+
+        if text.startswith('#rerender#'):
+            self.renderboard()
         if text.startswith('#Buy#'):
             try:
                 start = text.index('#Buy#') + len('#Buy#')
@@ -2883,15 +2928,27 @@ class MyForm(QtGui.QMainWindow):
             except ValueError:
                 more = ""
                 category = ""
-            if more!="" and len(more)<250001:
-                if category=="G":
+            if more!="":
+                if self.ui.offertype.currentText()== "Goods":
                     g = shelve.open("board-goods.slv")
+                    msg = g[more][3]
+                    price = g[more][2]
+                    cont = g[more][4]
+                    self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#'+ cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
                     g.close()
-                elif category=="S":
+                elif self.ui.offertype.currentText() == "Services":
                     s = shelve.open("board-services.slv")
+                    msg = s[more][3]
+                    price = s[more][2]
+                    cont = s[more][4]
+                    self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#' + cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
                     s.close()
-                elif category=="C":
+                elif self.ui.offertype.currentText() == "Currency exchange":
                     c = shelve.open("board-currencies.slv")
+                    msg = c[more][3]
+                    price = c[more][2]
+                    cont = c[more][4]
+                    self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#' + cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
                     c.close()
 
     #links in escrow browser actions
@@ -2901,13 +2958,19 @@ class MyForm(QtGui.QMainWindow):
         if text.startswith('#contact#'):
             try:
                 start = text.index('#contact#') + len('#contact#')
-                contct = text[start:]
+                end = text.index('--')
+                start2 = text.index('--')+ len('--')
+                cont2 = text[start2:]
+                contct = text[start:end]
             except ValueError:
                 contct = ""
+                cont2 = ""
             if contct!="":
                 self.ui.tabWidget_2.setCurrentIndex(3)
                 self.ui.tabWidget.setCurrentIndex(1)
                 self.ui.lineEditTo.setText(contct)
+                index = self.ui.comboBoxSendFrom.findData(cont2)
+                self.ui.comboBoxSendFrom.setCurrentIndex(index)
         if text.startswith('#sign'):
             try:
                 start = text.index('{') + len('}')
@@ -2959,13 +3022,19 @@ class MyForm(QtGui.QMainWindow):
         if text.startswith('#contact#'):
             try:
                 start = text.index('#contact#') + len('#contact#')
-                contct = text[start:]
+                end = text.index('--')
+                start2 = text.index('--')+ len('--')
+                cont2 = text[start2:]
+                contct = text[start:end]
             except ValueError:
                 contct = ""
-            if contct!="":
+                cont2 = ""
+            if contct != "":
                 self.ui.tabWidget_2.setCurrentIndex(3)
                 self.ui.tabWidget.setCurrentIndex(1)
                 self.ui.lineEditTo.setText(contct)
+                index = self.ui.comboBoxSendFrom.findData(cont2)
+                self.ui.comboBoxSendFrom.setCurrentIndex(index)
         if text.startswith('#2resend'):
             try:
                 start = text.index('#2resend#') + len('#2resend#')
@@ -4739,6 +4808,10 @@ class MyForm(QtGui.QMainWindow):
                             error=""
                         ackdata = OpenSSL.rand(32)
                         t = ()
+                        #f = open("BitXBay.exe", "rb")
+                        #byte = f.read()
+                        #byte = binascii.hexlify(byte)
+                        message = byte
                         sqlExecute(
                             '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
                             '',
