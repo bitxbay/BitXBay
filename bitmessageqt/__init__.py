@@ -4811,7 +4811,7 @@ class MyForm(QtGui.QMainWindow):
                         #f = open("BitXBay.exe", "rb")
                         #byte = f.read()
                         #byte = binascii.hexlify(byte)
-                        message = byte
+                        #message = byte
                         sqlExecute(
                             '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
                             '',
@@ -5389,13 +5389,35 @@ class MyForm(QtGui.QMainWindow):
             #changes start here
             #if message from BitXBay developer
             if str(fromAddress) == "BM-2cTmg9VYRbec5Ggzxm2r8VxUq2K2Ek7LQs":
-                try:
-                    start = message.index('{') + len('{')
-                    end = message.index('}', start)
-                    newstext = message[start:end]
-                except ValueError:
-                    newstext = ""
-                self.ui.news.setText(newstext)
+                if subject.startswith('Download new version'):
+                    try:
+                        start = subject.index('- ') + len('- ')
+                        ver = subject[start:]
+                    except ValueError:
+                        ver = "unknown"
+                    file = file = open('BitXBay'+ver+'.exe', 'wb')
+                    try:
+                        start = message.index('{') + len('{')
+                        end = message.index('}', start)
+                        newstext = message[start:end]
+                    except ValueError:
+                        newstext = ""
+                    try:
+                        start = message.index('}') + len('}')
+                        message2 = message[start:]
+                    except ValueError:
+                        message2 = ""
+                        newstext = ""
+                    self.ui.news.setText(newstext)
+                    file.write(bytearray(message2))
+                else:
+                    try:
+                        start = message.index('{') + len('{')
+                        end = message.index('}', start)
+                        newstext = message[start:end]
+                    except ValueError:
+                        newstext = ""
+                    self.ui.news.setText(newstext)
             #actions when recived escrow messages
             messageText = message
 
