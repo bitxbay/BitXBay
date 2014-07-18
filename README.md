@@ -9,7 +9,7 @@ Bitmessage is a decentralized and encrypted peer to peer email communication sys
  
 
 ## How to run BitXBay sources.
-Requirements - windows xp,7,8,8.1, python 2.7 , pyqt   You can run it on linux but need to fix bitcoin-qt starting.
+Requirements - windows xp,7,8,8.1, python 2.7 , pyqt. You can run BitXBay on linux but need to fix bitcoin-qt starting.
 Copy btc folder from binaries zip file to sources folder or start your bitcoin-qt/bitcoind in server mode with rpcuser=user rpcpassword=user123 (your can change password in bitmessageqt\__init__.py) and for full funcionality you need txindex=1 in bitcoin.conf(you can use blockchain.info for download txs but it can deanonimize you)
 For start run bitmessagemain.py
  
