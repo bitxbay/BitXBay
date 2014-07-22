@@ -377,10 +377,19 @@ class MyForm(QtGui.QMainWindow):
             "currentIndexChanged(const QString&)"), self.renderboard)
         QtCore.QObject.connect(self.ui.location, QtCore.SIGNAL(
             "currentIndexChanged(const QString&)"), self.renderboard)
+        QtCore.QObject.connect(self.ui.tabWidget_2, QtCore.SIGNAL(
+            "currentChanged(int)"), self.renderdecentrtab)
 
+        #QtCore.QObject.connect(self.ui.importprivkey, QtCore.SIGNAL("clicked()"), self.importprivkey)
 
         self.ui.offertype.currentIndexChanged['QString'].connect(self.offertypechanged)
 
+    #expert tab functions
+    def importprivkey(self):
+        try:
+            MyForm.conn.importprivkey(str(self.ui.privkey.text()))
+        except:
+            self.ui.warn1.settext("wrong key or key exist in wallet ")
     #saving checkboxes states
     def state_blckchn(self):
         settings = shelve.open("settings.slv")
@@ -414,6 +423,10 @@ class MyForm(QtGui.QMainWindow):
                 for i in MyForm.ccategory:
                     self.ui.comboBox_2.insertItem(1,i,i)
                     self.ui.comboBox_2.setCurrentIndex(0)
+
+    def renderdecentrtab(self):
+        if self.ui.tabWidget_2.currentIndex() == 2:
+            self.renderboard()
 
     def click_pushbutton_4(self):
         self.ui.textBrowser.clear()
@@ -1504,6 +1517,7 @@ class MyForm(QtGui.QMainWindow):
     
             self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
             self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
+            self.runEvery7Seconds()
 
 
     def rendertextbrowser2(self):
@@ -1613,6 +1627,12 @@ class MyForm(QtGui.QMainWindow):
             elif "lfa01{status{started-buyer-8" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
                     escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Wait all messages and insurance money. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = escrowmessagetext.decode("utf-8")
+                    self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
+                    MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
+            elif "lfa01{status{started-buyer81" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
+                if self.onlygoodsymbols(loadedescrow):
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrmerch+'--'+addrbuyer+'">'+loadedescrow+'</a>'+" | "+"Something go wrong and you cant import priv key. Check last messages find key in {private2{ }private2} and try to import.Then check that you balance is changed correctly.  Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_2.setHtml(escrowmessagetext + self.ui.textBrowser_2.toHtml())
                     MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
@@ -1760,6 +1780,11 @@ class MyForm(QtGui.QMainWindow):
                     escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Deal ended. Deal amount:"+amount11+'</p> '+"<br>"
                     escrowmessagetext = escrowmessagetext.decode("utf-8")
                     self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
+            elif "lfa01{status{started-buyer81" in messageText2 and amount11!="" and "lfa01{status{started-buyer-4" not in messageText2:
+                if self.onlygoodsymbols(loadedescrow):
+                    escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"Buyer sign deal. But something no correct. Try to restart program. Chack that bitcoin is running an you  have connection. Then resend last message from buyer to yourself. Deal amount:"+amount11+'</p> '+"<br>"
+                    escrowmessagetext = escrowmessagetext.decode("utf-8")
+                    self.ui.textBrowser_3.setHtml(escrowmessagetext + self.ui.textBrowser_3.toHtml())
             elif "lfa01{status{started-buyer61" in messageText2 and amount11!="" and "lfa01{status{started-buyer62" not in messageText2:
                 if self.onlygoodsymbols(loadedescrow):
                     escrowmessagetext = "<p>"+'<a href="#contact#'+addrbuyer+'--'+addrmerchant+'">'+loadedescrow+'</a>'+" | "+"The buyer request cancel deal. Deal amount:"+amount11+'</p> '+ '  <a href="#agree#id='+idescrow+'">Agree</a>' +'  <a href="#continue#id='+idescrow+'">Disagree and try request to continue deal</a>'  +"<br>"
@@ -1770,130 +1795,131 @@ class MyForm(QtGui.QMainWindow):
     def signbuyer(self, escrowid):
         sh = MyForm.sh
         messageText3 = sh[escrowid]
-        try:
-            start = messageText3.index('{cont2{') + len('{cont2{')
-            end = messageText3.index('}cont2}', start)
-            fromadd = messageText3[start:end]
-        except ValueError:
-            error = ''
-            fromadd = ""
+        if "lfa01{status{started-buyer-6" in messageText3:
+            try:
+                start = messageText3.index('{cont2{') + len('{cont2{')
+                end = messageText3.index('}cont2}', start)
+                fromadd = messageText3[start:end]
+            except ValueError:
+                error = ''
+                fromadd = ""
 
-        fromAddress = fromadd
+            fromAddress = fromadd
 
-        try:
-            start = messageText3.index('{cont{') + len('{cont{')
-            end = messageText3.index('}cont}', start)
-            toadd = messageText3[start:end]
-        except ValueError:
-            error = ''
-            toadd = ""
+            try:
+                start = messageText3.index('{cont{') + len('{cont{')
+                end = messageText3.index('}cont}', start)
+                toadd = messageText3[start:end]
+            except ValueError:
+                error = ''
+                toadd = ""
 
-        try:
-            start = messageText3.index('{badd1{') + len('{badd1{')
-            end = messageText3.index('}badd1}', start)
-            badd1 = messageText3[start:end]
+            try:
+                start = messageText3.index('{badd1{') + len('{badd1{')
+                end = messageText3.index('}badd1}', start)
+                badd1 = messageText3[start:end]
 
-        except ValueError:
-            error = ''
-            badd1 = ""
+            except ValueError:
+                error = ''
+                badd1 = ""
 
 
-        try:
-            start = messageText3.index('{badd3{') + len('{badd3{')
-            end = messageText3.index('}badd3}', start)
-            badd3 = messageText3[start:end]
-        except ValueError:
-            error = ''
-            badd3 = ""
+            try:
+                start = messageText3.index('{badd3{') + len('{badd3{')
+                end = messageText3.index('}badd3}', start)
+                badd3 = messageText3[start:end]
+            except ValueError:
+                error = ''
+                badd3 = ""
 
-        try:
-            priv1 = MyForm.conn.dumpprivkey(badd1)
-        except:
-            priv1 = ""
-        try:
-            priv3 = MyForm.conn.dumpprivkey(badd3)
-        except:
-            priv3 = ""
+            try:
+                priv1 = MyForm.conn.dumpprivkey(badd1)
+            except:
+                priv1 = ""
+            try:
+                priv3 = MyForm.conn.dumpprivkey(badd3)
+            except:
+                priv3 = ""
 
-        if priv1!="" and priv3!="":
-            toAddress = toadd
+            if priv1!="" and priv3!="":
+                toAddress = toadd
 
-            subject = "buer sign escrow deal"
-            if toAddress != '':
-                status, addressVersionNumber, streamNumber, ripe = decodeAddress(
-                    toAddress)
-                if status != 'success':
-                    with shared.printLock:
-                        print 'Error: Could not decode', toAddress, ':', status
+                subject = "buer sign escrow deal"
+                if toAddress != '':
+                    status, addressVersionNumber, streamNumber, ripe = decodeAddress(
+                        toAddress)
+                    if status != 'success':
+                        with shared.printLock:
+                            print 'Error: Could not decode', toAddress, ':', status
 
-                    if status == 'missingbm':
+                        if status == 'missingbm':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: Bitmessage addresses start with BM-   Please check %1").arg(toAddress))
+                        elif status == 'checksumfailed':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: The address %1 is not typed or copied correctly. Please check it.").arg(toAddress))
+                        elif status == 'invalidcharacters':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: The address %1 contains invalid characters. Please check it.").arg(toAddress))
+                        elif status == 'versiontoohigh':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: The address version in %1 is too high. Either you need to upgrade your Bitmessage software or your acquaintance is being clever.").arg(toAddress))
+                        elif status == 'ripetooshort':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: Some data encoded in the address %1 is too short. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                        elif status == 'ripetoolong':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: Some data encoded in the address %1 is too long. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                        else:
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: Something is wrong with the address %1.").arg(toAddress))
+                    elif fromAddress == '':
                         self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: Bitmessage addresses start with BM-   Please check %1").arg(toAddress))
-                    elif status == 'checksumfailed':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: The address %1 is not typed or copied correctly. Please check it.").arg(toAddress))
-                    elif status == 'invalidcharacters':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: The address %1 contains invalid characters. Please check it.").arg(toAddress))
-                    elif status == 'versiontoohigh':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: The address version in %1 is too high. Either you need to upgrade your Bitmessage software or your acquaintance is being clever.").arg(toAddress))
-                    elif status == 'ripetooshort':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: Some data encoded in the address %1 is too short. There might be something wrong with the software of your acquaintance.").arg(toAddress))
-                    elif status == 'ripetoolong':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: Some data encoded in the address %1 is too long. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                            "MainWindow", "Error: You must specify a From address. If you don\'t have one, go to the \'Your Identities\' tab."))
                     else:
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Error: Something is wrong with the address %1.").arg(toAddress))
-                elif fromAddress == '':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: You must specify a From address. If you don\'t have one, go to the \'Your Identities\' tab."))
-                else:
-                    toAddress = addBMIfNotPresent(toAddress)
-                    if addressVersionNumber > 4 or addressVersionNumber <= 1:
-                        QMessageBox.about(self, _translate("MainWindow", "Address version number"), _translate(
-                            "MainWindow", "Concerning the address %1, Bitmessage cannot understand address version numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(addressVersionNumber)))
-                    if streamNumber > 1 or streamNumber == 0:
-                        QMessageBox.about(self, _translate("MainWindow", "Stream number"), _translate("MainWindow", "Concerning the address %1, Bitmessage cannot handle stream numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(streamNumber)))
-                    self.statusBar().showMessage('')
-                    if shared.statusIconColor == 'red':
-                        self.statusBar().showMessage(_translate(
-                            "MainWindow", "Warning: You are currently not connected. Bitmessage will do the work necessary to send the message but it won\'t send until you connect."))
-                    message0 = sh[escrowid]
-                    message = "alfa01"+"{status{"+"started-buyer-7"+"}status}"+ str(message0[37:]) + "{private1{" + str(priv1) +"}private1}"+"{private3{"+ str(priv3) + "}private3}"
+                        toAddress = addBMIfNotPresent(toAddress)
+                        if addressVersionNumber > 4 or addressVersionNumber <= 1:
+                            QMessageBox.about(self, _translate("MainWindow", "Address version number"), _translate(
+                                "MainWindow", "Concerning the address %1, Bitmessage cannot understand address version numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(addressVersionNumber)))
+                        if streamNumber > 1 or streamNumber == 0:
+                            QMessageBox.about(self, _translate("MainWindow", "Stream number"), _translate("MainWindow", "Concerning the address %1, Bitmessage cannot handle stream numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(streamNumber)))
+                        self.statusBar().showMessage('')
+                        if shared.statusIconColor == 'red':
+                            self.statusBar().showMessage(_translate(
+                                "MainWindow", "Warning: You are currently not connected. Bitmessage will do the work necessary to send the message but it won\'t send until you connect."))
+                        message0 = sh[escrowid]
+                        message = "alfa01"+"{status{"+"started-buyer-7"+"}status}"+ str(message0[37:]) + "{private1{" + str(priv1) +"}private1}"+"{private3{"+ str(priv3) + "}private3}"
 
-                    sh[escrowid] = message
-                    sh.sync()
-                    ackdata = OpenSSL.rand(32)
-                    t = ()
-                    sqlExecute(
-                        '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-                        '',
-                        toAddress,
-                        ripe,
-                        fromAddress,
-                        subject,
-                        message,
-                        ackdata,
-                        int(time.time()),
-                        'msgqueued',
-                        1,
-                        1,
-                        'sent',
-                        2)
+                        sh[escrowid] = message
+                        sh.sync()
+                        ackdata = OpenSSL.rand(32)
+                        t = ()
+                        sqlExecute(
+                            '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                            '',
+                            toAddress,
+                            ripe,
+                            fromAddress,
+                            subject,
+                            message,
+                            ackdata,
+                            int(time.time()),
+                            'msgqueued',
+                            1,
+                            1,
+                            'sent',
+                            2)
 
-                    toLabel = ''
-                    queryreturn = sqlQuery('''select label from addressbook where address=?''',
-                                            toAddress)
-                    if queryreturn != []:
-                        for row in queryreturn:
-                            toLabel, = row
+                        toLabel = ''
+                        queryreturn = sqlQuery('''select label from addressbook where address=?''',
+                                                toAddress)
+                        if queryreturn != []:
+                            for row in queryreturn:
+                                toLabel, = row
 
-                    self.displayNewSentMessage(
-                        toAddress, toLabel, fromAddress, subject, message, ackdata)
-                    shared.workerQueue.put(('sendmessage', toAddress))
+                        self.displayNewSentMessage(
+                            toAddress, toLabel, fromAddress, subject, message, ackdata)
+                        shared.workerQueue.put(('sendmessage', toAddress))
         sh.sync()
 
 
@@ -1982,38 +2008,52 @@ class MyForm(QtGui.QMainWindow):
 
 
     #calculate unspent for insurence escrow (buyer side)
-    def unspent4sent(self, namount):
-        list = MyForm.conn.listunspent(0)
-        amount = 0
-        fee = 0
-        if namount*2 >= 0.01:
-            fee = fee + 0.0001
-        adlist = []
+    def unspent4sent(self, namount, address):
         ad0 = []
-        for el in list:
-            adlist.append({"txid":el["txid"], "vout":el["vout"]})
-            amount = amount + el["amount"]
-            if amount >= namount + fee:
-                return adlist
+        try:
+            list = MyForm.conn.listunspent(0)
+            amount = 0
+            fee = 0
+            if namount*2 >= 0.01:
+                fee = fee + 0.0001
+            adlist = []
+
+            for el in list:
+                adlist.append({"txid":el["txid"], "vout":el["vout"]})
+                amount = amount + el["amount"]
+                if amount >= namount + fee:
+                    if namount+fee - amount > 0:
+                        change = namount+fee - amount
+                        return adlist, change
+                    else:
+                        return adlist, 0
+        except:
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
         return ad0
 
     #calculate unspent for insurence escrow (merchant side)
     def unspent4sentmerch(self, namount, buyertxs):
-        list = MyForm.conn.listunspent(0)
-        amount = 0
-        fee = 0
-        if namount*2 >= 0.01:
-            fee = fee + 0.0001
-        adlist = []
-        for t in buyertxs:
-            adlist.append(t)
         ad0 = []
-        for el in list:
-            adlist.append({"txid":el["txid"], "vout":el["vout"]})
-            amount = amount + el["amount"]
-            if amount >= namount + fee:
-                MyForm.conn.createrawtransactionlist(adlist)
-                return adlist
+        try:
+            list = MyForm.conn.listunspent(0)
+            amount = 0
+            fee = 0
+            if namount*2 >= 0.01:
+                fee = fee + 0.0001
+            adlist = []
+            for t in buyertxs:
+                adlist.append(t)
+
+            for el in list:
+                adlist.append({"txid":el["txid"], "vout":el["vout"]})
+                amount = amount + el["amount"]
+                if amount >= namount + fee:
+                    MyForm.conn.createrawtransactionlist(adlist)
+                    return adlist
+        except:
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
         return ad0
 
     #when buyer canceled deal
@@ -3694,7 +3734,8 @@ class MyForm(QtGui.QMainWindow):
                                 toadd = messageText2[start:end]
                             except ValueError:
                                 error = ''
-                            sh2[key] = "alfa01"+"{status{"+"started-buyer69"+"}status}"+str(messageText2[37:])
+                            if sh2[key][0:29] == "alfa01{status{started-buyer-6":
+                                sh2[key] = "alfa01"+"{status{"+"started-buyer69"+"}status}"+str(messageText2[37:])
 
                             del chk3payment[key]
                             chk3payment.sync()
@@ -3969,20 +4010,25 @@ class MyForm(QtGui.QMainWindow):
                 if secs > 950400:
                     del resendoffer[fraddress]
                 else:
-                    resendoffer[fraddress]["resended"] = resendoffer["resended"]+1
-                    if resendoffer[fraddress]["resended"] < 3:
+                    now_time = datetime.datetime.now()
+                    try:
+                        time = datetime.datetime.strptime(resendoffer[fraddress]["resendtime"], '%Y-%m-%d %H:%M:%S.%f')
+                    except:
+                        resendoffer[fraddress]["resendtime"] = now_time
+                    dlt = now_time - time
+                    secs = dlt.seconds
+                    if secs > 86400 or resendoffer[fraddress]["resended"] < 1:
+                        resendoffer[fraddress]["resendtime"] = now_time
+                        resendoffer[fraddress]["resended"] = resendoffer["resended"]+1
                         try:
                             msg = resendoffer[fraddress]["message"]
                             subject = resendoffer[fraddress]["subject"]
                             fromaddr = resendoffer[fraddress]["from"]
                             self.sndmessage(msg,subject,fromaddr,MyForm.bitxbaychan)
                         except:
+                            resendoffer[fraddress]["resended"] = resendoffer["resended"]-1
                             msg = ""
                             subject = ""
-                        if resendoffer[fraddress]["resended"]==1:
-                            self.timer2.setInterval(8400000)
-                        if resendoffer[fraddress]["resended"]==2:
-                            self.timer2.setInterval(87000000)
         except:
             error=""
         resendoffer.close()
@@ -4237,7 +4283,7 @@ class MyForm(QtGui.QMainWindow):
             #render escrowbrowsers
             self.rendertextbrowser2()
             self.rendertextbrowser3()
-            self.updatebalance()
+            self.updatebalance(thr_start=True)
             self.ui.textBrowser_2.anchorClicked.connect(self.on_anchor_clicked)
             self.ui.textBrowser_3.anchorClicked.connect(self.on_anchor_clicked2)
             self.ui.textBrowser.anchorClicked.connect(self.on_anchor_clicked3)
@@ -4705,6 +4751,8 @@ class MyForm(QtGui.QMainWindow):
             blnc = MyForm.conn.getbalance()
         except:
             blnc = 0
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
         comment = str(self.ui.comment.toPlainText().toUtf8())
         comment.replace('"', "'").replace("<", "(").replace(">", ")").replace("//", "::").replace("\\", "::").replace("[", "::").replace("]", "::").replace("#", "+").replace("{", "::").replace("}", "::").replace("\\", "|")
@@ -4784,6 +4832,7 @@ class MyForm(QtGui.QMainWindow):
                         else:
                             comment = str(self.ui.comment.toPlainText().toUtf8())
 
+                        comment.replace('"', "'").replace("<", "(").replace(">", ")").replace("//", "::").replace("\\", "::").replace("[", "::").replace("]", "::").replace("#", "+").replace("{", "::").replace("}", "::").replace("\\", "|")
                         labl11 = str(self.ui.escrowlabelforbuyer.text().toUtf8())
                         if labl11 != "" and self.ui.escrowlabelforbuyer.text() != "Label for escrow deal" and self.onlygoodsymbols(self.ui.escrowlabelforbuyer.text()):
                             lbl = labl11
@@ -4808,10 +4857,17 @@ class MyForm(QtGui.QMainWindow):
                             error=""
                         ackdata = OpenSSL.rand(32)
                         t = ()
+
+
+                        #update
                         #f = open("BitXBay.exe", "rb")
                         #byte = f.read()
                         #byte = binascii.hexlify(byte)
                         #message = byte
+
+
+
+
                         sqlExecute(
                             '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
                             '',
@@ -4855,6 +4911,7 @@ class MyForm(QtGui.QMainWindow):
                         MyForm.textbro2html = self.ui.textBrowser_2.toHtml()
                     self.ui.escrowlabelforbuyer.setText("Label for escrow deal")
                     self.ui.comment.setPlainText("Comment for merchant. Type here the shipping address or other important information.")
+        self.rendertextbrowser2()
 
 
 
@@ -4866,16 +4923,20 @@ class MyForm(QtGui.QMainWindow):
         if amount>0:
             self.ui.label_11.hide()
             wallet = self.ui.lineEdit_10.text()
-            vali = MyForm.conn.validateaddress(str(wallet))
+            try:
+                vali = MyForm.conn.validateaddress(str(wallet))
 
-            if vali.isvalid:
-                comment = self.ui.lineEdit_11.text()
-                self.ui.sendbtc.setEnabled(False)
-                MyForm.conn.sendtoaddress(str(wallet),amount,str(comment))
-                self.ui.overviewamount.setValue(0.0)
-                time.sleep(2)
-                self.ui.lineEdit_10.setText("")
-                self.ui.lineEdit_11.setText("")
+                if vali.isvalid:
+                    comment = self.ui.lineEdit_11.text()
+                    self.ui.sendbtc.setEnabled(False)
+                    MyForm.conn.sendtoaddress(str(wallet),amount,str(comment))
+                    self.ui.overviewamount.setValue(0.0)
+                    time.sleep(2)
+                    self.ui.lineEdit_10.setText("")
+                    self.ui.lineEdit_11.setText("")
+            except:
+                self.statusBar().showMessage(_translate(
+                                "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
         else:
             self.ui.label_11.show()
 
@@ -5148,21 +5209,25 @@ class MyForm(QtGui.QMainWindow):
     listtransactions = []
     @SimpleThread
     def renderTransactions(self):
-        recievetx = MyForm.conn.listtransactions()
-        if recievetx != MyForm.listtransactions:
-            for tx in recievetx:
-                address = QtGui.QTableWidgetItem()
-                address.setText(str(tx["address"]))
-                a = self.ui.tableWidget.rowCount()
-                self.ui.tableWidget.setRowCount(a+1)
-                category = QtGui.QTableWidgetItem()
-                category.setText(str(tx["category"]))
-                amount = QtGui.QTableWidgetItem()
-                amount.setText(str(tx["amount"]))
-                self.ui.tableWidget.setItem(a, 0, address)
-                self.ui.tableWidget.setItem(a, 1, category)
-                self.ui.tableWidget.setItem(a, 2, amount)
-                MyForm.listtransactions=recievetx
+        try:
+            recievetx = MyForm.conn.listtransactions()
+            if recievetx != MyForm.listtransactions:
+                for tx in recievetx:
+                    address = QtGui.QTableWidgetItem()
+                    address.setText(str(tx["address"]))
+                    a = self.ui.tableWidget.rowCount()
+                    self.ui.tableWidget.setRowCount(a+1)
+                    category = QtGui.QTableWidgetItem()
+                    category.setText(str(tx["category"]))
+                    amount = QtGui.QTableWidgetItem()
+                    amount.setText(str(tx["amount"]))
+                    self.ui.tableWidget.setItem(a, 0, address)
+                    self.ui.tableWidget.setItem(a, 1, category)
+                    self.ui.tableWidget.setItem(a, 2, amount)
+                    MyForm.listtransactions=recievetx
+        except:
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
 
 
@@ -5248,6 +5313,7 @@ class MyForm(QtGui.QMainWindow):
 
         #to address if it is bitxbay chan add message to the board
         if str(toAddress) == MyForm.bitxbaychan or str(fromAddress) == MyForm.bitxbaychan:
+            totemp = False
             try:
                 messageText = message
                 rightmess = True
@@ -5276,8 +5342,8 @@ class MyForm(QtGui.QMainWindow):
                     error="address too long"
                     rightmess = False
                 elif len(senderaddress)>20 and rightmess == True:
-                    resl = self.inlist(txid1, senderaddress)
-                    res2 = self.inlist(txid2, senderaddress)
+                    resl = self.inlist(senderaddress)
+                    res2 = self.inlist(senderaddress)
                     reslt1 = resl["sum"]
                     reslt2 = res2["sum"]
                     summ = reslt1+reslt2
@@ -5323,18 +5389,29 @@ class MyForm(QtGui.QMainWindow):
                                 loc = ''
                             now_time = str(datetime.datetime.now())
                             if subject[:1]=="G":
-                                g = shelve.open("board-goods.slv")
-                                g[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                g.close()
+                                try:
+                                    g = shelve.open("board-goods.slv")
+                                    g[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    g.close()
+                                except:
+                                    totemp = True
                             elif subject[:1]=="S":
-                                s = shelve.open("board-services.slv")
-                                s[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                s.close()
+                                try:
+                                    s = shelve.open("board-services.slv")
+                                    s[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    s.close()
+                                except:
+                                    totemp = True
                             elif subject[:1]=="C":
-                                c = shelve.open("board-currencies.slv")
-                                c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                c.close()
+                                try:
+                                    c = shelve.open("board-currencies.slv")
+                                    c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    c.close()
+                                except:
+                                    totemp = True
                     else:
+                        totemp = True
+                    if totemp:
                         if len(messageText)>250001:
                             messageText = messageText[:250000]
                         self.addtotemp(txid1,subject,senderaddress, messageText)
@@ -5388,14 +5465,14 @@ class MyForm(QtGui.QMainWindow):
 
             #changes start here
             #if message from BitXBay developer
-            if str(fromAddress) == "BM-2cTmg9VYRbec5Ggzxm2r8VxUq2K2Ek7LQs":
-                if subject.startswith('Download new version'):
+            if str(fromAddress) == "BM-2cW7AiNnHDqmESqS89bLuVtnCLCn5EZVBA":
+                if True==True:
                     try:
                         start = subject.index('- ') + len('- ')
                         ver = subject[start:]
                     except ValueError:
                         ver = "unknown"
-                    file = file = open('BitXBay'+ver+'.exe', 'wb')
+                    #file = open('BitXBay'+ver+'.exe', 'wb')
                     try:
                         start = message.index('{') + len('{')
                         end = message.index('}', start)
@@ -5409,7 +5486,8 @@ class MyForm(QtGui.QMainWindow):
                         message2 = ""
                         newstext = ""
                     self.ui.news.setText(newstext)
-                    file.write(bytearray(message2))
+                    #message = binascii.unhexlify(message)
+                    #file.write(bytearray(message))
                 else:
                     try:
                         start = message.index('{') + len('{')
@@ -5425,6 +5503,7 @@ class MyForm(QtGui.QMainWindow):
             #when merchant recieve first message
             proc = True
             keyexist = False
+            keyinsh2 = True
             if message[0:27] == "alfa01{status{started-buyer":
                 sh = MyForm.sh
                 sh2 = MyForm.sh2
@@ -5444,6 +5523,10 @@ class MyForm(QtGui.QMainWindow):
                         if message[0:29] == "alfa01{status{started-buyer-1":
                             sh2[id11] = ""
                             keyexist = True
+                    if sh2.has_key(id11):
+                        keyinsh2 = True
+                    else:
+                        keyinsh2 = False
                 else:
                     keyexist=False
 
@@ -5451,7 +5534,7 @@ class MyForm(QtGui.QMainWindow):
                 sh2.sync()
 
 
-            if keyexist:
+            if keyinsh2 == False:
                 if message[0:29] == "alfa01{status{started-buyer-1":
                     addrbuyer = fromAddress
                     addrmerchant = toAddress
@@ -5538,7 +5621,7 @@ class MyForm(QtGui.QMainWindow):
                     else:
                         proc=True
 
-
+            if keyexist:
                 #when buyer cancel deal instantly after start
 
                 proc=True
@@ -5612,7 +5695,10 @@ class MyForm(QtGui.QMainWindow):
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
                             sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-1" or sh[ides][:29] == "alfa01{status{started-buyer10" or sh[ides][:29] == "alfa01{status{started-buyer14" or sh[ides][:29] == "alfa01{status{started-buyer-2" or sh[ides][:29] == "alfa01{status{started-buyer20" or sh[ides][:29] == "alfa01{status{started-buyer-3" or sh[ides][:29] == "alfa01{status{started-buyer30":
-                                del sh[ides]
+                                try:
+                                    del sh[ides]
+                                except:
+                                    error=""
                             sh.sync()
                             self.rendertextbrowser3()
 
@@ -5716,20 +5802,27 @@ class MyForm(QtGui.QMainWindow):
                                     except:
                                         error= ""
 
-                                a2 = MyForm.conn.validateaddress(esc2)
+                                try:
+                                    a2 = MyForm.conn.validateaddress(esc2)
 
-                                scam2 = False
-                                for addre2 in a2.addresses:
-                                    b2 = MyForm.conn.validateaddress(addre2)
-                                    if b2.ismine == False:
-                                        scam2 = True
-                                        continue
+                                    scam2 = False
+                                    for addre2 in a2.addresses:
+                                        b2 = MyForm.conn.validateaddress(addre2)
+                                        if b2.ismine == False:
+                                            scam2 = True
+                                            continue
 
-                                if scam2:
-                                    scam2=False
-                                else:
-                                    del sh[ides]
-                                    sh.sync()
+                                    if scam2:
+                                        scam2=False
+                                    else:
+                                        try:
+                                            del sh[ides]
+                                        except:
+                                            error=""
+                                        sh.sync()
+                                except:
+                                    self.statusBar().showMessage(_translate(
+                                                    "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
 
 
@@ -5811,7 +5904,10 @@ class MyForm(QtGui.QMainWindow):
                         if self.onlygoodsymbols(ides) and self.onlygoodsymbols(cont) and self.onlygoodsymbols(cont2):
                             sh = MyForm.sh
                             if sh[ides][:29] == "alfa01{status{started-buyer-3" or  "alfa01{status{started-buyer30":
-                                del sh[ides]
+                                try:
+                                    del sh[ides]
+                                except:
+                                    error=""
                             sh.sync()
                             self.rendertextbrowser3()
 
@@ -5878,34 +5974,42 @@ class MyForm(QtGui.QMainWindow):
                                     error = ""
                                     esc1 = ""
 
-                                a2 = MyForm.conn.validateaddress(esc1)
+                                try:
+                                    a2 = MyForm.conn.validateaddress(esc1)
+                                except:
+                                    self.statusBar().showMessage(_translate(
+                                                    "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
-                                scam2 = False
-                                for addre2 in a2.addresses:
-                                    b2 = MyForm.conn.validateaddress(addre2)
-                                    if b2.ismine == False:
-                                        scam2 = True
-                                        continue
+                                try:
+                                    scam2 = False
+                                    for addre2 in a2.addresses:
+                                        b2 = MyForm.conn.validateaddress(addre2)
+                                        if b2.ismine == False:
+                                            scam2 = True
+                                            continue
 
-                                if scam2:
-                                    scam2=False
-                                else:
-                                    try:
-                                        start = messageText.index('{badd2{') + len('{badd2{')
-                                        end = messageText.index('}badd2}', start)
-                                        badd2=messageText[start:end]
-                                    except ValueError:
-                                        badd2=""
-                                    try:
-                                        private2 = MyForm.conn.dumpprivkey(badd2)
-                                    except:
-                                        private2 = ""
-                                    if private2!="":
-                                        message = "alfa01{status{started-buyer45" + str(messageText[29:])
-                                        subject = "cencel agree from buyer - private 2"
-                                        self.sndmessage(message,subject,cont2,cont)
-                                        del sh[ides]
-                                        sh.sync()
+                                    if scam2:
+                                        scam2=False
+                                    else:
+                                        try:
+                                            start = messageText.index('{badd2{') + len('{badd2{')
+                                            end = messageText.index('}badd2}', start)
+                                            badd2=messageText[start:end]
+                                        except ValueError:
+                                            badd2=""
+                                        try:
+                                            private2 = MyForm.conn.dumpprivkey(badd2)
+                                        except:
+                                            private2 = ""
+                                        if private2!="":
+                                            message = "alfa01{status{started-buyer45" + str(messageText[29:])
+                                            subject = "cencel agree from buyer - private 2"
+                                            self.sndmessage(message,subject,cont2,cont)
+                                            del sh[ides]
+                                            sh.sync()
+                                except:
+                                    self.statusBar().showMessage(_translate(
+                                                    "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
                             sh.sync()
                             self.rendertextbrowser2()
 
@@ -5973,20 +6077,24 @@ class MyForm(QtGui.QMainWindow):
                                     error = ""
                                     esc2 = ""
 
-                                a2 = MyForm.conn.validateaddress(esc2)
+                                try:
+                                    a2 = MyForm.conn.validateaddress(esc2)
 
-                                scam2 = False
-                                for addre2 in a2.addresses:
-                                    b2 = MyForm.conn.validateaddress(addre2)
-                                    if b2.ismine == False:
-                                        scam2 = True
-                                        continue
+                                    scam2 = False
+                                    for addre2 in a2.addresses:
+                                        b2 = MyForm.conn.validateaddress(addre2)
+                                        if b2.ismine == False:
+                                            scam2 = True
+                                            continue
 
-                                if scam2:
-                                    scam2=False
-                                else:
-                                    del sh2[ides]
-                                    sh2.sync()
+                                    if scam2:
+                                        scam2=False
+                                    else:
+                                        del sh2[ides]
+                                        sh2.sync()
+                                except:
+                                    self.statusBar().showMessage(_translate(
+                                                    "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
                             sh2.sync()
                             self.rendertextbrowser3()
 
@@ -6556,7 +6664,10 @@ class MyForm(QtGui.QMainWindow):
                                 if private2!="":
                                     msg = "alfa01{status{started-buyer65}status}"+str(messageText[37:])+"{private2{"+str(private2)+"}private2}"
                                     self.sndmessage(msg,subject,cont2,cont)
-                                    del sh[ides]
+                                    try:
+                                        del sh[ides]
+                                    except:
+                                        error=""
                                     sh.sync()
                             sh.sync()
                             self.rendertextbrowser2()
@@ -6761,9 +6872,13 @@ class MyForm(QtGui.QMainWindow):
                                         error="bitcoin address error"
                                         proc2=False
 
-                                    escrowaddr1=MyForm.conn.addmultisigaddress(2,[adr1,buy1],idescrow3)
-                                    escrowaddr2=MyForm.conn.addmultisigaddress(2,[adr2,buy2],idescrow3)
-                                    escrowaddr3=MyForm.conn.addmultisigaddress(2,[adr3,buy3],idescrow3)
+                                    try:
+                                        escrowaddr1=MyForm.conn.addmultisigaddress(2,[adr1,buy1],idescrow3)
+                                        escrowaddr2=MyForm.conn.addmultisigaddress(2,[adr2,buy2],idescrow3)
+                                        escrowaddr3=MyForm.conn.addmultisigaddress(2,[adr3,buy3],idescrow3)
+                                    except:
+                                        self.statusBar().showMessage(_translate(
+                                                        "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
 
                                     if escrowaddr1!=esc1 or escrowaddr2!=esc2 or escrowaddr3!=esc3:
@@ -6997,7 +7112,9 @@ class MyForm(QtGui.QMainWindow):
 
                     sh2 = MyForm.sh2
 
-                    if sh2[ids][0:29] == "alfa01{status{started-buyer-6" or "alfa01{status{started-buyer69":
+                    if sh2[ids][0:29] == "alfa01{status{started-buyer-6" or "alfa01{status{started-buyer69" or "alfa01{status{started-buyer-5" or "alfa01{status{started-buyer81":
+
+
                         try:
                             MyForm.conn.importprivkey(private1, "DO NOT USE THIS ADDRESS", False)
                         except:
@@ -7012,6 +7129,7 @@ class MyForm(QtGui.QMainWindow):
                                 MyForm.conn.importprivkey(private3, "DO NOT USE THIS ADDRESS", False)
                             except:
                                 error=''
+
 
                         messageText3 = sh2[ids]
                         try:
@@ -7040,22 +7158,77 @@ class MyForm(QtGui.QMainWindow):
                         except ValueError:
                             error=""
 
-                        a1 = MyForm.conn.validateaddress(esc1)
-                        a3 = MyForm.conn.validateaddress(esc3)
+                        try:
+                            a1 = MyForm.conn.validateaddress(esc1)
+                            a3 = MyForm.conn.validateaddress(esc3)
 
+                            a2 = MyForm.conn.validateaddress(esc2)
+                        except:
+                            self.statusBar().showMessage(_translate(
+                                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
                         scam = False
-                        for addre in a1.addresses:
-                            b1 = MyForm.conn.validateaddress(addre)
-                            if b1.ismine == False:
-                                scam = True
-                                continue
-                        for addre3 in a3.addresses:
-                            b3 = MyForm.conn.validateaddress(addre3)
-                            if b3.ismine == False:
-                                scam = True
-                                continue
+                        try:
+                            for addre in a1.addresses:
+                                b1 = MyForm.conn.validateaddress(addre)
+                                if b1.ismine == False:
+                                    scam = True
+                                    continue
+                            for addre3 in a3.addresses:
+                                b3 = MyForm.conn.validateaddress(addre3)
+                                if b3.ismine == False:
+                                    scam = True
+                                    continue
+                        except:
+                            self.statusBar().showMessage(_translate(
+                                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
+                            scam = True
 
                         if scam == False:
+                            try:
+                                try:
+                                    chk1 = shelve.open("chk1pay.slv")
+                                except:
+                                    time.sleep(1)
+                                    try:
+                                        chk1 = shelve.open("chk1pay.slv")
+                                    except:
+                                        error=""
+                                try:
+                                    chk2 = shelve.open("chk2pay.slv")
+                                except:
+                                    time.sleep(1)
+                                    try:
+                                        chk2 = shelve.open("chk2pay.slv")
+                                    except:
+                                        error=""
+                                try:
+                                    chk3 = shelve.open("chk3pay.slv")
+                                except:
+                                    time.sleep(1)
+                                    try:
+                                        chk3 = shelve.open("chk3pay.slv")
+                                    except:
+                                        error=""
+                                try:
+                                    del chk1[idesc]
+                                except:
+                                    error=""
+                                try:
+                                    del chk2[idesc]
+                                except:
+                                    error=""
+                                try:
+                                    del chk3[idesc]
+                                except:
+                                    error=""
+                                chk1.sync()
+                                chk2.sync()
+                                chk3.sync()
+                                chk1.close()
+                                chk2.close()
+                                chk3.close()
+                            except:
+                                error=""
                             try:
                                 private2 = MyForm.conn.dumpprivkey(addrs2)
                             except:
@@ -7110,6 +7283,24 @@ class MyForm(QtGui.QMainWindow):
                                 shared.workerQueue.put(('sendmessage', toAddress))
                                 sh2[ids] = message
                                 sh2.sync()
+                                godel = False
+                                for addre in a2.addresses:
+                                    b1 = MyForm.conn.validateaddress(addre)
+                                    if b1.ismine == False:
+                                        godel = True
+
+                                if godel:
+                                    fordel = shelve.open("fordel.slv")
+                                    deleted = shelve.open("deletedaddresses.slv")
+                                    try:
+                                        fordel[esc2] = 1
+                                    except:
+                                        error=""
+                                    fordel.close()
+                                    deleted.close()
+                            else:
+                                message = "alfa01{status{started-buyer81"+ str(messageText3[29:])
+                                sh2[ids] = message
                     sh2.sync()
 
                 if message[0:29] == "alfa01{status{started-buyer-8":
@@ -7130,7 +7321,7 @@ class MyForm(QtGui.QMainWindow):
                         private2 = ""
                     sh = MyForm.sh
                     sss = sh[id]
-                    if sh[id][0:29] == "alfa01{status{started-buyer-7":
+                    if sh[id][0:29] == "alfa01{status{started-buyer-7" or "alfa01{status{started-buyer81":
                         sh[id] = messageText
                         try:
                             start = messageText.index('{escrowaddr1{') + len('{escrowaddr1{')
@@ -7163,14 +7354,22 @@ class MyForm(QtGui.QMainWindow):
                             except:
                                 error=''
 
-                        a2 = MyForm.conn.validateaddress(esc2)
+                        try:
+                            a1 = MyForm.conn.validateaddress(esc1)
+                            a3 = MyForm.conn.validateaddress(esc3)
+                        except:
+                            error=""
+                        try:
+                            a2 = MyForm.conn.validateaddress(esc2)
 
-                        scam2 = False
-                        for addre2 in a2.addresses:
-                            b2 = MyForm.conn.validateaddress(addre2)
-                            if b2.ismine == False:
-                                scam2 = True
-                                continue
+                            scam2 = False
+                            for addre2 in a2.addresses:
+                                b2 = MyForm.conn.validateaddress(addre2)
+                                if b2.ismine == False:
+                                    scam2 = True
+                                    continue
+                        except:
+                            scam2 = True
 
 
                         if scam2 == False:
@@ -7219,6 +7418,34 @@ class MyForm(QtGui.QMainWindow):
                             shared.workerQueue.put(('sendmessage', toAddress))
                             sh[id] = message
                             sh.sync()
+
+                            godel = False
+                            for addre in a1.addresses:
+                                b1 = MyForm.conn.validateaddress(addre)
+                                if b1.ismine == False:
+                                    godel = True
+                            for addre in a3.addresses:
+                                b1 = MyForm.conn.validateaddress(addre)
+                                if b1.ismine == False:
+                                    godel = True
+
+                            if godel:
+                                fordel = shelve.open("fordel.slv")
+                                deleted = shelve.open("deletedaddresses.slv")
+                                try:
+                                    fordel[esc1] = 1
+                                except:
+                                    error=""
+                                try:
+                                    fordel[esc3] = 1
+                                except:
+                                    error=""
+                                #deleted[] =
+                                fordel.close()
+                                deleted.close()
+                        else:
+                            message = "alfa01{status{started-buyer81"+ str(messageText[29:])
+                            sh[id] = message
                     sh.sync()
 
                 self.rendertextbrowser2()
@@ -7268,8 +7495,8 @@ class MyForm(QtGui.QMainWindow):
                         error="address too long"
                         rightmess = False
                     elif len(senderaddress)>20 and rightmess == True:
-                        resl = self.inlist(txid1, senderaddress)
-                        res2 = self.inlist(txid2, senderaddress)
+                        resl = self.inlist(senderaddress)
+                        res2 = self.inlist(senderaddress)
                         reslt1 = resl["sum"]
                         reslt2 = res2["sum"]
                         summ = reslt1+reslt2
@@ -7410,158 +7637,173 @@ class MyForm(QtGui.QMainWindow):
 
 
     def merchantreply(self, addrbuyer, addrmerchant, addr1, addr2, addr3, idescrow, amount, lbl):
-        #create multisigs
-        bitcoinaddr=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
-        bitcoinaddrins1=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
-        bitcoinaddrins2=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
 
-        escrowaddr1=MyForm.conn.addmultisigaddress(2,[addr1,bitcoinaddr],idescrow)
-        escrowaddr2=MyForm.conn.addmultisigaddress(2,[addr2,bitcoinaddrins1],idescrow)
-        escrowaddr3=MyForm.conn.addmultisigaddress(2,[addr3,bitcoinaddrins2],idescrow)
+        blnc = 0
+        try:
+            blnc = MyForm.conn.getbalance()
+        except:
+            blnc = -1
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitcoin-qt/bitcoind/Electrum don't work correctly."))
 
-        v1 = MyForm.conn.validateaddress(bitcoinaddr)
-        v2 = MyForm.conn.validateaddress(bitcoinaddrins1)
-        v3 = MyForm.conn.validateaddress(bitcoinaddrins2)
-        pub1 = v1.pubkey
-        pub2 = v2.pubkey
-        pub3 = v3.pubkey
+        if blnc < float(amount)*0.05:
+            self.statusBar().showMessage(_translate(
+                            "MainWindow", "Insufficient founds. You need 5% of deal amount."))
+        else:
+            #create multisigs
+            bitcoinaddr=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
+            bitcoinaddrins1=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
+            bitcoinaddrins2=str(MyForm.conn.getnewaddress("DO NOT USE THIS ADDRESS"))
 
-        chkaddr = shelve.open(MyForm.addr_file)
-        MyForm.chkaddr["4merchant"]= MyForm.escrow4merchant
-        chkaddr.close()
+            escrowaddr1=MyForm.conn.addmultisigaddress(2,[addr1,bitcoinaddr],idescrow)
+            escrowaddr2=MyForm.conn.addmultisigaddress(2,[addr2,bitcoinaddrins1],idescrow)
+            escrowaddr3=MyForm.conn.addmultisigaddress(2,[addr3,bitcoinaddrins2],idescrow)
 
-        #toAddressesEscrow = address
-        toAddress=addrbuyer
-        fromAddress = addrmerchant
-        subject = "merchant reply escrow deal"
+            v1 = MyForm.conn.validateaddress(bitcoinaddr)
+            v2 = MyForm.conn.validateaddress(bitcoinaddrins1)
+            v3 = MyForm.conn.validateaddress(bitcoinaddrins2)
+            pub1 = v1.pubkey
+            pub2 = v2.pubkey
+            pub3 = v3.pubkey
+
+            chkaddr = shelve.open(MyForm.addr_file)
+            MyForm.chkaddr["4merchant"]= MyForm.escrow4merchant
+            chkaddr.close()
+
+            #toAddressesEscrow = address
+            toAddress=addrbuyer
+            fromAddress = addrmerchant
+            subject = "merchant reply escrow deal"
 
 
-        if toAddress != '':
-            status, addressVersionNumber, streamNumber, ripe = decodeAddress(
-                toAddress)
-            if status != 'success':
-                with shared.printLock:
-                    print 'Error: Could not decode', toAddress, ':', status
+            if toAddress != '':
+                status, addressVersionNumber, streamNumber, ripe = decodeAddress(
+                    toAddress)
+                if status != 'success':
+                    with shared.printLock:
+                        print 'Error: Could not decode', toAddress, ':', status
 
-                if status == 'missingbm':
+                    if status == 'missingbm':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Bitmessage addresses start with BM-   Please check %1").arg(toAddress))
+                    elif status == 'checksumfailed':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: The address %1 is not typed or copied correctly. Please check it.").arg(toAddress))
+                    elif status == 'invalidcharacters':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: The address %1 contains invalid characters. Please check it.").arg(toAddress))
+                    elif status == 'versiontoohigh':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: The address version in %1 is too high. Either you need to upgrade your Bitmessage software or your acquaintance is being clever.").arg(toAddress))
+                    elif status == 'ripetooshort':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Some data encoded in the address %1 is too short. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                    elif status == 'ripetoolong':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Some data encoded in the address %1 is too long. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                    else:
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Error: Something is wrong with the address %1.").arg(toAddress))
+                elif fromAddress == '':
                     self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: Bitmessage addresses start with BM-   Please check %1").arg(toAddress))
-                elif status == 'checksumfailed':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: The address %1 is not typed or copied correctly. Please check it.").arg(toAddress))
-                elif status == 'invalidcharacters':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: The address %1 contains invalid characters. Please check it.").arg(toAddress))
-                elif status == 'versiontoohigh':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: The address version in %1 is too high. Either you need to upgrade your Bitmessage software or your acquaintance is being clever.").arg(toAddress))
-                elif status == 'ripetooshort':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: Some data encoded in the address %1 is too short. There might be something wrong with the software of your acquaintance.").arg(toAddress))
-                elif status == 'ripetoolong':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: Some data encoded in the address %1 is too long. There might be something wrong with the software of your acquaintance.").arg(toAddress))
+                        "MainWindow", "Error: You must specify a From address. If you don\'t have one, go to the \'Your Identities\' tab."))
                 else:
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Error: Something is wrong with the address %1.").arg(toAddress))
-            elif fromAddress == '':
-                self.statusBar().showMessage(_translate(
-                    "MainWindow", "Error: You must specify a From address. If you don\'t have one, go to the \'Your Identities\' tab."))
-            else:
-                toAddress = addBMIfNotPresent(toAddress)
-                if addressVersionNumber > 4 or addressVersionNumber <= 1:
-                    QMessageBox.about(self, _translate("MainWindow", "Address version number"), _translate(
-                        "MainWindow", "Concerning the address %1, Bitmessage cannot understand address version numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(addressVersionNumber)))
-                if streamNumber > 1 or streamNumber == 0:
-                    QMessageBox.about(self, _translate("MainWindow", "Stream number"), _translate("MainWindow", "Concerning the address %1, Bitmessage cannot handle stream numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(streamNumber)))
-                    self.statusBar().showMessage('')
-                if shared.statusIconColor == 'red':
-                    self.statusBar().showMessage(_translate(
-                        "MainWindow", "Warning: You are currently not connected. Bitmessage will do the work necessary to send the message but it won\'t send until you connect."))
+                    toAddress = addBMIfNotPresent(toAddress)
+                    if addressVersionNumber > 4 or addressVersionNumber <= 1:
+                        QMessageBox.about(self, _translate("MainWindow", "Address version number"), _translate(
+                            "MainWindow", "Concerning the address %1, Bitmessage cannot understand address version numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(addressVersionNumber)))
+                    if streamNumber > 1 or streamNumber == 0:
+                        QMessageBox.about(self, _translate("MainWindow", "Stream number"), _translate("MainWindow", "Concerning the address %1, Bitmessage cannot handle stream numbers of %2. Perhaps upgrade Bitmessage to the latest version.").arg(toAddress).arg(str(streamNumber)))
+                        self.statusBar().showMessage('')
+                    if shared.statusIconColor == 'red':
+                        self.statusBar().showMessage(_translate(
+                            "MainWindow", "Warning: You are currently not connected. Bitmessage will do the work necessary to send the message but it won\'t send until you connect."))
 
 
 
-                sh2 = MyForm.sh2
+                    sh2 = MyForm.sh2
 
-                if idescrow in sh2:
-                    if sh2[idescrow][:29] == "alfa01{status{started-buyer-1":
-                        try:
-                            start = sh2[idescrow].index('{comment{') + len('{comment{')
-                            end = sh2[idescrow].index('}comment}', start)
-                            comment = sh2[idescrow][start:end]
-                        except ValueError:
-                            error=''
-                            comment = ""
-                        try:
-                            start = sh2[idescrow].index('{badd1{') + len('{badd1{')
-                            end = sh2[idescrow].index('}badd1}', start)
-                            badd1 = sh2[idescrow][start:end]
-                        except ValueError:
-                            error=''
-                            badd1 = ""
-                        try:
-                            start = sh2[idescrow].index('{badd2{') + len('{badd2{')
-                            end = sh2[idescrow].index('}badd2}', start)
-                            badd2 = sh2[idescrow][start:end]
-                        except ValueError:
-                            error=''
-                            badd2 = ""
-                        try:
-                            start = sh2[idescrow].index('{badd3{') + len('{badd3{')
-                            end = sh2[idescrow].index('}badd3}', start)
-                            badd3 = sh2[idescrow][start:end]
-                        except ValueError:
-                            error=''
-                            badd3 = ""
-                        if len(comment) > 550:
-                            comment = comment[:550]
-                        message = "alfa01"+"{status{"+"started-buyer-2"+"}status}"+"{cont{"+str(fromAddress)+"}cont}"+"{cont2{"+str(toAddress)+"}cont2}"+"{bitadr{"+str(pub1)+"}bitadr}"+"{bitadins1{"+str(pub2)+"}bitadins1}"+"{bitadins2{"+str(pub3)+"}bitadins2}"+"{amount{"+str(amount)+"}amount}"+"{id{"+str(idescrow)+"}id}"+"{escrowaddr1{"+str(escrowaddr1)+"}escrowaddr1}"+"{escrowaddr2{"+str(escrowaddr2)+"}escrowaddr2}"+"{escrowaddr3{"+str(escrowaddr3)+"}escrowaddr3}"+"{lbl{"+str(lbl)+"}lbl}"+"{maddr1{"+str(bitcoinaddr)+"}maddr1}"+"{maddr2{"+str(bitcoinaddrins1)+"}maddr2}" + "{maddr3{"+ str(bitcoinaddrins2)+"}maddr3}" + "{badd1{" + str(badd1) + "}badd1}" + "{badd2{" + str(badd2) + "}badd2}" + "{badd3{" + str(badd3) + "}badd3}" + "{comment{" + comment + "}comment}"
-
-
-                        sh2[idescrow] = message
-                sh2.sync()
+                    if idescrow in sh2:
+                        if sh2[idescrow][:29] == "alfa01{status{started-buyer-1":
+                            try:
+                                start = sh2[idescrow].index('{comment{') + len('{comment{')
+                                end = sh2[idescrow].index('}comment}', start)
+                                comment = sh2[idescrow][start:end]
+                            except ValueError:
+                                error=''
+                                comment = ""
+                            try:
+                                start = sh2[idescrow].index('{badd1{') + len('{badd1{')
+                                end = sh2[idescrow].index('}badd1}', start)
+                                badd1 = sh2[idescrow][start:end]
+                            except ValueError:
+                                error=''
+                                badd1 = ""
+                            try:
+                                start = sh2[idescrow].index('{badd2{') + len('{badd2{')
+                                end = sh2[idescrow].index('}badd2}', start)
+                                badd2 = sh2[idescrow][start:end]
+                            except ValueError:
+                                error=''
+                                badd2 = ""
+                            try:
+                                start = sh2[idescrow].index('{badd3{') + len('{badd3{')
+                                end = sh2[idescrow].index('}badd3}', start)
+                                badd3 = sh2[idescrow][start:end]
+                            except ValueError:
+                                error=''
+                                badd3 = ""
+                            if len(comment) > 550:
+                                comment = comment[:550]
+                            message = "alfa01"+"{status{"+"started-buyer-2"+"}status}"+"{cont{"+str(fromAddress)+"}cont}"+"{cont2{"+str(toAddress)+"}cont2}"+"{bitadr{"+str(pub1)+"}bitadr}"+"{bitadins1{"+str(pub2)+"}bitadins1}"+"{bitadins2{"+str(pub3)+"}bitadins2}"+"{amount{"+str(amount)+"}amount}"+"{id{"+str(idescrow)+"}id}"+"{escrowaddr1{"+str(escrowaddr1)+"}escrowaddr1}"+"{escrowaddr2{"+str(escrowaddr2)+"}escrowaddr2}"+"{escrowaddr3{"+str(escrowaddr3)+"}escrowaddr3}"+"{lbl{"+str(lbl)+"}lbl}"+"{maddr1{"+str(bitcoinaddr)+"}maddr1}"+"{maddr2{"+str(bitcoinaddrins1)+"}maddr2}" + "{maddr3{"+ str(bitcoinaddrins2)+"}maddr3}" + "{badd1{" + str(badd1) + "}badd1}" + "{badd2{" + str(badd2) + "}badd2}" + "{badd3{" + str(badd3) + "}badd3}" + "{comment{" + comment + "}comment}"
 
 
+                            ackdata = OpenSSL.rand(32)
+                            t = ()
+                            sqlExecute(
+                                '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
+                                '',
+                                toAddress,
+                                ripe,
+                                fromAddress,
+                                subject,
+                                message,
+                                ackdata,
+                                int(time.time()),
+                                'msgqueued',
+                                1,
+                                1,
+                                'sent',
+                                2)
+
+                            toLabel = ''
+                            queryreturn = sqlQuery('''select label from addressbook where address=?''',
+                                                    toAddress)
+                            if queryreturn != []:
+                                for row in queryreturn:
+                                    toLabel, = row
+
+                            self.displayNewSentMessage(
+                                toAddress, toLabel, fromAddress, subject, message, ackdata)
+                            shared.workerQueue.put(('sendmessage', toAddress))
+
+                            self.ui.comboBoxSendFrom.setCurrentIndex(0)
+                            self.ui.labelFrom.setText('')
+                            self.ui.lineEditTo.setText('')
+                            self.ui.lineEditSubject.setText('')
+                            self.ui.textEditMessage.setText('')
+                            self.ui.tabWidget.setCurrentIndex(2)
+                            self.ui.tableWidgetSent.setCurrentCell(0, 0)
+
+                            sh2[idescrow] = message
+                    sh2.sync()
 
 
-                ackdata = OpenSSL.rand(32)
-                t = ()
-                sqlExecute(
-                    '''INSERT INTO sent VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)''',
-                    '',
-                    toAddress,
-                    ripe,
-                    fromAddress,
-                    subject,
-                    message,
-                    ackdata,
-                    int(time.time()),
-                    'msgqueued',
-                    1,
-                    1,
-                    'sent',
-                    2)
 
-                toLabel = ''
-                queryreturn = sqlQuery('''select label from addressbook where address=?''',
-                                        toAddress)
-                if queryreturn != []:
-                    for row in queryreturn:
-                        toLabel, = row
 
-                self.displayNewSentMessage(
-                    toAddress, toLabel, fromAddress, subject, message, ackdata)
-                shared.workerQueue.put(('sendmessage', toAddress))
 
-                self.ui.comboBoxSendFrom.setCurrentIndex(0)
-                self.ui.labelFrom.setText('')
-                self.ui.lineEditTo.setText('')
-                self.ui.lineEditSubject.setText('')
-                self.ui.textEditMessage.setText('')
-                self.ui.tabWidget.setCurrentIndex(2)
-                self.ui.tableWidgetSent.setCurrentCell(0, 0)
 
-    def inlist(self, txid, senderaddress):
+    def inlist(self, senderaddress):
         hlp = helper.sqlhelper()
         try:
             rtn = hlp.getsumnew(senderaddress)
@@ -9234,7 +9476,10 @@ class sellDialog(QtGui.QDialog):
                                     list = list0
                                     continue
                         if elem == -1:
-                            MyForm.conn.sendtoaddress(fraddress, amount+0.0005)
+                            try:
+                                MyForm.conn.sendtoaddress(fraddress, amount+0.0008)
+                            except:
+                                self.ui.smthwrong.setText("Can't pay. Need to reserve " + str(amount+0.0008) + "But will pay less.")
                             list = MyForm.conn.listunspent(0)
                             for el in list:
                                 if el["address"] == fraddress:
@@ -9266,12 +9511,40 @@ class sellDialog(QtGui.QDialog):
                             amount = amount/2.0
                             if change == 0:
                                 a = MyForm.conn.createrawtransaction(txid, vout, address1, address2, amount)
+                                try:
+                                    b = MyForm.conn.signrawtransaction(a)
+                                except:
+                                    b = ""
+                                if sys.getsizeof(b["hex"])/1000 > 1:
+                                    d = round(sys.getsizeof(b["hex"])/1000)
+                                    fee = 0.0001 + 0.0001 * d
+                                    if fee == 0.0001:
+                                        fee = 0.0002
+                                    change = unsp["amount"] - (amount + fee)
+                                    if change > 0:
+                                        a = MyForm.conn.createrawtransaction2(txid, vout, address1, address2, amount, fraddress, change)
+                                    else:
+                                        self.ui.smthwrong.setText("Have not enough unspent money...")
                             elif change < 0:
                                 txid1=""
                                 txid2=""
-                                self.ui.smthwrong.setText("Have not unspent money...")
+                                self.ui.smthwrong.setText("Have not enough unspent money...")
                             else:
                                 a = MyForm.conn.createrawtransaction2(txid, vout, address1, address2, amount, fraddress, change)
+                                try:
+                                    b = MyForm.conn.signrawtransaction(a)
+                                except:
+                                    b = ""
+                                if sys.getsizeof(b["hex"])/1000 > 1:
+                                    d = round(sys.getsizeof(b["hex"])/1000)
+                                    fee = 0.0001 + 0.0001 * d
+                                    if fee == 0.0001:
+                                        fee = 0.0002
+                                    change = unsp["amount"] - (amount + fee)
+                                    if change > 0:
+                                        a = MyForm.conn.createrawtransaction2(txid, vout, address1, address2, amount, fraddress, change)
+                                    else:
+                                        self.ui.smthwrong.setText("Have not enough unspent money...")
                             a = MyForm.conn.signrawtransaction(a)
                             txid1 = MyForm.conn.sendrawtransaction(a["hex"])
                             txid2 = txid1

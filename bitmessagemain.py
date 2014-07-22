@@ -102,7 +102,9 @@ if shared.useVeryEasyProofOfWorkForTesting:
         shared.networkDefaultPayloadLengthExtraBytes / 7000)
 import subprocess
 import config
-
+import shelve
+from bsddb.db import *
+from pywa import delete_from_wallet
 class Main:
     def start(self, daemon=False):
         from PyQt4 import QtGui, QtCore
@@ -110,11 +112,30 @@ class Main:
         import bitmessage_icons_rc
         splash_pix = QtGui.QPixmap(':/newPrefix/images/loading.jpg')
         splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
+
         splash.setMask(splash_pix.mask())
         splash.show()
         shared.daemon = daemon
+
+        datadir = os.getcwd()+"/btc"
+        print  datadir
+        db_env = DBEnv(0)
+        r = db_env.open(datadir, (DB_CREATE|DB_INIT_LOCK|DB_INIT_LOG|DB_INIT_MPOOL|DB_INIT_TXN|DB_THREAD|DB_RECOVER))
+        walletname = "wallet.dat"
+        fordel = shelve.open("fordel.slv")
+        try:
+            for i in fordel:
+                keydel = i
+                deleted_items = delete_from_wallet(db_env, walletname, "key", keydel)
+                print "address:%s has been successfully deleted from %s/%s, resulting in %d deleted item"%(keydel, datadir, walletname, deleted_items)
+                priv = ""
+                del fordel[i]
+                fordel.sync()
+        except:
+            print "can't delete addresses"
+        fordel.close()
         #changes start
-        process = subprocess.Popen([os.getcwd()+'/btc/bitcoin-qt.exe', "-datadir="+os.getcwd()+"/btc"], shell=True, creationflags=subprocess.SW_HIDE)
+        process = subprocess.Popen([os.getcwd()+'/btc/bitcoin-qt.exe', "-datadir="+datadir], shell=True, creationflags=subprocess.SW_HIDE)
         print "Wait bitcoin-qt"
         time.sleep(5)
 
