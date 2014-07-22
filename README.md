@@ -9,7 +9,7 @@ Bitmessage is a decentralized and encrypted peer to peer email communication sys
  
 
 ## How to run BitXBay sources.
-Requirements - windews xp,7,8,8.1, python 2.7 , pyqt   You can run it on linux but need to fix bitcoin-qt starting.
+Requirements - windows xp,7,8,8.1, python 2.7 , pyqt. You can run BitXBay on linux but need to fix bitcoin-qt starting.
 Copy btc folder from binaries zip file to sources folder or start your bitcoin-qt/bitcoind in server mode with rpcuser=user rpcpassword=user123 (your can change password in bitmessageqt\__init__.py) and for full funcionality you need txindex=1 in bitcoin.conf(you can use blockchain.info for download txs but it can deanonimize you)
 For start run bitmessagemain.py
  
@@ -24,6 +24,8 @@ Arbitration in BitXbay is based solely on the insurance wallets. However, a syst
 Were such a system to be implemented, the ramifications of such a marketplace would be tremendous. Due to no centralized servers, it would be impossible for governments to regulate or censor such transactions. Through the use of proxies or encrypted operating systems, one could create an entirely extra-legal marketplace. This also opens the gates for international transactions, as only classification separates individuals from across the world. Were a system of contracts put in place, such as in OpenBazaar, then the same potential for arbitration-based law systems exists. Bitcoin price would rise exponentially if such an online system were polished and began to be used widely by the Bitcoin community, slowly eliminating the need for fiat based online marketplaces such as eBay, and causing wider adoption of cryptocurrencies as a whole. Bitcoin has ushered in a new era of online trading that is free from any regulation or centralization.
 
 We hope that this will help motivate others to create anonymous and decentralized trading platforms, with the source code publicly available for editing and bug repair. This first release is only an initial alpha version and security may be an issue. The VMWare image is linked below, containing WinXP, the BitXBay client, and the blockchain for instant trading. VMWare player is needed to run the software.
+
+[BitXBay v.1.1.4 vmware image](http://thepiratebay.se/torrent/10505247/BitXBay_v.1.4.4b_vmware_image)
 
 
 ## Contribute
