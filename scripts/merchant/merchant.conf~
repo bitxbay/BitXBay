@@ -1,0 +1,19 @@
+[main]
+host = localhost
+port = 12345
+password = dyhodep
+
+[db]
+instance = localhost
+name = mydb
+user = root
+password = dyhodep
+
+[electrum]
+server = ecdsa.org
+mpk = 8d2cdcd2640d20986dbb354aae1ab990733db8e37403b1326c997a303768c458c65efa902acadf54af0ac13306ad34246f0e564d7709a5f0272bc86ae7e74991
+
+[callback]
+received = URL where we POST json data when payment has been received
+expired = URL where we POST json data if payment has expired
+password = password sent in the json data, for authentication

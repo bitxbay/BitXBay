@@ -1,0 +1,26 @@
+#!/usr/bin/env python
+
+import sys, time, electrum
+
+try:
+    addr = sys.argv[1]
+except Exception:
+    print "usage: watch_address <bitcoin_address>"
+    sys.exit(1)
+
+
+# 1. start the interface and wait for connection
+interface = electrum.Interface('electrum.no-ip.org:50002:s')
+interface.start(wait = True)
+if not interface.is_connected:
+    print "not connected"
+    exit()
+
+# 2. send the subscription
+callback = lambda _,result: electrum.print_json(result.get('result'))
+interface.send([('blockchain.address.subscribe',[addr])], callback)
+
+# 3. wait for results
+while True:
+    time.sleep(1)
+

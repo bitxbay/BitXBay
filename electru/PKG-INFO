@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: Electrum
+Version: 1.9.8
+Summary: Lightweight Bitcoin Wallet
+Home-page: http://electrum.org
+Author: ecdsa
+Author-email: ecdsa@github
+License: GNU GPLv3
+Description: Lightweight Bitcoin Wallet
+Platform: UNKNOWN
