@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'sell.ui'
 #
-# Created: Mon Jul 07 14:45:15 2014
+# Created: Tue Aug 26 22:02:18 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -1035,7 +1035,7 @@ class Ui_Sell(object):
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.smthwrong = QtGui.QLabel(self.centralWidget)
-        self.smthwrong.setGeometry(QtCore.QRect(280, 480, 411, 61))
+        self.smthwrong.setGeometry(QtCore.QRect(280, 490, 431, 51))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(231, 0, 3))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -1193,7 +1193,7 @@ class Ui_Sell(object):
         self.xcategory.setItemText(2, _translate("Sell", "Currencies", None))
         self.label.setText(_translate("Sell", "Type of offer", None))
         self.pushButton.setText(_translate("Sell", "Cancel", None))
-        self.label_2.setText(_translate("Sell", "For better position make  more rating payment.", None))
+        self.label_2.setText(_translate("Sell", "For better position pay more.", None))
         self.ratinlbl.setText(_translate("Sell", "Rating payment:", None))
         self.contactsell.setItemText(0, _translate("Sell", "Contact address", None))
         self.label213.setText(_translate("Sell", "Contact address", None))

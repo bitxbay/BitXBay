@@ -33,5 +33,6 @@
         <file>../images/background.png</file>
 		<file>../images/loading.jpg</file>
 		<file>../images/loading2.jpg</file>
+		<file>../images/logo.png</file>
     </qresource>
 </RCC>
