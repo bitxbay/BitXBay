@@ -287,6 +287,10 @@ class MyForm(QtGui.QMainWindow):
     ccategory = []
 
 
+    boardgoods = shelve.open("board-goods.slv")
+    boardservices = shelve.open("board-services.slv")
+    boardcurr = shelve.open("board-currencies.slv")
+
     splash_pix = QtGui.QPixmap(':/newPrefix/images/loading2.jpg')
     splash = QtGui.QSplashScreen(splash_pix, QtCore.Qt.WindowStaysOnTopHint)
     splash.setMask(splash_pix.mask())
@@ -502,13 +506,12 @@ class MyForm(QtGui.QMainWindow):
         self.ui.textBrowser.clear()
         if self.ui.lineEdit.text() != "" or self.ui.lineEdit.text() != "Search":
             srch = str(self.ui.lineEdit.text().toUtf8())
-            g = shelve.open("board-goods.slv")
-            b = list(g.items())
+            b = list(MyForm.boardgoods.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardgoods[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -535,13 +538,12 @@ class MyForm(QtGui.QMainWindow):
                                 self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"G"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error = ""
-            g = shelve.open("board-services.slv")
-            b = list(g.items())
+            b = list(MyForm.boardservices.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardservices[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -567,13 +569,12 @@ class MyForm(QtGui.QMainWindow):
                                 self.ui.textBrowser.setHtml(self.ui.textBrowser.toHtml()+'Contact:<a title="'+cont+'" href="#contact#'+cont+'">'+cont+'</a>   Rating:'+str(summ)+'<BR>Price:'+price+'<br>Details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="Show More Details" href="#more#'+addres+"|"+"S"+'">Show More Details</a><br><a title="Buy" href="#Buy#'+cont+'|'+price+'">Buy</a><br>')
                 except:
                     error=""
-            g = shelve.open("board-currencies.slv")
-            b = list(g.items())
+            b = list(MyForm.boardcurr.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardcurr[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -1024,7 +1025,7 @@ class MyForm(QtGui.QMainWindow):
     def click_newadr(self):
         try:
             self.newaddressescrowbuyer()
-            self.ui.smthwrong.setText("Done.Wait and restart if nothing happen.")
+            self.ui.smthwrong.setText("Wait please")
         except:
             self.ui.smthwrong.setText("Generating fail.")
         self.rerenderBoxAddresses()
@@ -1080,7 +1081,36 @@ class MyForm(QtGui.QMainWindow):
         else:
             self.ui.contactsell.setCurrentIndex(0)
 
+    def rendercontact(self):
+        self.ui.contactsell.clear()
+        configSections = shared.config.sections()
+        for addressInKeysFile in configSections:
+            if addressInKeysFile != 'bitmessagesettings' and addressInKeysFile!= MyForm.bitxbaychan:
+                isEnabled = shared.config.getboolean(
+                    addressInKeysFile, 'enabled')  # I realize that this is poor programming practice but I don't care. It's easier for others to read.
+                if isEnabled:
+                    self.ui.contactsell.insertItem(0, str(addressInKeysFile), addressInKeysFile)
+        self.ui.contactsell.insertItem(0, "Select bitmessage sender's address", "Select bitmessage sender's address")
+        if(self.ui.contactsell.count() > 1):
+            self.ui.contactsell.setCurrentIndex(1)
+        else:
+            self.ui.contactsell.setCurrentIndex(0)
 
+        self.ui.frombox.clear()
+        configSections = shared.config.sections()
+        for addressInKeysFile in configSections:
+            if addressInKeysFile != 'bitmessagesettings' and addressInKeysFile!= MyForm.bitxbaychan:
+                isEnabled = shared.config.getboolean(
+                    addressInKeysFile, 'enabled')  # I realize that this is poor programming practice but I don't care. It's easier for others to read.
+                if isEnabled:
+                    self.ui.frombox.insertItem(0, str(addressInKeysFile), addressInKeysFile)
+        self.ui.frombox.insertItem(0, "Select bitmessage sender's address", "Select bitmessage sender's address")
+        if(self.ui.frombox.count() > 1):
+            self.ui.frombox.setCurrentIndex(1)
+        else:
+            self.ui.frombox.setCurrentIndex(0)
+        if self.ui.smthwrong.text() == "Wait please":
+            self.ui.smthwrong.setText("Address generating done.")
 
 
 
@@ -1378,6 +1408,9 @@ class MyForm(QtGui.QMainWindow):
         self.timer.start(7000) # milliseconds
         QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.runEvery7Seconds)
 
+        self.passtimer = QtCore.QTimer()
+
+        QtCore.QObject.connect(self.timer, QtCore.SIGNAL("timeout()"), self.passrender)
 
         self.timer5 = QtCore.QTimer()
         self.timer5.start(3000) # milliseconds
@@ -1392,8 +1425,8 @@ class MyForm(QtGui.QMainWindow):
         QtCore.QObject.connect(self.timer7, QtCore.SIGNAL("timeout()"), self.every20sec)
 
         self.timer8 = QtCore.QTimer()
-        self.timer8.start(600000) # milliseconds
-        QtCore.QObject.connect(self.timer7, QtCore.SIGNAL("timeout()"), self.every600sec)
+        self.timer8.start(60000) # milliseconds
+        QtCore.QObject.connect(self.timer8, QtCore.SIGNAL("timeout()"), self.every60sec)
 
         self.timer4 = QtCore.QTimer()
         self.timer4.start(60000) # milliseconds
@@ -1602,18 +1635,21 @@ class MyForm(QtGui.QMainWindow):
     def click_pushbutton_5(self):
         self.renderboard()
 
-
+    def passrender(self):
+        if MyForm.password!="":
+            self.passtimer.stop()
+            self.firstrender(thr_start=True)
+            self.renderTransactions()
     #render decentralized trade browser text, check if message signed with right address ect.
     def renderboard(self):
         self.ui.textBrowser.clear()
         if self.ui.offertype.currentText() == "Goods":
-            g = shelve.open("board-goods.slv")
-            b = list(g.items())
+            b = list(MyForm.boardgoods.items())
             b.sort(key=lambda item: item[1], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardgoods[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -1646,13 +1682,12 @@ class MyForm(QtGui.QMainWindow):
                 except:
                     error=""
         elif self.ui.offertype.currentText()== "Services":
-            g = shelve.open("board-services.slv")
-            b = list(g.items())
+            b = list(MyForm.boardservices.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardservices[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -1685,13 +1720,12 @@ class MyForm(QtGui.QMainWindow):
                     error=""
 
         elif self.ui.offertype.currentText() == "Currency exchange":
-            g = shelve.open("board-currencies.slv")
-            b = list(g.items())
+            b = list(MyForm.boardcurr.items())
             b.sort(key=lambda item: item[0], reverse=True)
             for itr in b:
                 try:
                     addres = itr[0]
-                    lst = g[addres]
+                    lst = MyForm.boardcurr[addres]
                     try:
                         cont = lst[4]
                     except:
@@ -2088,6 +2122,9 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetInbox.sortItems(3, Qt.DescendingOrder)
             self.ui.tableWidgetInbox.keyPressEvent = self.tableWidgetInboxKeyPressEvent
             #self.runEvery7Seconds()
+            if MyForm.password=="":
+                self.passtimer.start(5000) # milliseconds
+
 
 
     def rendertextbrowser2(self):
@@ -3705,26 +3742,20 @@ class MyForm(QtGui.QMainWindow):
                 category = ""
             if more!="":
                 if self.ui.offertype.currentText()== "Goods":
-                    g = shelve.open("board-goods.slv")
-                    msg = g[more][3]
-                    price = g[more][2]
-                    cont = g[more][4]
+                    msg = MyForm.boardgoods[more][3]
+                    price = MyForm.boardgoods[more][2]
+                    cont = MyForm.boardgoods[more][4]
                     self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#'+ cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
-                    g.close()
                 elif self.ui.offertype.currentText() == "Services":
-                    s = shelve.open("board-services.slv")
-                    msg = s[more][3]
-                    price = s[more][2]
-                    cont = s[more][4]
+                    msg = MyForm.boardservices[more][3]
+                    price = MyForm.boardservices[more][2]
+                    cont = MyForm.boardservices[more][4]
                     self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#' + cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
-                    s.close()
                 elif self.ui.offertype.currentText() == "Currency exchange":
-                    c = shelve.open("board-currencies.slv")
-                    msg = c[more][3]
-                    price = c[more][2]
-                    cont = c[more][4]
+                    msg = MyForm.boardcurr[more][3]
+                    price = MyForm.boardcurr[more][2]
+                    cont = MyForm.boardcurr[more][4]
                     self.ui.textBrowser.setHtml('<a title="Buy" href="#Buy#' + cont + '|'+price+'">Buy</a>   '+'Product details:'+msg.decode('UTF-8', 'ignore')+'<br><a title="back" href="#rerender#">Back</a><br>')
-                    c.close()
 
     #links in escrow browser actions
     def on_anchor_clicked(self,url):
@@ -5029,6 +5060,8 @@ class MyForm(QtGui.QMainWindow):
     def runEvery7Seconds(self):
         try:
             #self.updatebalance(thr_start=True)
+            # if self.tableWidget.item(0,0).text() == "Can't connect to electrum server":
+            #     self.renderTransactions(thr_start=True)
             #self.renderTransactions(thr_start=True)
 
 
@@ -5109,20 +5142,16 @@ class MyForm(QtGui.QMainWindow):
                 goodscategory.clear()
                 servicecategory.clear()
                 currencycategory.clear()
-                g = shelve.open("board-goods.slv")
-                s = shelve.open("board-services.slv")
-                c = shelve.open("board-currencies.slv")
-
                 try:
 
-                    for element in g:
-                        goodscategory[g[element][1]] = g[element][0]
+                    for element in MyForm.boardgoods:
+                        goodscategory[MyForm.boardgoods[element][1]] = MyForm.boardgoods[element][0]
 
                     for element in s:
-                        servicecategory[s[element][1]] = s[element][0]
+                        servicecategory[MyForm.boardservices[element][1]] = MyForm.boardservices[element][0]
 
                     for element in c:
-                        currencycategory[c[element][1]] = c[element][0]
+                        currencycategory[MyForm.boardcurr[element][1]] = MyForm.boardcurr[element][0]
 
                     #sort categoryes by score
                     ggg = list(goodscategory.items())
@@ -5248,7 +5277,7 @@ class MyForm(QtGui.QMainWindow):
                     self.ui.checkBox.setChecked(settings["autorefresh"])
                 settings.close()
                 #MyForm.splash.hide()
-                self.every600sec()
+                self.every60sec()
                 self.renderboard()
             self.updatesync(thr_start=True)
         except:
@@ -5539,6 +5568,8 @@ class MyForm(QtGui.QMainWindow):
             newItem.setFlags(
                 QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
             self.ui.tableWidgetAddressBook.setItem(0, 1, newItem)
+        #self.rendercontact()
+
 
     def rerenderSubscriptions(self):
         self.ui.tableWidgetSubscriptions.setRowCount(0)
@@ -5559,7 +5590,35 @@ class MyForm(QtGui.QMainWindow):
             self.ui.tableWidgetSubscriptions.setItem(0, 1, newItem)
 
     def newaddressescrowbuyer(self):
-        shared.addressGeneratorQueue.put(('createRandomAddress', 4, 1, "For Escrow.", 1, "", True))
+        #shared.addressGeneratorQueue.put(('createRandomAddress', 4, 1, "For Escrow.", 1, "", True))
+        self.dialog = NewAddressDialog(self)
+        # For Modal dialogs
+        if self.dialog.exec_():
+            # self.dialog.ui.buttonBox.enabled = False
+            if self.dialog.ui.radioButtonRandomAddress.isChecked():
+                if self.dialog.ui.radioButtonMostAvailable.isChecked():
+                    streamNumberForAddress = 1
+                else:
+                    # User selected 'Use the same stream as an existing
+                    # address.'
+                    streamNumberForAddress = decodeAddress(
+                        self.dialog.ui.comboBoxExisting.currentText())[2]
+                shared.addressGeneratorQueue.put(('createRandomAddress', 4, streamNumberForAddress, str(
+                    self.dialog.ui.newaddresslabel.text().toUtf8()), 1, "", self.dialog.ui.checkBoxEighteenByteRipe.isChecked()))
+            else:
+                if self.dialog.ui.lineEditPassphrase.text() != self.dialog.ui.lineEditPassphraseAgain.text():
+                    QMessageBox.about(self, _translate("MainWindow", "Passphrase mismatch"), _translate(
+                        "MainWindow", "The passphrase you entered twice doesn\'t match. Try again."))
+                elif self.dialog.ui.lineEditPassphrase.text() == "":
+                    QMessageBox.about(self, _translate(
+                        "MainWindow", "Choose a passphrase"), _translate("MainWindow", "You really do need a passphrase."))
+                else:
+                    streamNumberForAddress = 1  # this will eventually have to be replaced by logic to determine the most available stream number.
+                    shared.addressGeneratorQueue.put(('createDeterministicAddresses', 4, streamNumberForAddress, "unused deterministic address", self.dialog.ui.spinBoxNumberOfAddressesToMake.value(
+                    ), self.dialog.ui.lineEditPassphrase.text().toUtf8(), self.dialog.ui.checkBoxEighteenByteRipe.isChecked()))
+        else:
+            print 'new address dialog box rejected'
+
 
 
     def autoEscrowBuyer(self, address, amount):
@@ -6265,23 +6324,20 @@ class MyForm(QtGui.QMainWindow):
                             now_time = str(datetime.datetime.now())
                             if subject[:1]=="G":
                                 try:
-                                    g = shelve.open("board-goods.slv")
-                                    g[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    g.close()
+                                    MyForm.boardgoods[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardgoods.sync()
                                 except:
                                     totemp = True
                             elif subject[:1]=="S":
                                 try:
-                                    s = shelve.open("board-services.slv")
-                                    s[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    s.close()
+                                    MyForm.boardservices[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardservices.sync()
                                 except:
                                     totemp = True
                             elif subject[:1]=="C":
                                 try:
-                                    c = shelve.open("board-currencies.slv")
-                                    c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    c.close()
+                                    MyForm.boardcurr[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardcurr.sync()
                                 except:
                                     totemp = True
                     else:
@@ -8318,9 +8374,9 @@ class MyForm(QtGui.QMainWindow):
         tmp.close()
 
 
-    def every600sec(self):
+    def every60sec(self):
+        tmp = shelve.open("temp.slv")
         try:
-            tmp = shelve.open("temp.slv")
             for i in tmp:
                 senderaddress = i
                 now_time = datetime.datetime.now()
@@ -8397,21 +8453,18 @@ class MyForm(QtGui.QMainWindow):
                                     loc = ''
                                 now_time = str(datetime.datetime.now())
                                 if subject[:1]=="G":
-                                    g = shelve.open("board-goods.slv")
-                                    g[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    g.close()
+                                    MyForm.boardgoods[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardgoods.sync()
                                 elif subject[:1]=="S":
-                                    s = shelve.open("board-services.slv")
-                                    s[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    s.close()
+                                    MyForm.boardservices[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardservices.sync()
                                 elif subject[:1]=="C":
-                                    c = shelve.open("board-currencies.slv")
-                                    c[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
-                                    c.close()
+                                    MyForm.boardcurr[senderaddress] = [summ, subject[1:], price, messagebody, cont, now_time, loc]
+                                    MyForm.boardcurr.sync()
                             del tmp[senderaddress]
-            tmp.close()
         except:
-            error=""
+            pass
+        tmp.close()
 
     def buyerpay1(self, message, toAddress, fromAddress):
         #first payment when buyer receive reply
@@ -9128,6 +9181,7 @@ class MyForm(QtGui.QMainWindow):
                     ), self.dialog.ui.lineEditPassphrase.text().toUtf8(), self.dialog.ui.checkBoxEighteenByteRipe.isChecked()))
         else:
             print 'new address dialog box rejected'
+        MyForm.rendercontact()
 
     # Quit selected from menu or application indicator
     def quit(self):
@@ -9889,6 +9943,7 @@ class MyForm(QtGui.QMainWindow):
         self.rerenderComboBoxSendFrom()
         self.rerenderFromBoxEscrow()
         self.rerenderYourIdentities_2()
+        self.rendercontact()
 
     def updateStatusBar(self, data):
         if data != "":
@@ -10290,6 +10345,7 @@ class NewAddressDialog(QtGui.QDialog):
             row += 1
         self.ui.groupBoxDeterministic.setHidden(True)
         QtGui.QWidget.resize(self, QtGui.QWidget.sizeHint(self))
+
 
 class newChanDialog(QtGui.QDialog):
 
